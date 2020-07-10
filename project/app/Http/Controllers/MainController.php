@@ -35,26 +35,32 @@ class MainController extends Controller
     public function createUrl(Request $request)
     {
         //id의 최대값+1을 base62 인코딩
-        $shorteningUrl = $this->urlManager->encodingUrl($this->urlDAO->MaxIdDAO() + 1);
+        $shorteningUrl =
+            $this->urlManager->encodingUrl($this->urlDAO->selectMaxId() + 1);
 
-        //사용자로부터 받은 url
-        $originalUrl = $request->input("url");
+        //사용자로부터 받은 url을 http://를 포함시켜 저장
+        $originalUrl = $this->urlManager->convertUrl($request->input("url"));
 
-        //url 등록
-        Url::create([
-            "user_id" => $request->input('userid'),
-            "original_url" => $originalUrl,
-            "query_string" => $this->urlManager->getQueryString($originalUrl)
-        ]);
+        if($this->urlManager->checkUrlPattern($originalUrl))
+        {
+            //url 등록
+            $this->urlDAO->registerUrl(
+                $request->input('userid'),
+                $originalUrl,
+                $this->urlManager->getQueryString($originalUrl));
 
-        return DOMAIN.$shorteningUrl;
+            return DOMAIN.$shorteningUrl;
+        }
+        return "false";
     }
 
     public function originalUrlRedirect(Request $request)
     {
+        //URL Path를 디코딩하여 id값 추출
         $id = $this->urlManager->decodingUrl($request->path());
         echo $id;
         $originalUrl = DB::table('urls')->select('original_url')->where('id','=', $id)->get();
-        echo $originalUrl;
+        //echo $originalUrl[0]->original_url;
+        return redirect("http://".$originalUrl[0]->original_url);
     }
 }
