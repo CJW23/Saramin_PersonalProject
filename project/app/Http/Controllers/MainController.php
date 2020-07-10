@@ -12,10 +12,13 @@ use Illuminate\Support\Facades\Log;
 class MainController extends Controller
 {
     private  $urlDAO;
+    private $urlManager;
+
     public function __construct()
     {
         define('DOMAIN', 'http://localhost:8000/');
         $this->urlDAO = new UrlDAO();
+        $this->urlManager = new UrlManager();
     }
 
     //인덱스 페이지
@@ -31,20 +34,27 @@ class MainController extends Controller
     */
     public function createUrl(Request $request)
     {
-        //Url관련 클래스
-        $urlManager = new UrlManager();
-
         //id의 최대값+1을 base62 인코딩
-        $shorteningUrl = $urlManager->encodingUrl($this->urlDAO->MaxIdDAO() + 1);
+        $shorteningUrl = $this->urlManager->encodingUrl($this->urlDAO->MaxIdDAO() + 1);
 
         //사용자로부터 받은 url
         $originalUrl = $request->input("url");
 
+        //url 등록
         Url::create([
             "user_id" => $request->input('userid'),
             "original_url" => $originalUrl,
-            "query_string" => $urlManager->getQueryString($originalUrl)
+            "query_string" => $this->urlManager->getQueryString($originalUrl)
         ]);
+
         return DOMAIN.$shorteningUrl;
+    }
+
+    public function originalUrlRedirect(Request $request)
+    {
+        $id = $this->urlManager->decodingUrl($request->path());
+        echo $id;
+        $originalUrl = DB::table('urls')->select('original_url')->where('id','=', $id)->get();
+        echo $originalUrl;
     }
 }

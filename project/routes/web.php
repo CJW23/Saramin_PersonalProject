@@ -18,3 +18,5 @@ Route::get('/', 'MainController@index')->name("index");
 Route::post('/url', 'MainController@createUrl');
 
 Route::get('/test', "MainController@test");
+
+Route::get('/{path}', 'MainController@originalUrlRedirect');
