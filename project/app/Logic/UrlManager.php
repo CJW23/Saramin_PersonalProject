@@ -24,6 +24,10 @@ class UrlManager
     public function getQueryString($url)
     {
         $start = strpos($url, '?');
+        if($start == 0)
+        {
+            return "";
+        }
         return substr($url, $start);
 
     }
