@@ -4,7 +4,7 @@
     <div>
         <input type="text" name="enter_url" id="enter_url">
         <button onclick="test()">Convert</button>
-
+        <a href="" id="shortUrl"></a>
     </div>
     <script>
         function test() {
@@ -13,16 +13,24 @@
                 headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
                 type: 'post',
                 url: '/url',
-                dataType: 'text',
+                dataType: 'json',
                 data: {
                     'url': $('#enter_url').val(),
                     'userid': 1
                 },
                 success: function (data) {
                     console.log(data);
+                    if(data['shortUrl'] == "false"){
+                        $("#shortUrl").text("유효하지 않은 URL");
+                    }
+                    else {
+                        $("#shortUrl").text(data['shortUrl']);
+                        $("#shortUrl").attr("href", data['shortUrl']);
+                    }
+                    //console.log(data);
                 },
                 error: function (data) {
-                    console.log("error" + data);
+                    console.log("error");
                 }
             });
         }

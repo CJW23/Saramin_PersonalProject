@@ -16,7 +16,7 @@ class MainController extends Controller
 
     public function __construct()
     {
-        define('DOMAIN', 'http://localhost:8000/');
+        define('DOMAIN', "http://localhost:8000/");
         $this->urlDAO = new UrlDAO();
         $this->urlManager = new UrlManager();
     }
@@ -34,33 +34,37 @@ class MainController extends Controller
     */
     public function createUrl(Request $request)
     {
-        //id의 최대값+1을 base62 인코딩
-        $shorteningUrl =
-            $this->urlManager->encodingUrl($this->urlDAO->selectMaxId() + 1);
-
         //사용자로부터 받은 url을 http://를 포함시켜 저장
         $originalUrl = $this->urlManager->convertUrl($request->input("url"));
-
+        //echo $originalUrl;
         if($this->urlManager->checkUrlPattern($originalUrl))
         {
+            //id의 최대값+1을 base62 인코딩
+            $shorteningUrl =
+                stripslashes("http://localhost:8000/".$this->urlManager->encodingUrl($this->urlDAO->selectMaxId() + 1));
+
             //url 등록
             $this->urlDAO->registerUrl(
                 $request->input('userid'),
                 $originalUrl,
                 $this->urlManager->getQueryString($originalUrl));
 
-            return DOMAIN.$shorteningUrl;
+            return json_encode([
+                "shortUrl" => $shorteningUrl
+            ], JSON_UNESCAPED_SLASHES);
         }
-        return "false";
+        return json_encode([
+            "shortUrl" => "false",
+        ]);
     }
 
     public function originalUrlRedirect(Request $request)
     {
         //URL Path를 디코딩하여 id값 추출
         $id = $this->urlManager->decodingUrl($request->path());
-        echo $id;
+        //echo $id;
         $originalUrl = DB::table('urls')->select('original_url')->where('id','=', $id)->get();
         //echo $originalUrl[0]->original_url;
-        return redirect("http://".$originalUrl[0]->original_url);
+        return redirect($originalUrl[0]->original_url);
     }
 }
