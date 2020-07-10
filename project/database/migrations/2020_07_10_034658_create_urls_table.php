@@ -17,7 +17,6 @@ class CreateUrlsTable extends Migration
             $table->id();
             $table->unsignedBigInteger('user_id');
             $table->string('original_url', 500);
-            $table->string('short_url', 5);
             $table->string('query_string', 500)->nullable();
             $table->timestamps();
 

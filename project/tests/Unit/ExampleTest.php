@@ -2,6 +2,8 @@
 
 namespace Tests\Unit;
 
+use App\Logic\UrlManager;
+use Base62\Base62;
 use PHPUnit\Framework\TestCase;
 
 class ExampleTest extends TestCase
@@ -13,6 +15,8 @@ class ExampleTest extends TestCase
      */
     public function testBasicTest()
     {
-        $this->assertTrue(true);
+        $base62 = new UrlManager();
+        $a = $base62->encodingUrl("123123");
+        $this->assertSame($a, 123);
     }
 }
