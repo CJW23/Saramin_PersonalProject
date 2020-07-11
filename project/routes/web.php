@@ -15,6 +15,6 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', 'MainController@index')->name("index");
 
-Route::get('/test', "MainController@test");
+Route::get('/test', "TestController@test");
 
 Route::get('/{path}', 'MainController@originalUrlRedirect');

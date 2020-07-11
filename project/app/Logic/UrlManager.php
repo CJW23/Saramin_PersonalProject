@@ -11,7 +11,6 @@ class UrlManager
     public function __construct()
     {
         $this->base62 = new Base62();
-        define("PATTERN", "/(http|https):\/\/(\w+:{0,1}\w*@)?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&%@!\-\/]))?/");
         define("HTTP", "http://");
     }
 
@@ -25,20 +24,13 @@ class UrlManager
         return $this->base62->decode($url);
     }
 
-    public function checkUrlPattern($url)
-    {
-        //URL 정규식 검사
-        if(preg_match(PATTERN, $url) == true)
-        {
-            return true;
-        }
-        return false;
-    }
-
     public function convertUrl($url)
     {
+        //http:// 제거 역슬래시(\)처리
         $url = str_replace('http://', "", $url);
-        $url = str_replace( 'https://', "awd", $url);
+        $url = str_replace( 'https://', "", $url);
+
+        //echo"url : ".$url."       ";
         return $url;
     }
     //원본 url query string 추출
@@ -51,5 +43,17 @@ class UrlManager
         }
         return substr($url, $start);
 
+    }
+    function urlExists($url = NULL)
+    {
+        if ($url == NULL) return false;
+        $ch = curl_init($url);
+        curl_setopt($ch, CURLOPT_TIMEOUT, 5);
+        curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 5);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        $data = curl_exec($ch);
+        $httpcode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+        curl_close($ch);
+        return ($httpcode >= 200 && $httpcode < 400) ? true : false;
     }
 }

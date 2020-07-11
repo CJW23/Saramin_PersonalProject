@@ -27,8 +27,11 @@ class UrlController extends Controller
     */
     public function createUrl(Request $request)
     {
+        //http://를 제거한 url
         $originalUrl = $this->urlManager->convertUrl($request->input("url"));
-        if(checkdnsrr($originalUrl, "NS"))
+
+        //유효나 도메인 체크
+        if($this->urlManager->urlExists($originalUrl))
         {
             //id의 최대값+1을 base62 인코딩
             $shorteningUrl = DOMAIN.$this->urlManager

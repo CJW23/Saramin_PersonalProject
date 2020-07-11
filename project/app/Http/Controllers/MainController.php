@@ -32,7 +32,7 @@ class MainController extends Controller
         //URL Path를 디코딩하여 id값 추출
         $id = $this->urlManager
             ->decodingUrl($request->path());
-        
+
         $originalUrl = $this->urlDAO
             ->selectOriginalUrl($id);
         return redirect($originalUrl[0]->original_url);
