@@ -27,23 +27,18 @@ class UrlController extends Controller
     */
     public function createUrl(Request $request)
     {
-        //사용자로부터 받은 url을 http://를 포함시켜 저장
-        $originalUrl = $this->urlManager
-            ->convertUrl($request->input("url"));
-
-        if($this->urlManager
-            ->checkUrlPattern($originalUrl))
+        $originalUrl = $this->urlManager->convertUrl($request->input("url"));
+        if(checkdnsrr($originalUrl, "NS"))
         {
             //id의 최대값+1을 base62 인코딩
-            $shorteningUrl =
-                stripslashes(DOMAIN.$this->urlManager
+            $shorteningUrl = DOMAIN.$this->urlManager
                         ->encodingUrl($this->urlDAO
-                            ->selectMaxId() + 1));
+                            ->selectMaxId() + 1);
 
             //url 등록
             $this->urlDAO->registerUrl(
                     $request->input('userid'),
-                    $originalUrl,
+                    HTTP.$originalUrl,
                     $this->urlManager
                         ->getQueryString($originalUrl));
 
@@ -69,7 +64,6 @@ class UrlController extends Controller
         //인코딩 된 id 추출
         $id = $this->urlManager
             ->decodingUrl(array_pop($splitUrl));
-
         return json_encode([
             "query" => $this->urlDAO
                 ->selectQueryStringUrl($id)

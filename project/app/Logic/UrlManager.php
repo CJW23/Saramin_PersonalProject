@@ -37,13 +37,9 @@ class UrlManager
 
     public function convertUrl($url)
     {
-        //입력받은 url에 http://가 포함
-        if(substr($url, 0, 7) == "http://"
-            || substr($url, 0, 8) == "https://")
-        {
-            return $url;
-        }
-        return HTTP.$url;
+        $url = str_replace('http://', "", $url);
+        $url = str_replace( 'https://', "awd", $url);
+        return $url;
     }
     //원본 url query string 추출
     public function getQueryString($url)
