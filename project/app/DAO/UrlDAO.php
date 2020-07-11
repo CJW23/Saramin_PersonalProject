@@ -30,4 +30,12 @@ class UrlDAO
             ->where('id','=', $id)
             ->get();
     }
+
+    public function selectQueryStringUrl($id)
+    {
+        return DB::table('urls')
+            ->select('query_string')
+            ->where('id', '=',  $id)
+            ->get();
+    }
 }

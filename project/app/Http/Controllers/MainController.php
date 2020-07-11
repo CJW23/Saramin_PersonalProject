@@ -30,8 +30,11 @@ class MainController extends Controller
     public function originalUrlRedirect(Request $request)
     {
         //URL Path를 디코딩하여 id값 추출
-        $id = $this->urlManager->decodingUrl($request->path());
-        $originalUrl = $this->urlDAO->selectOriginalUrl($id);
+        $id = $this->urlManager
+            ->decodingUrl($request->path());
+
+        $originalUrl = $this->urlDAO
+            ->selectOriginalUrl($id);
         return redirect($originalUrl[0]->original_url);
     }
 }

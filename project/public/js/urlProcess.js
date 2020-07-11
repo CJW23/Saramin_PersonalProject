@@ -21,7 +21,7 @@ function requestCreateUrl() {
             //console.log(data);
         },
         error: function (data) {
-            console.log("error");
+            console.log(data);
         }
     });
 }
