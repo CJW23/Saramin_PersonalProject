@@ -22,4 +22,12 @@ class UrlDAO
             "query_string" => $queryString
         ]);
     }
+
+    public function selectOriginalUrl($id)
+    {
+        return DB::table('urls')
+            ->select('original_url')
+            ->where('id','=', $id)
+            ->get();
+    }
 }

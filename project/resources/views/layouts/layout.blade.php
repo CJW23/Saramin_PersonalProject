@@ -10,6 +10,7 @@
     <!-- Fonts -->
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
     <script src="{{ asset('js/app.js') }}"></script>
+    <script src="{{ asset('js/urlProcess.js') }}"></script>
 </head>
 <body>
 layout
