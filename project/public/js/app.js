@@ -30207,6 +30207,56 @@ module.exports = function(module) {
 
 /***/ }),
 
+/***/ "./public/js/urlProcess.js":
+/*!*********************************!*\
+  !*** ./public/js/urlProcess.js ***!
+  \*********************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+function requestCreateUrl() {
+  $.ajax({
+    //아래 headers에 반드시 token을 추가해줘야 한다.!!!!!
+    headers: {
+      'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+    },
+    type: 'post',
+    url: '/url/create',
+    dataType: 'json',
+    data: {
+      'url': $('#enter_url').val(),
+      'userid': 1
+    },
+    success: function success(data) {
+      console.log(data);
+
+      if (data['shortUrl'] == "false") {
+        $("#shortUrl").text("유효하지 않은 URL");
+      } else {
+        $("#shortUrl").text(data['shortUrl']);
+        $("#shortUrl").attr("href", data['shortUrl']);
+      } //console.log(data);
+
+    },
+    error: function error(data) {
+      console.log(data);
+    }
+  });
+}
+
+/***/ }),
+
+/***/ "./resources/css/tailwind.css":
+/*!************************************!*\
+  !*** ./resources/css/tailwind.css ***!
+  \************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+// removed by extract-text-webpack-plugin
+
+/***/ }),
+
 /***/ "./resources/js/app.js":
 /*!*****************************!*\
   !*** ./resources/js/app.js ***!
@@ -30215,6 +30265,8 @@ module.exports = function(module) {
 /***/ (function(module, exports, __webpack_require__) {
 
 __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
+
+__webpack_require__(/*! ../../public/js/urlProcess */ "./public/js/urlProcess.js");
 
 /***/ }),
 
@@ -30263,14 +30315,15 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 /***/ }),
 
 /***/ 0:
-/*!*************************************************************!*\
-  !*** multi ./resources/js/app.js ./resources/sass/app.scss ***!
-  \*************************************************************/
+/*!******************************************************************************************!*\
+  !*** multi ./resources/js/app.js ./resources/sass/app.scss ./resources/css/tailwind.css ***!
+  \******************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! C:\Users\user\Desktop\docker-image\src\Saramin_PersonalProject\project\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! C:\Users\user\Desktop\docker-image\src\Saramin_PersonalProject\project\resources\sass\app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! /Users/cjw/Desktop/laravel/Saramin_PersonalProject/project/resources/js/app.js */"./resources/js/app.js");
+__webpack_require__(/*! /Users/cjw/Desktop/laravel/Saramin_PersonalProject/project/resources/sass/app.scss */"./resources/sass/app.scss");
+module.exports = __webpack_require__(/*! /Users/cjw/Desktop/laravel/Saramin_PersonalProject/project/resources/css/tailwind.css */"./resources/css/tailwind.css");
 
 
 /***/ })

@@ -28,7 +28,8 @@ class UrlController extends Controller
     public function createUrl(Request $request)
     {
         //http://를 제거한 url
-        $originalUrl = $this->urlManager->convertUrl($request->input("url"));
+        $originalUrl = $this->urlManager->convertUrl($request->input("url"))
+        ;
 
         //유효나 도메인 체크
         if($this->urlManager->urlExists($originalUrl))

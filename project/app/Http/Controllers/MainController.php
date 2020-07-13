@@ -27,9 +27,10 @@ class MainController extends Controller
         return view('main.index');
     }
 
+    //shortening url 원본 url 리다이렉
     public function originalUrlRedirect(Request $request)
     {
-        //URL Path를 디코딩하여 id값 추출
+        //URL Path를 디코딩하여 id값 추출트
         $id = $this->urlManager
             ->decodingUrl($request->path());
 

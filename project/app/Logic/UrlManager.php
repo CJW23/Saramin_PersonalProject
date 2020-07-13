@@ -29,8 +29,6 @@ class UrlManager
         //http:// 제거 역슬래시(\)처리
         $url = str_replace('http://', "", $url);
         $url = str_replace( 'https://', "", $url);
-
-        //echo"url : ".$url."       ";
         return $url;
     }
     //원본 url query string 추출
