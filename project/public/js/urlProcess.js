@@ -17,15 +17,7 @@ function requestCreateUrl() {
             }
             else {
                 urlData.push(data);
-                let html = "<table>";
-                for(let i =0; i<urlData.length; i++){
-                    html += '<tr><td>' + urlData[i]['shortUrl'] + '</td></tr>';
-                }
-                html += "</table>";
-                $("#test").html(html);
-                //$("#shortUrl").html(data['shortUrl']);
-                //$("#shortUrl").attr("href", data['shortUrl']);
-                console.log(Handlebars);
+                makeTemplate();
             }
             console.log(urlData);
         },
@@ -34,4 +26,12 @@ function requestCreateUrl() {
 
         }
     });
+}
+function makeTemplate(){
+    let html = "<table>";
+    for(let i =0; i<urlData.length; i++){
+        html += '<tr><td><a href="' + urlData[i]["shortUrl"]+'" id="shortUrl">' + urlData[i]['shortUrl'] + '</a></td></tr>';
+    }
+    html += "</table>";
+    $("#urlList").html(html);
 }
