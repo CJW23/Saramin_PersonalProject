@@ -9,7 +9,7 @@
 .section{
     display: -webkit-flex;
     display: flex;
-    height:39.7em;
+    height:42.3em;
 
 }
 .nav{
@@ -17,7 +17,7 @@
     -ms-flex: 1;
     flex: 1;
     background: #ccc;
-
+    overflow:auto;
 }
 .article{
 /* Style the content */
@@ -35,10 +35,14 @@
     }
 }
 .url-list{
-    background-color: #ffffff;
     padding: 5px;
     width: 100%;
-    border-bottom: 1px solid
+    border-bottom: 1px solid;
+    border-bottom-color: #edf2f7;
+    background: #f8f8f8;
+}
+.url-list:hover{
+    background: #ffffff;
 }
 .original-url-text{
     font-size: 17px;
@@ -49,4 +53,17 @@
     font-size: 13px;
     padding-top: 10px;
     padding-left: 30px;
+}
+
+.nav::-webkit-scrollbar {
+    width: 10px;
+}
+.nav::-webkit-scrollbar-thumb {
+    background-color: #f8f8f8;
+    border-radius: 10px;
+}
+.nav::-webkit-scrollbar-track {
+    background-color: #f8f8f0;
+    border-radius: 10px;
+    box-shadow: inset 0px 0px 5px white;
 }

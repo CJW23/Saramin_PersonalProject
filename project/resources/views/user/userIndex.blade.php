@@ -8,14 +8,14 @@
         <nav class="nav">
 
             @foreach($urlLists as $urlList)
-                <a class="url-list" href="">
+                <div class="url-list" onclick="alert('awd');">
                     <div class="original-url-text">
                         {{$urlList->original_url}}
                     </div>
                     <div class="shortening-url-text">
                         {{$urlList->short_url}}
                     </div>
-                </a>
+                </div>
             @endforeach
         </nav>
 
