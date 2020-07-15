@@ -29,7 +29,6 @@
                             </tr>
                         </thead>
                         <tbody id="urlList">
-
                         </tbody>
                     </table>
                 </div>
