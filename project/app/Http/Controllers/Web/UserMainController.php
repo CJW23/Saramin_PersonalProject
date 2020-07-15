@@ -9,6 +9,6 @@ use Illuminate\Http\Request;
 class UserMainController extends Controller
 {
     public function index(User $user){
-
+        return view('user.userIndex');
     }
 }
