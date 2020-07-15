@@ -24,8 +24,7 @@ class MainService
         //URL Path를 디코딩하여 id값 추출트
         $id = $this->urlManager
             ->decodingUrl($path);
-
-        return $this->urlDAO->selectOriginalUrl($id);
+        return $this->urlDAO->selectOriginalUrl($id)[0]->original_url;
     }
 
 }

@@ -14,7 +14,7 @@ class UrlService
 
     public function __construct()
     {
-        define('DOMAIN', "http://localhost:8000/");
+        define('DOMAIN', "localhost:8000/");
         $this->urlDAO = new UrlDAO();
         $this->urlManager = new UrlManager();
     }
@@ -40,7 +40,9 @@ class UrlService
                 $url['userid'],
                 HTTP.$originalUrl,
                 $this->urlManager
-                    ->getQueryString($originalUrl));
+                    ->getQueryString($originalUrl),
+                $shorteningUrl
+            );
 
             return json_encode([
                 "originalUrl" => HTTP.$originalUrl,

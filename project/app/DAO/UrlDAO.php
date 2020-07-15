@@ -14,12 +14,13 @@ class UrlDAO
         return DB::table("urls")->select("id")->max("id");
     }
 
-    public function registerUrl($userId, $originalUrl, $queryString)
+    public function registerUrl($userId, $originalUrl, $queryString, $shortUrl)
     {
         Url::create([
             "user_id" => $userId,
             "original_url" => $originalUrl,
-            "query_string" => $queryString
+            "query_string" => $queryString,
+            "short_url" => $shortUrl
         ]);
     }
 

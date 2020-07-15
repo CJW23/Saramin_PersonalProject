@@ -29,6 +29,7 @@ class MainController extends Controller
     //shortening url 원본 url 리다이렉트
     public function originalUrlRedirect($path)
     {
+        //echo $path;
         return redirect($this->mainService
             ->getOriginalUrl($path));
     }
