@@ -21,3 +21,5 @@ Auth::routes();
 
 
 Route::get('/{path}', 'Web\MainController@originalUrlRedirect');
+
+Route::get('/users/{user:nickname}', 'Web\UserMainController@');
