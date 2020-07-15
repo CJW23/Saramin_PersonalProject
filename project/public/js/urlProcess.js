@@ -28,9 +28,14 @@ function requestCreateUrl() {
     });
 }
 function makeTemplate(){
-    let html = "<table>";
+    let html = "";
     for(let i =0; i<urlData.length; i++){
-        html += '<tr><td><a href="' + urlData[i]["shortUrl"]+'" id="shortUrl">' + urlData[i]['shortUrl'] + '</a></td></tr>';
+        html +=
+            '<tr>' +
+            '<td>'+ urlData[i]["originalUrl"] +'</td>'+
+            '<td><a href="' + urlData[i]["shortUrl"]+'" id="shortUrl">' + urlData[i]['shortUrl'] + '</a>' +
+            '</td>' +
+            '</tr>';
     }
     html += "</table>";
     $("#urlList").html(html);

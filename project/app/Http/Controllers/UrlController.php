@@ -47,6 +47,7 @@ class UrlController extends Controller
                         ->getQueryString($originalUrl));
 
             return json_encode([
+                "originalUrl" => HTTP.$originalUrl,
                 "shortUrl" => $shorteningUrl
             ], JSON_UNESCAPED_SLASHES);
         }
