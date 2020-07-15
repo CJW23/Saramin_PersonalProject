@@ -55,13 +55,14 @@ class RegisterController extends Controller
             'password.min' =>'8-15자 숫자+영문+특수문자 비밀번호를 입력하세요',
             'password.max' => '8-15자 숫자+영문+특수문자 비밀번호를 입력하세요',
             'password.confirmed' => '비밀번호가 같지 않습니다',
-            'email.unique' => '이미 이메일이 존재합니다'
+            'email.unique' => '이미 이메일이 존재합니다',
+            'nickname.unique' => '이미 닉네임이 존재합니다'
         ];
         return Validator::make($data, [
             'name' => ['required', 'string', 'max:10'],
             'email' => ['required', 'string', 'email', 'max:20', 'unique:users'],
-            'nickname' => ['required', 'string', 'max:10', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'max:15', 'confirmed', 'regex:/(?=.*\d{1,50})(?=.*[~`!@#$%\^&*()-+=]{1,50})(?=.*[a-zA-Z]{2,50}).{8,50}$/'],
+            'nickname' => ['required', 'string', 'max:10', 'unique:users'],
         ], $message);
     }
 
