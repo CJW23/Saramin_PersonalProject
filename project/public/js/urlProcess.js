@@ -13,13 +13,13 @@ function requestCreateUrl() {
         success: function (data) {
             console.log(data);
             if(data['shortUrl'] == "false"){
-                $("#shortUrl").text("유효하지 않은 URL");
+                urlData.push(data);
+                makeTemplate();
             }
             else {
                 urlData.push(data);
                 makeTemplate();
             }
-            console.log(urlData);
         },
         error: function (data) {
             console.log(data);
@@ -30,12 +30,21 @@ function requestCreateUrl() {
 function makeTemplate(){
     let html = "";
     for(let i =0; i<urlData.length; i++){
-        html +=
-            '<tr>' +
-            '<td>'+ urlData[i]["originalUrl"] +'</td>'+
-            '<td><a href="' + urlData[i]["shortUrl"]+'" id="shortUrl">' + urlData[i]['shortUrl'] + '</a>' +
-            '</td>' +
-            '</tr>';
+        if(urlData[i]['shortUrl'] == "false"){
+            html +=
+                '<tr>' +
+                '<td>'+ urlData[i]["originalUrl"] +'</td>'+
+                '<td>유효하지 않은 URL입니다</a>' +
+                '</td>' +
+                '</tr>';
+        } else {
+            html +=
+                '<tr>' +
+                '<td>' + urlData[i]["originalUrl"] + '</td>' +
+                '<td><a href="' + urlData[i]["shortUrl"] + '" id="shortUrl">' + urlData[i]['shortUrl'] + '</a>' +
+                '</td>' +
+                '</tr>';
+        }
     }
     html += "</table>";
     $("#urlList").html(html);

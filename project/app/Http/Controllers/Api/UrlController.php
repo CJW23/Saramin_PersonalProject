@@ -1,8 +1,9 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Api;
 
 use App\DAO\UrlDAO;
+use App\Http\Controllers\Controller;
 use App\Logic\UrlManager;
 use Illuminate\Http\Request;
 
@@ -36,15 +37,15 @@ class UrlController extends Controller
         {
             //id의 최대값+1을 base62 인코딩
             $shorteningUrl = DOMAIN.$this->urlManager
-                        ->encodingUrl($this->urlDAO
+                    ->encodingUrl($this->urlDAO
                             ->selectMaxId() + 1);
 
             //url 등록
             $this->urlDAO->registerUrl(
-                    $request->input('userid'),
-                    HTTP.$originalUrl,
-                    $this->urlManager
-                        ->getQueryString($originalUrl));
+                $request->input('userid'),
+                HTTP.$originalUrl,
+                $this->urlManager
+                    ->getQueryString($originalUrl));
 
             return json_encode([
                 "originalUrl" => HTTP.$originalUrl,
@@ -52,6 +53,7 @@ class UrlController extends Controller
             ], JSON_UNESCAPED_SLASHES);
         }
         return json_encode([
+            "originalUrl" => HTTP.$originalUrl,
             "shortUrl" => "false",
         ]);
     }

@@ -49,11 +49,19 @@ class RegisterController extends Controller
      */
     protected function validator(array $data)
     {
+        $message = [
+            'name.max' => '10자이하로 입력하세요',
+            'password.regex' => '8-15자 숫자+영문+특수문자 비밀번호를 입력하세요',
+            'password.min' =>'8-15자 숫자+영문+특수문자 비밀번호를 입력하세요',
+            'password.max' => '8-15자 숫자+영문+특수문자 비밀번호를 입력하세요',
+            'password.confirmed' => '비밀번호가 같지 않습니다',
+            'email.unique' => '이미 이메일이 존재합니다'
+        ];
         return Validator::make($data, [
-            'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            'password' => ['required', 'string', 'min:8', 'confirmed'],
-        ]);
+            'name' => ['required', 'string', 'max:10'],
+            'email' => ['required', 'string', 'email', 'max:20', 'unique:users'],
+            'password' => ['required', 'string', 'min:8', 'max:15', 'confirmed', 'regex:/(?=.*\d{1,50})(?=.*[~`!@#$%\^&*()-+=]{1,50})(?=.*[a-zA-Z]{2,50}).{8,50}$/'],
+        ], $message);
     }
 
     /**

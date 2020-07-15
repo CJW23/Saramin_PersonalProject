@@ -1,8 +1,9 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Web;
 
 use App\DAO\UrlDAO;
+use App\Http\Controllers\Controller;
 use App\Logic\UrlManager;
 use App\Url;
 use Illuminate\Http\Request;
@@ -27,7 +28,7 @@ class MainController extends Controller
         return view('main.index');
     }
 
-    //shortening url 원본 url 리다이렉
+    //shortening url 원본 url 리다이렉트
     public function originalUrlRedirect(Request $request)
     {
         //URL Path를 디코딩하여 id값 추출트

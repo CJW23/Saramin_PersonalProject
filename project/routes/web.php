@@ -13,12 +13,11 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', 'MainController@index')->name("index");
+Route::get('/', 'Web\MainController@index')->name("index");
 
 Route::get('/test', "TestController@test");
 
 Auth::routes();
 
-Route::get('/home/login', 'HomeController@index')->name('home');
 
-Route::get('/{path}', 'MainController@originalUrlRedirect');
+Route::get('/{path}', 'Web\MainController@originalUrlRedirect');
