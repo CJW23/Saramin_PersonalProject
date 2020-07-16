@@ -20,4 +20,8 @@ class TestController extends Controller
             return 'false';
         }
     }
+
+    public function test1(){
+        return view('test');
+    }
 }

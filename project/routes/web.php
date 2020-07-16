@@ -16,10 +16,10 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', 'Web\MainController@index')->name("index");
 
 Route::get('/test', "TestController@test");
-
+Route::get('/test1', "TestController@test1");
 Auth::routes();
 
 
 Route::get('/{path}', 'Web\MainController@originalUrlRedirect');
-
 Route::get('/users/{user:nickname}', 'Web\UserMainController@index')->middleware('auth');
+Route::get('/users/edit/{user:nickname}', 'Web\UserMainController@userInfo')->middleware('auth')->name("info");

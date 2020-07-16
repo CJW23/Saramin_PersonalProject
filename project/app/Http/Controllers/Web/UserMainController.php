@@ -26,4 +26,10 @@ class UserMainController extends Controller
             'urlLists'=>$urlLists
         ]);
     }
+
+    public function userInfo(User $user)
+    {
+        abort_unless(auth()->user()->own($user), 403);
+        return view('user.userInfo');
+    }
 }
