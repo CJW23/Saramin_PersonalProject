@@ -23,6 +23,7 @@ class UserMainService
     }
 
     public function getUserUrlList($userId){
+        //각 유저의 original_url, short_url 가져옴
         return $this->userDAO->selectUserUrlList($userId);
     }
 

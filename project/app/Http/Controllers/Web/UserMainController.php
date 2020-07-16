@@ -15,9 +15,9 @@ class UserMainController extends Controller
         $this->userMainService = new UserMainService();
     }
 
-    public function index(User $user)
+    public function index()
     {
-        $urlLists = $this->userMainService->getUserUrlList($user->id);
+        $urlLists = $this->userMainService->getUserUrlList(auth()->id());
         return view('user.userIndex', [
             'urlLists'=>$urlLists
         ]);
