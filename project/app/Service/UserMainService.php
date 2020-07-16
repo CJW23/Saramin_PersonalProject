@@ -7,6 +7,7 @@ namespace App\Service;
 use App\DAO\UrlDAO;
 use App\DAO\UserDAO;
 use App\Logic\UrlManager;
+use App\User;
 
 class UserMainService
 {
@@ -22,9 +23,9 @@ class UserMainService
         $this->userDAO = new UserDAO();
     }
 
-    public function getUserUrlList($userId){
+    public function getUserUrlList(){
         //각 유저의 original_url, short_url 가져옴
-        return $this->userDAO->selectUserUrlList($userId);
+        return $this->userDAO->selectUserUrlList(auth()->id());
     }
 
 }

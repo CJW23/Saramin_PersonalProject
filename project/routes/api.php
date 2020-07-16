@@ -19,4 +19,6 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 Route::post('/create', 'Api\UrlController@createUrl');
-Route::get('/query', 'Api\UrlController@readUrlQueryString');
+Route::get('/query', 'Api\UrlController@readUrlQueryString')->middleware('auth');
+Route::get('/detail/{url:id}', 'Api\UrlController@readUrlDetail');
+

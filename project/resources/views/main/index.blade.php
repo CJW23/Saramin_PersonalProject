@@ -21,7 +21,7 @@
 
             <div class="row justify-content-center">
                 <div class="col-4">
-                    <table class="table table-hover">
+                    <table class="table">
                         <thead>
                             <tr>
                                 <th scope="col">원본 URL</th>

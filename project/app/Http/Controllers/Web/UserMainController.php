@@ -15,9 +15,13 @@ class UserMainController extends Controller
         $this->userMainService = new UserMainService();
     }
 
-    public function index()
+    public function index(User $user)
     {
-        $urlLists = $this->userMainService->getUserUrlList(auth()->id());
+        //로그인 정보 확인
+        abort_unless(auth()->user()->own($user), 403);
+
+        //사용자의 id를 통해 url 목록 가져옴
+        $urlLists = $this->userMainService->getUserUrlList();
         return view('user.userIndex', [
             'urlLists'=>$urlLists
         ]);

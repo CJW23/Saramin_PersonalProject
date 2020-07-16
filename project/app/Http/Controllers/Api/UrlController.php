@@ -6,6 +6,7 @@ use App\DAO\UrlDAO;
 use App\Http\Controllers\Controller;
 use App\Logic\UrlManager;
 use App\Service\UrlService;
+use App\Url;
 use Illuminate\Http\Request;
 
 class UrlController extends Controller
@@ -39,5 +40,10 @@ class UrlController extends Controller
     public function readUrlQueryString(Request $request)
     {
         return $this->urlService->getQueryString($request->input('url'));
+    }
+
+    public function readUrlDetail(Url $url)
+    {
+        return $url;
     }
 }

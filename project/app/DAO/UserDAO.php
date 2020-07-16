@@ -10,7 +10,7 @@ class UserDAO
 {
     public function selectUserUrlList($userId)
     {
-        return DB::table("urls")->select('id','original_url', 'short_url')
+        return DB::table("urls")->select('id','original_url', 'short_url', 'count')
             ->where('user_id', '=', $userId)
             ->get();
     }
