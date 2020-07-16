@@ -39,4 +39,9 @@ class UrlDAO
             ->where('id', '=',  $id)
             ->get();
     }
+
+    public function updateUrlCount($id)
+    {
+        DB::table('urls')->where('id', '=', $id)->increment('count');
+    }
 }

@@ -19,7 +19,7 @@ class UrlController extends Controller
     }
 
     /*
-     * Path: /create
+     * Path: /url/create
      * method: POST
      * url 변환 요청
      */
@@ -33,7 +33,7 @@ class UrlController extends Controller
     }
 
     /*
-     * Path: /query
+     * Path: /url/query
      * Method: GET
      * 단축 url 입력시 원본 url의 query string 반환
      * */
@@ -42,6 +42,11 @@ class UrlController extends Controller
         return $this->urlService->getQueryString($request->input('url'));
     }
 
+    /*
+     * Path: /url/detail/{id}
+     * Method: GET
+     * 각 url의 세부사항 GET
+     */
     public function readUrlDetail(Url $url)
     {
         return $url;
