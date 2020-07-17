@@ -10,20 +10,22 @@
 @endsection
 
 @section('contents')
-    <p style="border-bottom: 1px solid #81e6d9; padding-bottom: 15px;">개인 정보</p>
-    <div class="form-group">
+    <div class="form-group content-name">
+        개인 정보
+    </div>
+    <div class="form-group content-div">
         <label for="name">이름</label>
         <input value="{{Auth::user()->name}}" id="name" class="form-control" readonly>
     </div>
-    <div class="form-group">
+    <div class="form-group content-div">
         <label for="nickname">닉네임</label>
         <input value="{{Auth::user()->nickname}}" id="nickname" class="form-control" readonly>
     </div>
-    <div class="form-group">
+    <div class="form-group content-div">
         <label for="email">이메일</label>
         <input value="{{Auth::user()->email}}" id="email" class="form-control" readonly>
     </div>
-    <div class="form-group">
+    <div class="form-group content-div">
         <label for="created-at">만든 날짜</label>
         <input value="{{Auth::user()->created_at}}" id="created-at" class="form-control" readonly>
     </div>

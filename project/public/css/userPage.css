@@ -84,3 +84,12 @@
 .contents input:read-only{
     background-color: #ffffff;
 }
+.content-name{
+    font-size: 35px;
+    border-bottom: 1px solid #81e6d9;
+}
+.content-div{
+    border-bottom: 1px solid #81e6d9;
+    padding-bottom: 50px;
+    padding-top: 20px;
+}
