@@ -27,9 +27,20 @@ class UserMainController extends Controller
         ]);
     }
 
-    public function userInfo(User $user)
+    public function userInfo()
     {
-        abort_unless(auth()->user()->own($user), 403);
         return view('user.userInfo');
+    }
+    public function userEditInfo()
+    {
+        return view('user.userEditInfo');
+    }
+    public function userEditPassword()
+    {
+        return view('user.userEditPassword');
+    }
+    public function userDelete()
+    {
+        return view('user.userDelete');
     }
 }

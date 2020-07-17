@@ -21,5 +21,8 @@ Auth::routes();
 
 
 Route::get('/{path}', 'Web\MainController@originalUrlRedirect');
-Route::get('/users/{user:nickname}', 'Web\UserMainController@index')->middleware('auth');
-Route::get('/users/edit/{user:nickname}', 'Web\UserMainController@userInfo')->middleware('auth')->name("info");
+Route::get('/users/{user:nickname}', 'Web\UserMainController@index')->middleware('auth')->name("dashboard");
+Route::get('/users/setting/info', 'Web\UserMainController@userInfo')->middleware('auth')->name("info");
+Route::get('/users/setting/edit-info', 'Web\UserMainController@userEditInfo')->middleware('auth')->name("editInfo");
+Route::get('/users/setting/password', 'Web\UserMainController@userEditPassword')->middleware('auth')->name("password");
+Route::get('/users/setting/delete', 'Web\UserMainController@userDelete')->middleware('auth')->name("delete");

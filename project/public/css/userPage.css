@@ -73,3 +73,11 @@
 .detail-original-url{
     font-size: 40px;
 }
+.info-container{
+    font-size: 18px;
+}
+.info-list{
+    font-size: 30px;
+    background-color: #ffffff;
+    border:1px solid red;
+}

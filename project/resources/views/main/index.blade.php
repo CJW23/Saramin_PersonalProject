@@ -19,7 +19,7 @@
         </div>
 
         <div class="row justify-content-center">
-            <div class="col-4">
+            <div class="col-md-6" style="text-align: center; margin-top: 80px;">
                 <table class="table">
                     <thead>
                     <tr>
