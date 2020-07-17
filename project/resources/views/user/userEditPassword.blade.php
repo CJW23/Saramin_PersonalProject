@@ -10,7 +10,7 @@
 @endsection
 
 @section('contents')
-    <p>패스워드 변경</p>
+    <p style="border-bottom: 1px solid #f7c6c5">패스워드 변경</p>
     <a href="#" class="list-group-item list-group-item-action">{{Auth::user()->nickname}}</a>
     <a href="#" class="list-group-item list-group-item-action">{{Auth::user()->nickname}}</a>
     <a href="#" class="list-group-item list-group-item-action">{{Auth::user()->nickname}}</a>

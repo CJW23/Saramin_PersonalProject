@@ -11,6 +11,11 @@
 
 @section('contents')
     <p>개인 정보 변경</p>
+    <div class="form-group">
+        <label for="exampleInputEmail1">Email address</label>
+        <input type="email" class="form-control" readonly>
+        <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+    </div>
     <a href="#" class="list-group-item list-group-item-action">{{Auth::user()->nickname}}</a>
     <a href="#" class="list-group-item list-group-item-action">{{Auth::user()->nickname}}</a>
     <a href="#" class="list-group-item list-group-item-action">{{Auth::user()->nickname}}</a>

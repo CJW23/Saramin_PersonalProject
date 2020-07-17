@@ -81,3 +81,6 @@
     background-color: #ffffff;
     border:1px solid red;
 }
+.contents input:read-only{
+    background-color: #ffffff;
+}
