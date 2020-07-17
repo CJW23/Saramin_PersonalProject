@@ -29,6 +29,7 @@ class UrlController extends Controller
             'url'=>$request->input('url'),
             'userid'=>$request->input('userid')
         ];
+
         return $this->urlService->makeUrl($info);
     }
 

@@ -1,0 +1,25 @@
+@extends('layouts.userSetting')
+
+@section('menu')
+
+    <a href="{{ route('info') }}" class="list-group-item list-group-item-action">개인 정보</a>
+    <a href="{{ route('editInfo') }}" class="list-group-item list-group-item-action">개인 정보 수정</a>
+    <a href="{{ route('nickname') }}" class="list-group-item list-group-item-action" style="border-left: 2px solid red">닉네임
+        수정</a>
+    <a href="{{ route('password') }}" class="list-group-item list-group-item-action">비밀번호 변경</a>
+    <a href="{{ route('delete') }}" class="list-group-item list-group-item-action">회원탈퇴</a>
+
+@endsection
+
+@section('contents')
+    <div class="form-group content-name">
+        개인 정보 수정
+    </div>
+
+    <div class="form-group">
+        <label for="nickname">닉네임</label><br>
+        <input value="{{old('name') ? old('name'):Auth::user()->nickname}}" id="nickname" name={{Auth::user()->nickname}}
+               class="form-control">
+    </div>
+    <button type="button" onclick="requestNickname()" class="btn btn-success col-2">수정</button>
+@endsection

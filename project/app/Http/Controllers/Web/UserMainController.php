@@ -35,6 +35,10 @@ class UserMainController extends Controller
     {
         return view('user.userEditInfo');
     }
+    public function userNickname()
+    {
+        return view('user.userNickname');
+    }
     public function userEditPassword()
     {
         return view('user.userEditPassword');

@@ -4,6 +4,7 @@
 
     <a href="{{ route('info') }}" class="list-group-item list-group-item-action">개인 정보</a>
     <a href="{{ route('editInfo') }}" class="list-group-item list-group-item-action">개인 정보 수정</a>
+    <a href="{{ route('nickname') }}" class="list-group-item list-group-item-action">닉네임 수정</a>
     <a href="{{ route('password') }}" class="list-group-item list-group-item-action">비밀번호 변경</a>
     <a href="{{ route('delete') }}" class="list-group-item list-group-item-action" style="border-left: 2px solid red">회원탈퇴</a>
 

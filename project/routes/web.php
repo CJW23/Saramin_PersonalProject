@@ -23,6 +23,17 @@ Auth::routes();
 Route::get('/{path}', 'Web\MainController@originalUrlRedirect');
 Route::get('/users/{user:nickname}', 'Web\UserMainController@index')->middleware('auth')->name("dashboard");
 Route::get('/users/setting/info', 'Web\UserMainController@userInfo')->middleware('auth')->name("info");
+Route::get('/users/setting/nickname', 'Web\UserMainController@userNickname')->middleware('auth')->name("nickname");
 Route::get('/users/setting/edit-info', 'Web\UserMainController@userEditInfo')->middleware('auth')->name("editInfo");
 Route::get('/users/setting/password', 'Web\UserMainController@userEditPassword')->middleware('auth')->name("password");
 Route::get('/users/setting/delete', 'Web\UserMainController@userDelete')->middleware('auth')->name("delete");
+
+Route::put('/users/setting/password', 'Api\UserController@editPasswordRequest')
+    ->middleware('auth')->name("editPasswordRequest");
+
+Route::put('/users/setting/info', 'Api\UserController@editInfoRequest')
+    ->middleware('auth')->name("editInfoRequest");
+
+Route::put('/users/setting/nickname', 'Api\UserController@editNicknameRequest')
+    ->middleware('auth')->name("editNicknameRequest");
+

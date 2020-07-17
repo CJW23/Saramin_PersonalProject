@@ -12,6 +12,7 @@
         </div>
         <div class="col-8 float-left">
             <div class="list-group contents">
+
                 @yield('contents')
             </div>
         </div>
