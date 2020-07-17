@@ -12,8 +12,21 @@
 
 @section('contents')
     <p style="border-bottom: 1px solid #f7c6c5">패스워드 변경</p>
-    <a href="#" class="list-group-item list-group-item-action">{{Auth::user()->nickname}}</a>
-    <a href="#" class="list-group-item list-group-item-action">{{Auth::user()->nickname}}</a>
-    <a href="#" class="list-group-item list-group-item-action">{{Auth::user()->nickname}}</a>
 
+    <div class="form-group">
+        <label for="nickname">기존 패스워드</label><br>
+        <input type="password" id="current_password" name="current_password"
+            class="form-control">
+    </div>
+    <div class="form-group">
+        <label for="nickname">변경할 패스워드</label><br>
+        <input type="password" id="new_password" name="new_password"
+            class="form-control">
+    </div>
+    <div class="form-group">
+        <label for="nickname">재확인</label><br>
+        <input type="password" id="new_confirm_password" name="new_confirm_password"
+            class="form-control">
+    </div>
+    <button type="button" onclick="requestPassword()" class="btn btn-success col-2">수정</button>
 @endsection

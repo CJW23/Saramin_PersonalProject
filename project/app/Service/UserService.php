@@ -21,6 +21,7 @@ class UserService
 
     public function changeUserNickname($nickname)
     {
+        validator(['awd'=>'awd']);
         $this->userDAO->updateUserNickname($nickname);
     }
 

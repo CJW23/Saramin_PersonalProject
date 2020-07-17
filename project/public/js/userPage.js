@@ -84,7 +84,25 @@ function requestNickname(){
 
 //비밀번호 수정 요청
 function requestPassword(){
-
+    $.ajax({
+        //아래 headers에 반드시 token을 추가해줘야 한다.!!!!!
+        headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+        type: 'put',
+        url: '/users/setting/password',
+        data: {
+            'current_password': $('#current_password').val(),
+            'new_password': $('#new_password').val(),
+            'new_confirm_password': $('#new_confirm_password').val()
+        },
+        success: function (data) {
+            alert('수정 완료');
+            window.location.href = '/users/setting/info';
+        },
+        error: function (data) {
+            console.log(data);
+            alert('오류 발생');
+        }
+    });
 }
 //시간 데이터 포맷
 function convertDate(date){
