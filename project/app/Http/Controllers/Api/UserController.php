@@ -8,7 +8,9 @@ use App\Rules\MatchOldPassword;
 use App\Service\UserService;
 use App\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Session;
 use Mosquitto\Exception;
 
 class UserController extends Controller
@@ -73,10 +75,29 @@ class UserController extends Controller
     /*
      * 닉네임 수정 Request
      * Path: /users/setting/nickname
+     * Method: PUT
      */
     public function editNicknameRequest(Request $request)
     {
         $nickname = $request->input('nickname');
         $this->userService->changeUserNickname($nickname);
+    }
+
+    /*
+     * 회원 탈퇴 Request
+     * Path: /users/setting/delete
+     * Method: DELETE
+     */
+    public function dropUserRequest(Request $request)
+    {
+        $curPassword = $request->input('current_password');
+        if(Hash::check($curPassword, auth()->user()->getAuthPassword()))
+        {
+            $this->userService->dropUser();
+            Auth::logout();
+            Session::flush();
+            return 'true';
+        }
+        return 'false';
     }
 }

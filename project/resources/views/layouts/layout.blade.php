@@ -13,6 +13,7 @@
     <script src="{{ asset('js/urlProcess.js') }}"></script>
 </head>
 <body>
+
 layout
     <main class="py-4">
         @yield('content')

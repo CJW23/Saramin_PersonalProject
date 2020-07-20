@@ -34,4 +34,10 @@ class UserDAO
     public function updatePassword($password){
         User::find(auth()->user()->id)->update(['password' => Hash::make($password)]);
     }
+
+    public function deleteUser()
+    {
+        DB::table("users")
+            ->delete(auth()->user()->id);
+    }
 }

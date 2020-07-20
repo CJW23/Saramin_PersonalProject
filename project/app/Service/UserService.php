@@ -29,4 +29,9 @@ class UserService
     {
         $this->userDAO->updatePassword($password);
     }
+
+    public function dropUser()
+    {
+        $this->userDAO->deleteUser();
+    }
 }

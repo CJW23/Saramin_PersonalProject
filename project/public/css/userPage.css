@@ -1,6 +1,6 @@
 
 .header{
-    background-color: #666;
+
     padding: 6%;
     text-align: center;
     font-size: 35px;
@@ -15,7 +15,7 @@
 .nav{
     -webkit-flex: 1;
     -ms-flex: 1;
-    flex: 0.8;
+    flex: 0.82;
     background: #ccc;
     overflow:auto;
 }

@@ -12,20 +12,22 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
-
-Route::get('/', 'Web\MainController@index')->name("index");
-
-Route::get('/test', "TestController@test");
-Route::get('/test1', "TestController@test1");
 Auth::routes();
 
-
+Route::get('/', 'Web\MainController@index')->name("index");
+Route::get('/test1', "TestController@test1");
 Route::get('/{path}', 'Web\MainController@originalUrlRedirect');
+
 Route::get('/users/{user:nickname}', 'Web\UserMainController@index')->middleware('auth')->name("dashboard");
+
 Route::get('/users/setting/info', 'Web\UserMainController@userInfo')->middleware('auth')->name("info");
+
 Route::get('/users/setting/nickname', 'Web\UserMainController@userNickname')->middleware('auth')->name("nickname");
+
 Route::get('/users/setting/edit-info', 'Web\UserMainController@userEditInfo')->middleware('auth')->name("editInfo");
+
 Route::get('/users/setting/password', 'Web\UserMainController@userEditPassword')->middleware('auth')->name("password");
+
 Route::get('/users/setting/delete', 'Web\UserMainController@userDelete')->middleware('auth')->name("delete");
 
 Route::put('/users/setting/password', 'Api\UserController@editPasswordRequest')
@@ -37,3 +39,10 @@ Route::put('/users/setting/info', 'Api\UserController@editInfoRequest')
 Route::put('/users/setting/nickname', 'Api\UserController@editNicknameRequest')
     ->middleware('auth')->name("editNicknameRequest");
 
+Route::delete('/users/setting/delete', 'Api\UserController@dropUserRequest')
+    ->middleware('auth')->name("dropUserRequest");
+
+////////////////////
+Route::get('/test', "TestController@test");
+
+///////////////////

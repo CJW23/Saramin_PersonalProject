@@ -30,7 +30,6 @@ function requestCreateUrl() {
         },
         error: function (data) {
             console.log(data);
-
         }
     });
 }

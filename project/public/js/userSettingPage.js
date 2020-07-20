@@ -1,26 +1,3 @@
-//URL 상세정보 요청
-function requestUrlDetail(urlId) {
-    let id = $(urlId).attr('id');
-    $.ajax({
-        //아래 headers에 반드시 token을 추가해줘야 한다.!!!!!
-        headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
-        type: 'get',
-        url: '/url/detail/' + id,
-        dataType: 'json',
-        success: function (data) {
-            let dateTime = convertDate(data['created_at']);
-            $('.detail-created-date').html("CREATED " + dateTime['ymd']);
-            $('.detail-created-time').html("TIME "+dateTime['time']);
-            $('.detail-original-url').html(data['original_url']);
-            $('.detail-short-url').html(data['short_url']);
-            $('.detail-count').html(data['count']);
-        },
-        error: function (data) {
-            console.log(data);
-        }
-    });
-}
-
 //이름 수정 요청
 function requestEditInfo(){
     let name = $('#name').val();
@@ -118,16 +95,39 @@ function requestPassword(){
     });
 }
 
-//시간 데이터 포맷
-function convertDate(date){
-    let ymd = String(date).substring(0,10);
-    let time = String(date).substring(11,19);
-    return {
-        'ymd': ymd,
-        'time': time
-    };
+function requestDropUser() {
+    if(!dropUserTextCheck()){
+        $('#password_help').html('');
+        $('#drop_text_help').html("문구를 입력해주세요");
+        return;
+    }
+    $.ajax({
+        //아래 headers에 반드시 token을 추가해줘야 한다.!!!!!
+        headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+        type: 'delete',
+        url: '/users/setting/delete',
+        data: {
+            'current_password': $('#current_password').val()
+        },
+        success: function (data) {
+            console.log(data);
+            if(data === 'true'){
+                alert("탈퇴 완료");
+                window.location.href = '/';
+            }
+            else{
+                $('#drop_text_help').html("");
+                $('#password_help').html("비밀번호를 확인해주세요");
+            }
+        },
+        error: function (data) {
+            console.log(data);
+        }
+    });
 }
-
+function dropUserTextCheck(){
+    return $('#drop-text').val() === "탈퇴 요청";
+}
 //비밀번호 검증
 function validationPassword(){
     let firstPwd = $('#new_password').val();
@@ -152,3 +152,40 @@ function validationPassword(){
     }
     return false;
 }
+var ctx = document.getElementById('myChart').getContext('2d');
+var myChart = new Chart(ctx, {
+    type: 'bar',
+    data: {
+        labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+        datasets: [{
+            label: '# of Votes',
+            data: [12, 19, 3, 5, 2, 3],
+            backgroundColor: [
+                'rgba(255, 99, 132, 0.2)',
+                'rgba(54, 162, 235, 0.2)',
+                'rgba(255, 206, 86, 0.2)',
+                'rgba(75, 192, 192, 0.2)',
+                'rgba(153, 102, 255, 0.2)',
+                'rgba(255, 159, 64, 0.2)'
+            ],
+            borderColor: [
+                'rgba(255, 99, 132, 1)',
+                'rgba(54, 162, 235, 1)',
+                'rgba(255, 206, 86, 1)',
+                'rgba(75, 192, 192, 1)',
+                'rgba(153, 102, 255, 1)',
+                'rgba(255, 159, 64, 1)'
+            ],
+            borderWidth: 1
+        }]
+    },
+    options: {
+        scales: {
+            yAxes: [{
+                ticks: {
+                    beginAtZero: true
+                }
+            }]
+        }
+    }
+});
