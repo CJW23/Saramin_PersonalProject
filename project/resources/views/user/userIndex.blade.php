@@ -1,16 +1,16 @@
 @extends('layouts.app')
 
 @section('content')
+    <div id="data" data-field="{{$urlLists}}}"></div>
     <header class="header">
         <canvas id="myChart" width="500" height="50"></canvas>
     </header>
     <input type="text" id="url-search" name="url-search"
            class="form-control col-2" style="float: left; margin-left:10px; margin-right: 10px">
-    <button type="button" onclick="requestUrlSearch()" class="btn btn-primary">검색</button>
+    <button type="button" onclick="test()" class="btn btn-primary">검색</button>
     <br><br>
     <section class="section">
         <nav class="nav">
-            <button onclick="test({{$urlLists}})">awd</button>
             @foreach($urlLists as $urlList)
                 <a id="{{$urlList->id}}" onclick="requestUrlDetail(this)" class="url-list">
 

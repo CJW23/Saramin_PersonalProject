@@ -57,7 +57,9 @@ function requestUrlSearch() {
     });
 }
 
-function test(data)
+function test()
 {
-    console.log(data);
+    console.log($('#data').data("field"));
+    $('#data').data("field", "awd");
+    console.log($('#data').data('field'));
 }
