@@ -25,4 +25,8 @@ class UserService
         $this->userDAO->updateUserNickname($nickname);
     }
 
+    public function changeUserPassword($password)
+    {
+        $this->userDAO->updatePassword($password);
+    }
 }

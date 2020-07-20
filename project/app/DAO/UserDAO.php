@@ -4,7 +4,9 @@
 namespace App\DAO;
 
 
+use App\User;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 
 class UserDAO
 {
@@ -27,5 +29,9 @@ class UserDAO
         DB::table("users")
             ->where('id', auth()->user()->id)
             ->update(['nickname' => $nickname]);
+    }
+
+    public function updatePassword($password){
+        User::find(auth()->user()->id)->update(['password' => Hash::make($password)]);
     }
 }
