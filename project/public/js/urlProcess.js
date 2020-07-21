@@ -37,6 +37,7 @@ function requestGuestCreateUrl() {
 
 //로그인 유저 URL 변환
 function requestUserCreateUrl(id) {
+    $('#url_register_help').html("");    //유효하지 않은 URL 표현 없애기(있는 경우)
     let url = $('#url-register').val();
 
     //URL 입력이 없을때.
@@ -55,13 +56,37 @@ function requestUserCreateUrl(id) {
             'userid': id
         },
         success: function (data) {
-            console.log("result : " + data[0]['id']);
-            if (data['shortUrl'] === "false") {
+            console.log(data['result']);
+            if (data['result'] === "false") {
                 $('#url_register_help').html("유효하지 않은 URL입니다.");
                 return 0;
             }
             makeUserUrlTemplate(data);
 
+        },
+        error: function (data) {
+            console.log(data);
+        }
+    });
+}
+
+function requestUserRemoveUrl() {
+    let deleteList = []
+    $('input:checkbox[name=url-check]:checked').each(function() {
+        deleteList.push(this.id);           //체크된 URL들 배열에 넣음
+    });
+    console.log(deleteList);
+    $.ajax({
+        //아래 headers에 반드시 token을 추가해줘야 한다.!!!!!
+        headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+        type: 'delete',
+        url: '/users/urls/delete',
+        dataType: 'json',
+        data: {
+            'urlIdList': deleteList
+        },
+        success: function (data) {
+            console.log(data);
         },
         error: function (data) {
             console.log(data);
@@ -84,12 +109,11 @@ function makeUserUrlTemplate(datas) {
             data['short_url'] +
             "</div>" +
             "<div class='url-count'>" +
-            data['count'] + "<img src='/images/graph.png' height='25' width='25' style='float:right; margin-left: 5px;'>"+
+            data['count'] + "<img src='/images/graph.png' height='25' width='25' style='float:right; margin-left: 5px;'>" +
             "</div>" +
             "</div>" +
             "</div>" +
             "</div>"
-        console.log(html);
     });
 
     $(".url-list-group").html(html);

@@ -41,9 +41,24 @@ function search() {
     $(document).ready(function() {
         $("#url-search").keyup(function() {
             const k = $(this).val();
-            $(".url-list-group > a").hide();
-            const temp = $(".url-list-group > a > div:nth-child(1):contains('" + k + "')");
-            $(temp).parent().show();
+            $(".url-list-group > .url-list").hide();
+            const temp = $(".url-list-group > .url-list > div > div:nth-child(1):contains('" + k + "')");
+            $(temp).parent().parent().show();
         })
     })
 }
+//URL 체크시 1개 이상 체크하면 view에 띄움
+function urlCheck(){
+    let count = $('input:checkbox[name=url-check]:checked').length;
+    if(count > 0){
+        $('.url-detail-view').hide();
+        $('.url-delete-view').show();
+        let html = count+"개의 URL이 선택되었습니다<br><br>";
+        $('#url-count').html(html);
+    }
+    else{
+        $('.url-detail-view').show();
+        $('.url-delete-view').hide();
+    }
+}
+

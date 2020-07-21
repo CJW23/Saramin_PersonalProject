@@ -7,10 +7,9 @@
     <div class="row justify-content-center url-register-group" style="margin-left: 0; margin-right: 0">
         <input type="text" id="url-register" name="url-search"
                class="form-control col-4" style=" margin-left:10px; margin-right: 10px">
-        <small id="url_register_help" class="form-text text-muted"></small>
         <button type="button" onclick="requestUserCreateUrl({{Auth::user()->id}})" class="btn btn-primary">등록</button>
     </div>
-
+    <small id="url_register_help" class="row justify-content-center" style="color: red;"></small>
     <header class="header">
         <canvas id="myChart" width="500" height="50"></canvas>
     </header>
@@ -25,8 +24,9 @@
         <nav class="nav url-list-group">
             @foreach($urlLists as $urlList)
                 <div class="url-list">
-                    <input type="checkbox" id="delete-check" style="float: right">
-                    <div id="{{$urlList->id}}" onclick="requestUrlDetail(this)" >
+                    <input type="checkbox" id="{{$urlList->id}}" name="url-check" onclick="urlCheck()"
+                           style="float: right">
+                    <div id="{{$urlList->id}}" onclick="requestUrlDetail(this)">
                         <div class="original-url-text">
                             {{$urlList->original_url}}
                         </div>
@@ -46,16 +46,21 @@
             @endforeach
         </nav>
 
-        <article class="article">
-            <div class="detail-created-date">
+        <article class="url-delete-view" style="display: none">
+            <div id="url-count"></div>
+            <button onclick="requestUserRemoveUrl()" type="button" class="btn btn-outline-danger col-1">삭제</button>
+        </article>
+
+        <article class="article url-detail-view">
+            <div class="detail-created-date">awd
             </div>
-            <div class="detail-created-time">
+            <div class="detail-created-time">awd
             </div>
-            <div class="detail-original-url">
+            <div class="detail-original-url">awd
             </div>
-            <div class="detail-short-url">
+            <div class="detail-short-url">wad
             </div>
-            <div class="detail-count">
+            <div class="detail-count">awd
             </div>
         </article>
     </section>

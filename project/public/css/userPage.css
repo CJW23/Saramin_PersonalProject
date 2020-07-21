@@ -1,56 +1,62 @@
 
-.header{
+.header {
 
     padding: 6%;
     text-align: center;
     font-size: 35px;
     color: white;
 }
-.section{
+
+.section {
     display: -webkit-flex;
     display: flex;
-    height:42.3em;
+    height: 42.3em;
 
 }
-.nav{
+
+.nav {
     -webkit-flex: 1;
     -ms-flex: 1;
-    flex: 1.2;
-    overflow:auto;
+    flex: 1;
+    overflow: auto;
     display: block;
 }
-.article{
-/* Style the content */
+
+.article {
+    /* Style the content */
     -webkit-flex: 3;
     -ms-flex: 3;
-    flex: 3;
-    background: #f8f8f8;
     padding: 10px;
 
 }
+
 @media (max-width: 600px) {
     section {
         -webkit-flex-direction: column;
         flex-direction: column;
     }
 }
-.url-list{
+
+.url-list {
     padding: 15px 10px 15px 30px;
     width: 100%;
     border-bottom: 1px solid;
     border-bottom-color: #81e6d9;
     background: #f8f8f8;
 }
-.url-list:hover{
+
+.url-list:hover {
     background: #ffffff;
 }
-.original-url-text{
+
+.original-url-text {
     font-size: 17px;
     padding-top: 10px;
     padding-left: 1px;
     height: auto;
 }
-.shortening-url-text{
+
+.shortening-url-text {
     font-size: 13px;
     padding-top: 10px;
     padding-left: 30px;
@@ -59,46 +65,69 @@
 .nav::-webkit-scrollbar {
     width: 10px;
 }
+
 .nav::-webkit-scrollbar-thumb {
     background-color: #f8f8f8;
     border-radius: 10px;
 }
+
 .nav::-webkit-scrollbar-track {
     background-color: #f8f8f0;
     border-radius: 10px;
     box-shadow: inset 0px 0px 5px white;
 }
-.url-count{
+
+.url-count {
     font-size: 20px;
 }
-.detail-original-url{
+
+.detail-original-url {
     font-size: 40px;
 }
-.info-container{
+
+.info-container {
     font-size: 18px;
 }
-.info-list{
+
+.info-list {
     font-size: 30px;
     background-color: #ffffff;
-    border:1px solid red;
+    border: 1px solid red;
 }
-.contents input:read-only{
+
+.contents input:read-only {
     background-color: #ffffff;
 }
-.content-name{
+
+.content-name {
     font-size: 35px;
     border-bottom: 1px solid #81e6d9;
 }
-.content-div{
+
+.content-div {
     border-bottom: 1px solid #81e6d9;
     padding-bottom: 40px;
     padding-top: 10px;
 }
-.url-register-group{
+
+.url-register-group {
     margin-top: 15px;
 }
-.url-list-group{
+
+.url-list-group {
     padding-left: 0;
     margin-bottom: 0;
     list-style: none;
+}
+.url-delete-view{
+    /* Style the content */
+    -webkit-flex: 3;
+    -ms-flex: 3;
+    text-align: center;
+    align-self: center;
+    padding: 10px;
+}
+#url-count{
+    font-size: 20px;
+    color: #a0aec0;
 }

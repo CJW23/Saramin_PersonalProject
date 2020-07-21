@@ -57,4 +57,9 @@ class UserMainService
             'result' => 'false'
         ]);
     }
+
+    public function removeUserUrl($urlIdList)
+    {
+        $this->userDAO->deleteUrl($urlIdList);
+    }
 }

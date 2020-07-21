@@ -45,6 +45,9 @@ Route::put('/users/setting/nickname', 'Api\UserController@editNicknameRequest')
 Route::delete('/users/setting/delete', 'Api\UserController@dropUserRequest')
     ->middleware('auth')->name("dropUserRequest");
 
+Route::delete('/users/urls/delete', 'Web\UserMainController@deleteUserUrl')
+    ->middleware('auth')->name('deleteUserUrl');
+
 ////////////////////
 Route::get('/test', "TestController@test");
 Route::get('/test1', "TestController@test1");

@@ -41,6 +41,10 @@ class UserMainController extends Controller
         return $this->userMainService->makeUserUrl($info);
     }
 
+    public function deleteUserUrl(Request $request)
+    {   //echo json_encode($request->input('urlIdList'));
+        $this->userMainService->removeUserUrl($request->input('urlIdList'));
+    }
     public function userInfo()
     {
         return view('user.userInfo');

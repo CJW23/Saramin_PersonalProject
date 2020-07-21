@@ -40,4 +40,10 @@ class UserDAO
         DB::table("users")
             ->delete(auth()->user()->id);
     }
+
+    public function deleteUrl($urlIdList)
+    {
+        DB::table("urls")->where('user_id',auth()->user()->id)->whereIn('id',$urlIdList, 'and')
+            ->delete();
+    }
 }
