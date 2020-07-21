@@ -71,11 +71,13 @@ function requestUserCreateUrl(id) {
 }
 
 function requestUserRemoveUrl() {
+    if(confirm("정말 삭제하시겠습니까?") === false){
+        return;
+    }
     let deleteList = []
     $('input:checkbox[name=url-check]:checked').each(function() {
         deleteList.push(this.id);           //체크된 URL들 배열에 넣음
     });
-    console.log(deleteList);
     $.ajax({
         //아래 headers에 반드시 token을 추가해줘야 한다.!!!!!
         headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
@@ -86,7 +88,9 @@ function requestUserRemoveUrl() {
             'urlIdList': deleteList
         },
         success: function (data) {
-            console.log(data);
+            makeUserUrlTemplate(data);
+            $('.url-detail-view').show();
+            $('.url-delete-view').hide();
         },
         error: function (data) {
             console.log(data);
@@ -99,7 +103,9 @@ function makeUserUrlTemplate(datas) {
 
     datas.forEach(data => {
         html +=
-            "<div id='" + data['id'] + "' onclick='requestUrlDetail(this)' class='url-list'>" +
+            "<div class='url-list'>"+
+            "<input type='checkbox' id='" + data['id'] + "' name='url-check' onclick='urlCheck()' style='float: right'>" +
+            "<div id='" + data['id'] + "' onclick='requestUrlDetail(this)'>" +
             "<div class='original-url-text'>" +
             data['original_url'] +
             "</div>" +
@@ -110,6 +116,7 @@ function makeUserUrlTemplate(datas) {
             "</div>" +
             "<div class='url-count'>" +
             data['count'] + "<img src='/images/graph.png' height='25' width='25' style='float:right; margin-left: 5px;'>" +
+            "</div>" +
             "</div>" +
             "</div>" +
             "</div>" +

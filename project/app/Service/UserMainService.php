@@ -61,5 +61,6 @@ class UserMainService
     public function removeUserUrl($urlIdList)
     {
         $this->userDAO->deleteUrl($urlIdList);
+        return $this->userDAO->selectUserUrlList(auth()->user()->id);
     }
 }
