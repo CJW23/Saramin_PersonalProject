@@ -3,6 +3,7 @@
 
 namespace App\Logic;
 use Base62\Base62;
+use DOMDocument;
 
 class UrlManager
 {

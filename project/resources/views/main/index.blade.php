@@ -13,7 +13,7 @@
             <div class="input-group mb-3">
                 <input type="text" class="form-control" name="enter_url" id="enter_url" placeholder="Enter your URL">
                 <div class="input-group-append">
-                    <button onclick="requestCreateUrl()" class="btn btn-primary " type="button">Convert</button>
+                    <button onclick="requestGuestCreateUrl()" class="btn btn-primary " type="button">Convert</button>
                 </div>
             </div>
         </div>

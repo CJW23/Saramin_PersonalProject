@@ -23,6 +23,7 @@ class UrlController extends Controller
      * method: POST
      * url 변환 요청
      */
+    //Guest유저 URL은 따로 테이블을 구성할 예정
     public function createUrl(Request $request)
     {
         $info = [
@@ -32,6 +33,7 @@ class UrlController extends Controller
 
         return $this->urlService->makeUrl($info);
     }
+
 
     /*
      * Path: /url/query

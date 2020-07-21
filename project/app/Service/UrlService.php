@@ -28,29 +28,28 @@ class UrlService
         $originalUrl = $this->urlManager->convertUrl($url['url']);
 
         //유효나 도메인 체크
-        if($this->urlManager->urlExists($originalUrl))
-        {
+        if ($this->urlManager->urlExists($originalUrl)) {
             //id의 최대값+1을 base62 인코딩
-            $shorteningUrl = DOMAIN.$this->urlManager
+            $shorteningUrl = DOMAIN . $this->urlManager
                     ->encodingUrl($this->urlDAO
                             ->selectMaxId() + 1);
 
             //url 등록
             $this->urlDAO->registerUrl(
                 $url['userid'],
-                HTTP.$originalUrl,
+                HTTP . $originalUrl,
                 $this->urlManager
                     ->getQueryString($originalUrl),
                 $shorteningUrl
             );
 
             return json_encode([
-                "originalUrl" => HTTP.$originalUrl,
+                "originalUrl" => HTTP . $originalUrl,
                 "shortUrl" => $shorteningUrl
             ], JSON_UNESCAPED_SLASHES);
         }
         return json_encode([
-            "originalUrl" => HTTP.$originalUrl,
+            "originalUrl" => HTTP . $originalUrl,
             "shortUrl" => "false",
         ]);
     }

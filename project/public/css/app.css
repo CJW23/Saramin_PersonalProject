@@ -4438,8 +4438,7 @@ input[type=button].btn-block {
 }
 
 .nav {
-    display: flex;
-    flex-wrap: wrap;
+    display: block;
     padding-left: 0;
     margin-bottom: 0;
     list-style: none;

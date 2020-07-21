@@ -7,7 +7,8 @@
     <div class="row justify-content-center url-register-group" style="margin-left: 0; margin-right: 0">
         <input type="text" id="url-register" name="url-search"
                class="form-control col-4" style=" margin-left:10px; margin-right: 10px">
-        <button type="button" onclick="test()" class="btn btn-primary">검색</button>
+        <small id="url_register_help" class="form-text text-muted"></small>
+        <button type="button" onclick="requestUserCreateUrl({{Auth::user()->id}})" class="btn btn-primary">등록</button>
     </div>
 
     <header class="header">
@@ -17,32 +18,32 @@
     <div>
         <input type="text" onclick="search()" id="url-search" name="url-search" placeholder="Search"
                class="form-control col-2" style="float: left; margin-left:15px; margin-right: 10px;">
-
     </div>
     <br><br>
 
     <section class="section">
         <nav class="nav url-list-group">
             @foreach($urlLists as $urlList)
-                <a id="{{$urlList->id}}" onclick="requestUrlDetail(this)" class="url-list">
-
-                    <div class="original-url-text">
-                        {{$urlList->original_url}}
-                    </div>
-                    <div class="container">
-                        <div class="shortening-url-text row justify-content-between ">
-                            <div>
-                                {{$urlList->short_url}}
-                            </div>
-                            <div class="url-count">
-                                {{$urlList->count}}<img src="{{url('/images/graph.png')}}" height="25" width="25"
-                                                        style="float:right; margin-left: 5px;">
+                <div class="url-list">
+                    <input type="checkbox" id="delete-check" style="float: right">
+                    <div id="{{$urlList->id}}" onclick="requestUrlDetail(this)" >
+                        <div class="original-url-text">
+                            {{$urlList->original_url}}
+                        </div>
+                        <div class="container">
+                            <div class="shortening-url-text row justify-content-between ">
+                                <div>
+                                    {{$urlList->short_url}}
+                                </div>
+                                <div class="url-count">
+                                    {{$urlList->count}}<img src="{{url('/images/graph.png')}}" height="25" width="25"
+                                                            style="float:right; margin-left: 5px;">
+                                </div>
                             </div>
                         </div>
                     </div>
-                </a>
+                </div>
             @endforeach
-
         </nav>
 
         <article class="article">
@@ -80,7 +81,6 @@
                     borderWidth: 1
                 }]
             },
-
         });
     </script>
 @endsection()

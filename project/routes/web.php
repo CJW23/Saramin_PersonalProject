@@ -15,7 +15,7 @@ use Illuminate\Support\Facades\Route;
 Auth::routes();
 
 Route::get('/', 'Web\MainController@index')->name("index");
-Route::get('/test1', "TestController@test1");
+
 Route::get('/{path}', 'Web\MainController@originalUrlRedirect');
 
 Route::get('/users/{user:nickname}', 'Web\UserMainController@index')->middleware('auth')->name("dashboard");
@@ -29,6 +29,9 @@ Route::get('/users/setting/edit-info', 'Web\UserMainController@userEditInfo')->m
 Route::get('/users/setting/password', 'Web\UserMainController@userEditPassword')->middleware('auth')->name("password");
 
 Route::get('/users/setting/delete', 'Web\UserMainController@userDelete')->middleware('auth')->name("delete");
+
+Route::post('/users/urls/create', 'Web\UserMainController@createUserUrl')
+    ->middleware('auth')->name("createUserUrlRequest");
 
 Route::put('/users/setting/password', 'Api\UserController@editPasswordRequest')
     ->middleware('auth')->name("editPasswordRequest");
@@ -44,5 +47,5 @@ Route::delete('/users/setting/delete', 'Api\UserController@dropUserRequest')
 
 ////////////////////
 Route::get('/test', "TestController@test");
-
+Route::get('/test1', "TestController@test1");
 ///////////////////

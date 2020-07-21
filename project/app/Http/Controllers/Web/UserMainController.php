@@ -27,6 +27,20 @@ class UserMainController extends Controller
         ]);
     }
 
+    /*
+     * Path:/users/urls/create
+     * Method: POST
+     * user url 변환 요청
+     */
+    public function createUserUrl(Request $request)
+    {
+        $info = [
+            'url'=>$request->input('url'),
+            'userid'=>$request->input('userid')
+        ];
+        return $this->userMainService->makeUserUrl($info);
+    }
+
     public function userInfo()
     {
         return view('user.userInfo');

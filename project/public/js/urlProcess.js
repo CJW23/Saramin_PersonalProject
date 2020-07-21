@@ -1,9 +1,11 @@
 let urlData = [];
-function requestCreateUrl() {
+
+//비로그인 URL 변환
+function requestGuestCreateUrl() {
     let url = $('#enter_url').val();
 
     //URL 입력이 없을때.
-    if(url === ""){
+    if (url === "") {
         return;
     }
 
@@ -19,13 +21,12 @@ function requestCreateUrl() {
         },
         success: function (data) {
             console.log(data);
-            if(data['shortUrl'] === "false"){
+            if (data['shortUrl'] === "false") {
                 urlData.push(data);
-                makeTemplate();
-            }
-            else {
+                makeGuestUrlTemplate();
+            } else {
                 urlData.push(data);
-                makeTemplate();
+                makeGuestUrlTemplate();
             }
         },
         error: function (data) {
@@ -33,13 +34,74 @@ function requestCreateUrl() {
         }
     });
 }
-function makeTemplate(){
+
+//로그인 유저 URL 변환
+function requestUserCreateUrl(id) {
+    let url = $('#url-register').val();
+
+    //URL 입력이 없을때.
+    if (url === "") {
+        return;
+    }
+
+    $.ajax({
+        //아래 headers에 반드시 token을 추가해줘야 한다.!!!!!
+        headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+        type: 'post',
+        url: '/users/urls/create',
+        dataType: 'json',
+        data: {
+            'url': url,
+            'userid': id
+        },
+        success: function (data) {
+            console.log("result : " + data[0]['id']);
+            if (data['shortUrl'] === "false") {
+                $('#url_register_help').html("유효하지 않은 URL입니다.");
+                return 0;
+            }
+            makeUserUrlTemplate(data);
+
+        },
+        error: function (data) {
+            console.log(data);
+        }
+    });
+}
+
+function makeUserUrlTemplate(datas) {
     let html = "";
-    for(let i =0; i<urlData.length; i++){
-        if(urlData[i]['shortUrl'] === "false"){
+
+    datas.forEach(data => {
+        html +=
+            "<div id='" + data['id'] + "' onclick='requestUrlDetail(this)' class='url-list'>" +
+            "<div class='original-url-text'>" +
+            data['original_url'] +
+            "</div>" +
+            "<div class='container'>" +
+            "<div class='shortening-url-text row justify-content-between'>" +
+            "<div>" +
+            data['short_url'] +
+            "</div>" +
+            "<div class='url-count'>" +
+            data['count'] + "<img src='/images/graph.png' height='25' width='25' style='float:right; margin-left: 5px;'>"+
+            "</div>" +
+            "</div>" +
+            "</div>" +
+            "</div>"
+        console.log(html);
+    });
+
+    $(".url-list-group").html(html);
+}
+
+function makeGuestUrlTemplate() {
+    let html = "";
+    for (let i = 0; i < urlData.length; i++) {
+        if (urlData[i]['shortUrl'] === "false") {
             html +=
                 '<tr>' +
-                '<td>'+ urlData[i]["originalUrl"] +'</td>'+
+                '<td>' + urlData[i]["originalUrl"] + '</td>' +
                 '<td>유효하지 않은 URL입니다</a>' +
                 '</td>' +
                 '</tr>';
@@ -55,3 +117,4 @@ function makeTemplate(){
     html += "</table>";
     $("#urlList").html(html);
 }
+
