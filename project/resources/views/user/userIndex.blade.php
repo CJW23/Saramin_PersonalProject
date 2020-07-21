@@ -1,16 +1,28 @@
 @extends('layouts.app')
 
 @section('content')
+    <!-- URL 리스트 데이터 저장-->
     <div id="data" data-field="{{$urlLists}}}"></div>
+
+    <div class="row justify-content-center url-register-group" style="margin-left: 0; margin-right: 0">
+        <input type="text" id="url-register" name="url-search"
+               class="form-control col-4" style=" margin-left:10px; margin-right: 10px">
+        <button type="button" onclick="test()" class="btn btn-primary">검색</button>
+    </div>
+
     <header class="header">
         <canvas id="myChart" width="500" height="50"></canvas>
     </header>
-    <input type="text" id="url-search" name="url-search"
-           class="form-control col-2" style="float: left; margin-left:10px; margin-right: 10px">
-    <button type="button" onclick="test()" class="btn btn-primary">검색</button>
+
+    <div>
+        <input type="text" onclick="search()" id="url-search" name="url-search" placeholder="Search"
+               class="form-control col-2" style="float: left; margin-left:15px; margin-right: 10px;">
+
+    </div>
     <br><br>
+
     <section class="section">
-        <nav class="nav">
+        <nav class="nav url-list-group">
             @foreach($urlLists as $urlList)
                 <a id="{{$urlList->id}}" onclick="requestUrlDetail(this)" class="url-list">
 
@@ -23,7 +35,8 @@
                                 {{$urlList->short_url}}
                             </div>
                             <div class="url-count">
-                                {{$urlList->count}}<img src="{{url('/images/graph.png')}}" height="25" width="25" style="float:right; margin-left: 5px; mar">
+                                {{$urlList->count}}<img src="{{url('/images/graph.png')}}" height="25" width="25"
+                                                        style="float:right; margin-left: 5px;">
                             </div>
                         </div>
                     </div>
