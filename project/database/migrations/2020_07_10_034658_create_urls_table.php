@@ -21,7 +21,7 @@ class CreateUrlsTable extends Migration
             $table->string('query_string', 500)->nullable();
             $table->unsignedBigInteger('count')->default(0);
             $table->timestamps();
-
+            $table->unique(['user_id', 'original_url']);
             $table->foreign('user_id')->references('id')->on('users');
         });
     }

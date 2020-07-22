@@ -1,7 +1,7 @@
 
 .header {
 
-    padding: 6%;
+    padding: 1%;
     text-align: center;
     font-size: 35px;
     color: white;
@@ -10,7 +10,7 @@
 .section {
     display: -webkit-flex;
     display: flex;
-    height: 42.3em;
+    height: 36em;
 
 }
 
@@ -27,7 +27,7 @@
     -webkit-flex: 3;
     -ms-flex: 3;
     padding: 10px;
-
+    overflow: auto;
 }
 
 @media (max-width: 600px) {

@@ -17,6 +17,11 @@ class UserDAO
             ->get();
     }
 
+    public function selectUserUrl($url)
+    {
+        $result = DB::table("urls")->where('original_url', $url)->get();
+        return count($result) == 0;
+    }
     public function updateUserInfo($name)
     {
         DB::table("users")

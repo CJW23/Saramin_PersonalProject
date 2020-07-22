@@ -57,8 +57,11 @@ function requestUserCreateUrl(id) {
         },
         success: function (data) {
             console.log(data['result']);
-            if (data['result'] === "false") {
+            if (data['result'] === "not exist") {
                 $('#url_register_help').html("유효하지 않은 URL입니다.");
+                return 0;
+            } else if (data['result'] === "already exist") {
+                $('#url_register_help').html("이미 등록한 url입니다.");
                 return 0;
             }
             makeUserUrlTemplate(data);
@@ -71,11 +74,11 @@ function requestUserCreateUrl(id) {
 }
 
 function requestUserRemoveUrl() {
-    if(confirm("정말 삭제하시겠습니까?") === false){
+    if (confirm("정말 삭제하시겠습니까?") === false) {
         return;
     }
     let deleteList = []
-    $('input:checkbox[name=url-check]:checked').each(function() {
+    $('input:checkbox[name=url-check]:checked').each(function () {
         deleteList.push(this.id);           //체크된 URL들 배열에 넣음
     });
     $.ajax({
@@ -103,7 +106,7 @@ function makeUserUrlTemplate(datas) {
 
     datas.forEach(data => {
         html +=
-            "<div class='url-list'>"+
+            "<div class='url-list'>" +
             "<input type='checkbox' id='" + data['id'] + "' name='url-check' onclick='urlCheck()' style='float: right'>" +
             "<div id='" + data['id'] + "' onclick='requestUrlDetail(this)'>" +
             "<div class='original-url-text'>" +

@@ -11,7 +11,7 @@
     </div>
     <small id="url_register_help" class="row justify-content-center" style="color: red;"></small>
     <header class="header">
-        <canvas id="myChart" width="500" height="50"></canvas>
+        <canvas id="myChart" width="500" height="60"></canvas>
     </header>
 
     <div>
