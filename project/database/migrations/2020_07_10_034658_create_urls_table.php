@@ -19,6 +19,7 @@ class CreateUrlsTable extends Migration
             $table->unsignedBigInteger('user_id');
             $table->string('original_url', 500);
             $table->string('query_string', 500)->nullable();
+            $table->string('name_url', 100)->nullable();
             $table->unsignedBigInteger('count')->default(0);
             $table->timestamps();
             $table->unique(['user_id', 'original_url']);

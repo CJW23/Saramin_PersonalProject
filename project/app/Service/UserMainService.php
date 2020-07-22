@@ -37,20 +37,30 @@ class UserMainService
         //http://를 제거한 url
         $originalUrl = $this->urlManager->convertUrl($url['url']);
         //url 존재 여부
-        if (!$this->userDAO->selectUserUrl(HTTP . $originalUrl)) {
+        if (!$this->userDAO->selectUserUrl(HTTP . $originalUrl))
+        {
             return json_encode([
                 'result' => 'already exist'
             ]);
         }
         //유효나 도메인 체크
-        if ($this->urlManager->urlExists($originalUrl)) {
+        if ($this->urlManager->urlExists($originalUrl))
+        {
             //id의 최대값+1을 base62 인코딩
             $shorteningUrl = DOMAIN . $this->urlManager->encodingUrl(
                     $this->urlDAO->selectMaxId() + 1);
-            //url 등록
-            $this->urlDAO->registerUrl(
-                $url['userid'], HTTP . $originalUrl, $this->urlManager->getQueryString($originalUrl), $shorteningUrl);
 
+            //url 등록
+            if($url['nameUrl'] == "")       //URL 이름을 입력했을시
+            {
+                $this->urlDAO->registerUrl(
+                    $url['userid'], HTTP . $originalUrl, $this->urlManager->getQueryString($originalUrl), $shorteningUrl);
+            }
+            else                            //URL 이름을 입력안했을시
+            {
+                $this->urlDAO->registerUrl(
+                    $url['userid'], HTTP . $originalUrl, $this->urlManager->getQueryString($originalUrl), $shorteningUrl, $url['nameUrl']);
+            }
             return $this->userDAO->selectUserUrlList(auth()->user()->id);
         }
         //url이 유효하지 않음

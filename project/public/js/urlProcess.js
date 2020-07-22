@@ -37,11 +37,14 @@ function requestGuestCreateUrl() {
 
 //로그인 유저 URL 변환
 function requestUserCreateUrl(id) {
-    $('#url_register_help').html("");    //유효하지 않은 URL 표현 없애기(있는 경우)
+    //유효하지 않은 URL 표현 없애기(있는 경우)
+    $('#url_register_help').html("");
     let url = $('#url-register').val();
+    let nameUrl = $('#url-name-register').val();
 
     //URL 입력이 없을때.
-    if (url === "") {
+    if (url === "" || url === "http://" || url === "https://") {
+        $('#url_register_help').html("URL을 입력하세요");
         return;
     }
 
@@ -53,7 +56,8 @@ function requestUserCreateUrl(id) {
         dataType: 'json',
         data: {
             'url': url,
-            'userid': id
+            'userid': id,
+            'nameUrl': nameUrl
         },
         success: function (data) {
             console.log(data['result']);
@@ -64,6 +68,7 @@ function requestUserCreateUrl(id) {
                 $('#url_register_help').html("이미 등록한 url입니다.");
                 return 0;
             }
+            $('#url-register-modal').modal("hide");
             makeUserUrlTemplate(data);
 
         },
@@ -152,3 +157,8 @@ function makeGuestUrlTemplate() {
     $("#urlList").html(html);
 }
 
+function initModalButton() {
+    $('#url_register_help').html("");
+    $('#url-register').val("http://");
+    $('#url-name-register').val("");
+}

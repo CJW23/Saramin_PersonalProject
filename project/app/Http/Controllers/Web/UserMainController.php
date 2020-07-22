@@ -36,7 +36,8 @@ class UserMainController extends Controller
     {
         $info = [
             'url'=>$request->input('url'),
-            'userid'=>$request->input('userid')
+            'userid'=>$request->input('userid'),
+            'nameUrl'=>$request->input('nameUrl')
         ];
         return $this->userMainService->makeUserUrl($info);
     }
