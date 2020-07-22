@@ -34,7 +34,6 @@ class UserMainService
      */
     public function makeUserUrl($url)
     {
-
         //http://를 제거한 url
         $originalUrl = $this->urlManager->convertUrl($url['url']);
         //url 존재 여부
@@ -47,7 +46,7 @@ class UserMainService
         if ($this->urlManager->urlExists($originalUrl)) {
             //id의 최대값+1을 base62 인코딩
             $shorteningUrl = DOMAIN . $this->urlManager->encodingUrl(
-                $this->urlDAO->selectMaxId() + 1);
+                    $this->urlDAO->selectMaxId() + 1);
             //url 등록
             $this->urlDAO->registerUrl(
                 $url['userid'], HTTP . $originalUrl, $this->urlManager->getQueryString($originalUrl), $shorteningUrl);
