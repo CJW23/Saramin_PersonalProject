@@ -6,16 +6,21 @@ use App\DAO\UrlDAO;
 use App\Http\Controllers\Controller;
 use App\Logic\UrlManager;
 use App\Service\UrlService;
+use App\Service\UserMainService;
 use App\Url;
 use Illuminate\Http\Request;
 
 class UrlController extends Controller
 {
     private $urlService;
+    private $userMainService;
 
     public function __construct()
     {
+        define("HTTP", "http://");
+        define('DOMAIN', "localhost:8000/");
         $this->urlService = new UrlService();
+        $this->userMainService = new UserMainService();
     }
 
     /*
@@ -53,5 +58,35 @@ class UrlController extends Controller
     public function readUrlDetail(Url $url)
     {
         return $url;
+    }
+
+    /*
+     * Path:/users/urls/create
+     * Method: POST
+     * user url 변환 요청
+     */
+    public function createUserUrl(Request $request)
+    {
+        $info = [
+            'url'=>$request->input('url'),
+            'userid'=>$request->input('userid'),
+            'nameUrl'=>$request->input('nameUrl')
+        ];
+        return $this->userMainService->makeUserUrl($info);
+    }
+
+    /*
+     * Path:/users/urls/delete
+     * Method: DELETE
+     * user url 삭제 요청
+     */
+    public function deleteUserUrl(Request $request)
+    {
+        return $this->userMainService->removeUserUrl($request->input('urlIdList'));
+    }
+
+    public function totalUserUrlData()
+    {
+        return $this->userMainService->getUserTotalData();
     }
 }

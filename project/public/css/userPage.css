@@ -1,6 +1,5 @@
 
 .header {
-
     padding: 1%;
     text-align: center;
     font-size: 35px;
@@ -130,4 +129,9 @@
 #url-count{
     font-size: 20px;
     color: #a0aec0;
+}
+.total-data{
+    margin-top: 25px;
+    text-align: right;
+    color: #2c7a7b;
 }

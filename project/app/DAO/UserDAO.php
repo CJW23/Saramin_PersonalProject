@@ -22,6 +22,14 @@ class UserDAO
         $result = DB::table("urls")->where('original_url', $url)->get();
         return count($result) == 0;
     }
+
+    public function selectUserTotalData()
+    {
+        return $result = DB::table("urls")
+            ->select(DB::raw("COUNT(*) as total_num, SUM(count) as total_sum"))
+            ->where('user_id', auth()->user()->id)
+            ->get();
+    }
     public function updateUserInfo($name)
     {
         DB::table("users")

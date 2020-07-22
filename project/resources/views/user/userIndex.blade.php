@@ -15,11 +15,23 @@
        -->
     </div>
     <header class="header">
-        <canvas id="myChart" width="500" height="60"></canvas>
+        <div class="row">
+            <div class="col-1 total-data">
+                <div style="font-size: 25px" id="total-num">{{$totalData[0]->total_num}}</div>
+                <div style="font-size: 12px; margin-bottom: 25px">TOTAL URL</div>
+
+                <div style="font-size: 25px" id="total-sum">{{$totalData[0]->total_sum}}</div>
+                <div style="font-size: 12px">TOTAL CLICK</div>
+            </div>
+            <div class="col-11">
+                <canvas id="myChart" height="37"></canvas>
+            </div>
+        </div>
     </header>
 
     <div>
-        <button type="button" class="btn btn-primary col-2" onclick="initModalButton()" data-toggle="modal" data-target="#url-register-modal"
+        <button type="button" class="btn btn-primary col-2" onclick="initModalButton()" data-toggle="modal"
+                data-target="#url-register-modal"
                 data-whatever="@mdo" style="margin-left: 15px; margin-bottom: 10px">URL 등록
         </button>
         <br>

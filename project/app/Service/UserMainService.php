@@ -17,7 +17,6 @@ class UserMainService
 
     public function __construct()
     {
-        define('DOMAIN', "localhost:8000/");
         $this->urlDAO = new UrlDAO();
         $this->urlManager = new UrlManager();
         $this->userDAO = new UserDAO();
@@ -29,6 +28,13 @@ class UserMainService
         return $this->userDAO->selectUserUrlList(auth()->id());
     }
 
+    /*
+     * 유저의 변환된 URL 개수와 Click 횟수
+     */
+    public function getUserTotalData()
+    {
+        return $this->userDAO->selectUserTotalData();
+    }
     /*
      * 유저가 URL등록후 유저 URL 리스트 반환(페이지에 갱신해주기 위해)
      */

@@ -70,7 +70,7 @@ function requestUserCreateUrl(id) {
             }
             $('#url-register-modal').modal("hide");
             makeUserUrlTemplate(data);
-
+            requestTotalData(); //total 데이터 갱신
         },
         error: function (data) {
             console.log(data);
@@ -97,6 +97,7 @@ function requestUserRemoveUrl() {
         },
         success: function (data) {
             makeUserUrlTemplate(data);
+            requestTotalData();     //total데이터 갱신
             $('.url-detail-view').show();
             $('.url-delete-view').hide();
         },

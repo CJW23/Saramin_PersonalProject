@@ -30,7 +30,7 @@ Route::get('/users/setting/password', 'Web\UserMainController@userEditPassword')
 
 Route::get('/users/setting/delete', 'Web\UserMainController@userDelete')->middleware('auth')->name("delete");
 
-Route::post('/users/urls/create', 'Web\UserMainController@createUserUrl')
+Route::post('/users/urls/create', 'Api\UrlController@createUserUrl')
     ->middleware('auth')->name("createUserUrlRequest");
 
 Route::put('/users/setting/password', 'Api\UserController@editPasswordRequest')
@@ -45,8 +45,11 @@ Route::put('/users/setting/nickname', 'Api\UserController@editNicknameRequest')
 Route::delete('/users/setting/delete', 'Api\UserController@dropUserRequest')
     ->middleware('auth')->name("dropUserRequest");
 
-Route::delete('/users/urls/delete', 'Web\UserMainController@deleteUserUrl')
+Route::delete('/users/urls/delete', 'Api\UrlController@deleteUserUrl')
     ->middleware('auth')->name('deleteUserUrl');
+
+Route::get('/users/data/total', 'Api\UrlController@totalUserUrlData')
+    ->middleware('auth')->name('totalUserUrlData');
 
 ////////////////////
 Route::get('/test', "TestController@test");

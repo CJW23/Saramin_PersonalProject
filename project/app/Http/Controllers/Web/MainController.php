@@ -17,6 +17,7 @@ class MainController extends Controller
 
     public function __construct()
     {
+        define("HTTP", "http://");
         $this->mainService = new MainService();
     }
 

@@ -12,7 +12,6 @@ class UrlManager
     public function __construct()
     {
         $this->base62 = new Base62();
-        define("HTTP", "http://");
     }
 
     public function encodingUrl($url)

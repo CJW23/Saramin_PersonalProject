@@ -12,6 +12,8 @@ class UserMainController extends Controller
     private $userMainService;
     public function __construct()
     {
+        define('DOMAIN', "localhost:8000/");
+        define("HTTP", "http://");
         $this->userMainService = new UserMainService();
     }
 
@@ -22,30 +24,13 @@ class UserMainController extends Controller
 
         //사용자의 id를 통해 url 목록 가져옴
         $urlLists = $this->userMainService->getUserUrlList();
+        $totalData = $this->userMainService->getUserTotalData();
         return view('user.userIndex', [
-            'urlLists'=>$urlLists
+            'urlLists'=>$urlLists,
+            'totalData'=>$totalData
         ]);
     }
 
-    /*
-     * Path:/users/urls/create
-     * Method: POST
-     * user url 변환 요청
-     */
-    public function createUserUrl(Request $request)
-    {
-        $info = [
-            'url'=>$request->input('url'),
-            'userid'=>$request->input('userid'),
-            'nameUrl'=>$request->input('nameUrl')
-        ];
-        return $this->userMainService->makeUserUrl($info);
-    }
-
-    public function deleteUserUrl(Request $request)
-    {   //echo json_encode($request->input('urlIdList'));
-        return $this->userMainService->removeUserUrl($request->input('urlIdList'));
-    }
     public function userInfo()
     {
         return view('user.userInfo');

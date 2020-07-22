@@ -21,6 +21,24 @@ function requestUrlDetail(urlId) {
     });
 }
 
+//Total 데이터 요청
+function requestTotalData()
+{
+    $.ajax({
+        //아래 headers에 반드시 token을 추가해줘야 한다.!!!!!
+        headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+        type: 'get',
+        url: '/users/data/total',
+        dataType: 'json',
+        success: function (data) {
+            $('#total-num').html(data[0]['total_num']);
+            $('#total-sum').html(data[0]['total_sum']);
+        },
+        error: function (data) {
+            console.log(data);
+        }
+    });
+}
 //시간 데이터 포맷
 function convertDate(date) {
     let ymd = String(date).substring(0, 10);

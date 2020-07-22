@@ -14,7 +14,6 @@ class UrlService
 
     public function __construct()
     {
-        define('DOMAIN', "localhost:8000/");
         $this->urlDAO = new UrlDAO();
         $this->urlManager = new UrlManager();
     }
