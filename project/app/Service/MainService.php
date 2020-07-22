@@ -28,11 +28,12 @@ class MainService
     }
 
     //URL 접속 -> Count 증가
-    public function updateUrlCount($path)
+    public function createUrlAccess($path)
     {
         //path -> base62 decoding -> id
         $id = $this->urlManager
             ->decodingUrl($path);
-        $this->urlDAO->updateUrlCount($id);
+        $this->urlDAO->updateUrlCount($id); //count 증가
+        $this->urlDAO->createUrlAccessTime($id);    //Access 시간 등록
     }
 }

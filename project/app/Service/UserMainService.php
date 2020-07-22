@@ -49,7 +49,7 @@ class UserMainService
                 'result' => 'already exist'
             ]);
         }
-        //유효나 도메인 체크
+        //유효 도메인 체크
         if ($this->urlManager->urlExists($originalUrl))
         {
             //id의 최대값+1을 base62 인코딩

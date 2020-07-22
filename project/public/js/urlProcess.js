@@ -47,7 +47,7 @@ function requestUserCreateUrl(id) {
         $('#url_register_help').html("URL을 입력하세요");
         return;
     }
-
+    alert("awd");
     $.ajax({
         //아래 headers에 반드시 token을 추가해줘야 한다.!!!!!
         headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},

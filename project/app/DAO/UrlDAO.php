@@ -4,6 +4,7 @@
 namespace App\DAO;
 
 
+use App\Model\AccessUrl;
 use App\Url;
 use Illuminate\Support\Facades\DB;
 
@@ -41,6 +42,12 @@ class UrlDAO
             ->get();
     }
 
+    public function createUrlAccessTime($id)
+    {
+        AccessUrl::create([
+            'url_id' =>$id
+        ]);
+    }
     public function updateUrlCount($id)
     {
         DB::table('urls')->where('id', '=', $id)->increment('count');

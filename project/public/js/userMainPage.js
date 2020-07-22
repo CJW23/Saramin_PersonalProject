@@ -49,12 +49,6 @@ function convertDate(date) {
     };
 }
 
-function test() {
-    console.log($('#data').data("field"));
-    $('#data').data("field", "awd");
-    console.log($('#data').data('field'));
-}
-
 function search() {
     $(document).ready(function() {
         $("#url-search").keyup(function() {

@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\Model;
  * */
 class Url extends Model
 {
+    public $timestamps = false;
     protected $fillable = [
         'user_id',
         'original_url',
