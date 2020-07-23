@@ -24,7 +24,7 @@
     var myChart = new Chart(ctx, {
         type: 'bar',
         data: {
-            labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+            labels: "Red",
             datasets: [{
                 label: '# of Votes',
                 data: [12, 19, 3, 5, 2, 3],

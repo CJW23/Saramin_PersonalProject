@@ -74,3 +74,25 @@ function urlCheck(){
     }
 }
 
+//////한달전 날짜에서 현재 날짜까지의 리스트 구하는 함수
+function getDates(start, end) {
+    var arr=[];
+    for(dt=start; dt<=end; dt.setDate(dt.getDate()+1)){
+        arr.push(new Date(dt));
+    }
+    return arr;
+}
+function lastMonth() {
+    var d = new Date()
+    var monthOfYear = d.getMonth()
+    d.setMonth(monthOfYear - 1)
+    return d
+}
+//////
+
+var DateArr = getDates(lastMonth(), new Date())
+    .map((v)=>v.toISOString().slice(0,10))
+    .join(" ")
+    .split(' ');
+
+console.log(DateArr);
