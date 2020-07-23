@@ -1,18 +1,9 @@
 @extends('layouts.app')
 
 @section('content')
-    <!-- URL 리스트 데이터 저장-->
-    <div id="data" data-field="{{$urlLists}}}"></div>
-
+    <div id="accessData" data-field="{{$urlAccessData}}"></div>
     <div class="row justify-content-center url-register-group" style="margin-left: 0; margin-right: 0">
 
-
-    <!--
-        <input type="text" id="url-register" name="url-search"
-               class="form-control col-4" style=" margin-left:10px; margin-right: 10px">
-
-        <button type="button" onclick="requestUserCreateUrl({{Auth::user()->id}})" class="btn btn-primary">등록</button>
-       -->
     </div>
     <header class="header">
         <div class="row">
@@ -48,7 +39,7 @@
                            style="float: right">
                     <div id="{{$urlList->id}}" onclick="requestUrlDetail(this)">
                         <div class="original-url-text">
-                            {{$urlList->original_url}}
+                            {{$urlList->name}}
                         </div>
                         <div class="container">
                             <div class="shortening-url-text row justify-content-between ">
@@ -84,29 +75,8 @@
             </div>
         </article>
     </section>
-    <script type="application/javascript">
-        var ctx = document.getElementById('myChart').getContext('2d');
-        var myChart = new Chart(ctx, {
-            type: 'bar',
-            data: {
-                labels: ['Red', 'Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
-                datasets: [{
-                    label: '# of Votes',
-                    data: [12, 19, 3],
-                    backgroundColor: [
-                        'rgba(255, 99, 132, 0.2)',
-                        'rgba(54, 162, 235, 0.2)',
-                        'rgba(255, 206, 86, 0.2)',
-                    ],
-                    borderColor: [
-                        'rgba(255, 99, 132, 1)',
-                        'rgba(54, 162, 235, 1)',
-                        'rgba(255, 206, 86, 1)',
-                    ],
-                    borderWidth: 1
-                }]
-            },
-        });
+    <script>
+        makeAccessTimeData();
     </script>
 
     <!-- url 등록 modal -->
@@ -121,7 +91,6 @@
                     </button>
                 </div>
                 <div class="modal-body">
-
                     <div class="form-group">
                         <label for="recipient-name" class="col-form-label">URL</label>
                         <!-- URL 입력-->
@@ -135,7 +104,6 @@
                         <input type="text" class="form-control" id="url-name-register" name="url-name-register"
                                placeholder="Enter URL Name">
                     </div>
-
                 </div>
                 <div class="modal-footer">
                     <button type="button" onclick="requestUserCreateUrl({{Auth::user()->id}})" class="btn btn-primary">

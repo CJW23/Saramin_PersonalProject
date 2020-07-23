@@ -25,9 +25,13 @@ class UserMainService
     public function getUserUrlList()
     {
         //각 유저의 original_url, short_url 가져옴
-        return $this->userDAO->selectUserUrlList(auth()->id());
+        return $this->userDAO->selectUserUrlList();
     }
 
+    public function getUserUrlDetail($id)
+    {
+        return $this->userDAO->selectUserUrlDetail($id);
+    }
     /*
      * 유저의 변환된 URL 개수와 Click 횟수
      */
@@ -67,7 +71,7 @@ class UserMainService
                 $this->urlDAO->registerUrl(
                     $url['userid'], HTTP . $originalUrl, $this->urlManager->getQueryString($originalUrl), $shorteningUrl, $url['nameUrl']);
             }
-            return $this->userDAO->selectUserUrlList(auth()->user()->id);
+            return $this->userDAO->selectUserUrlList();
         }
         //url이 유효하지 않음
         return json_encode([
@@ -75,9 +79,13 @@ class UserMainService
         ]);
     }
 
+    public function getUserUrlAccessData()
+    {
+        return $this->userDAO->selectUrlAccessDate();
+    }
     public function removeUserUrl($urlIdList)
     {
         $this->userDAO->deleteUrl($urlIdList);
-        return $this->userDAO->selectUserUrlList(auth()->user()->id);
+        return $this->userDAO->selectUserUrlList();
     }
 }

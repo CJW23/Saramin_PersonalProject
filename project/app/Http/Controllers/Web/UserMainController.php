@@ -25,9 +25,12 @@ class UserMainController extends Controller
         //사용자의 id를 통해 url 목록 가져옴
         $urlLists = $this->userMainService->getUserUrlList();
         $totalData = $this->userMainService->getUserTotalData();
+        $urlAccessData = $this->userMainService->getUserUrlAccessData();
+
         return view('user.userIndex', [
             'urlLists'=>$urlLists,
-            'totalData'=>$totalData
+            'totalData'=>$totalData,
+            'urlAccessData'=>$urlAccessData
         ]);
     }
 

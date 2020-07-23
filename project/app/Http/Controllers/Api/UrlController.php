@@ -55,9 +55,9 @@ class UrlController extends Controller
      * Method: GET
      * 각 url의 세부사항 GET
      */
-    public function readUrlDetail(Url $url)
+    public function readUrlDetail($id)
     {
-        return $url;
+        return $this->userMainService->getUserUrlDetail($id);
     }
 
     /*

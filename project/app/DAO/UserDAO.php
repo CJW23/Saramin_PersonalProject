@@ -10,11 +10,13 @@ use Illuminate\Support\Facades\Hash;
 
 class UserDAO
 {
-    public function selectUserUrlList($userId)
+    public function selectUserUrlList()
     {
-        return DB::table("urls")->select('id','original_url', 'short_url', 'count')
-            ->where('user_id', '=', $userId)
-            ->get();
+        return
+            DB::select(
+                DB::raw("SELECT id, short_url, user_id, ifnull(name_url, original_url) as name, count
+                        FROM urls
+                        WHERE user_id = :userId"), ['userId'=>auth()->user()->id]);
     }
 
     public function selectUserUrl($url)
@@ -30,6 +32,30 @@ class UserDAO
             ->where('user_id', auth()->user()->id)
             ->get();
     }
+
+    public function selectUserUrlDetail($urlId)
+    {
+        return json_encode(
+            DB::select(
+                DB::raw("SELECT id, short_url, user_id, original_url, ifnull(name_url, original_url) as namae_url, created_at, count
+                        FROM urls
+                        WHERE id = :urlId"), ['urlId' => $urlId])
+        );
+    }
+
+    public function selectUrlAccessDate()
+    {
+        return json_encode(
+            DB::select(
+                DB::raw("SELECT date_format(access_time, '%m-%d') AS dates, SUM(1) AS count
+                        FROM access_urls, users, urls
+                        WHERE  users.id = :userid AND
+                        users.id = urls.user_id AND
+                        urls.id = access_urls.url_id AND
+                        date_format(access_time, '%Y-%m-%d') between (NOW() - INTERVAL 1 MONTH) AND NOW()
+                        GROUP BY dates"), ['userid' => auth()->user()->id]));
+    }
+
     public function updateUserInfo($name)
     {
         DB::table("users")
@@ -44,7 +70,8 @@ class UserDAO
             ->update(['nickname' => $nickname]);
     }
 
-    public function updatePassword($password){
+    public function updatePassword($password)
+    {
         User::find(auth()->user()->id)->update(['password' => Hash::make($password)]);
     }
 
@@ -56,7 +83,7 @@ class UserDAO
 
     public function deleteUrl($urlIdList)
     {
-        DB::table("urls")->where('user_id',auth()->user()->id)->whereIn('id',$urlIdList, 'and')
+        DB::table("urls")->where('user_id', auth()->user()->id)->whereIn('id', $urlIdList, 'and')
             ->delete();
     }
 }
