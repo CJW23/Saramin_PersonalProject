@@ -37,7 +37,7 @@ class UserDAO
     {
         return json_encode(
             DB::select(
-                DB::raw("SELECT id, short_url, user_id, original_url, ifnull(name_url, original_url) as namae_url, created_at, count
+                DB::raw("SELECT id, short_url, user_id, original_url, ifnull(name_url, original_url) as name_url, created_at, count
                         FROM urls
                         WHERE id = :urlId"), ['urlId' => $urlId])
         );

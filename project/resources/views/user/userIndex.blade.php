@@ -67,6 +67,8 @@
             </div>
             <div class="detail-created-time">awd
             </div>
+            <div class="detail-name-url">awd
+            </div>
             <div class="detail-original-url">awd
             </div>
             <div class="detail-short-url">wad

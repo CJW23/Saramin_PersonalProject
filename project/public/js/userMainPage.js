@@ -11,6 +11,7 @@ function requestUrlDetail(urlId) {
             let dateTime = convertDate(data[0]['created_at']);
             $('.detail-created-date').html("CREATED " + dateTime['ymd']);
             $('.detail-created-time').html("TIME " + dateTime['time']);
+            $('.detail-name-url').html(data[0]['name_url']);
             $('.detail-original-url').html(data[0]['original_url']);
             $('.detail-short-url').html(data[0]['short_url']);
             $('.detail-count').html(data[0]['count']);
