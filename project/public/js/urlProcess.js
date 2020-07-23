@@ -95,6 +95,8 @@ function requestUserRemoveUrl() {
             'urlIdList': deleteList
         },
         success: function (data) {
+            $('#exist-select').hide();
+            $('#empty-select').show();
             makeUserUrlTemplate(data);
             requestTotalData();     //total데이터 갱신
             $('.url-detail-view').show();

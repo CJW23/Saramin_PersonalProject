@@ -1,5 +1,6 @@
 //URL 상세정보 요청
 function requestUrlDetail(urlId) {
+
     let id = $(urlId).attr('id');
     $.ajax({
         //아래 headers에 반드시 token을 추가해줘야 한다.!!!!!
@@ -8,6 +9,7 @@ function requestUrlDetail(urlId) {
         url: '/url/detail/' + id,
         dataType: 'json',
         success: function (data) {
+            $('#empty-select').hide();
             let dateTime = convertDate(data[0]['created_at']);
             $('.detail-created-date').html("CREATED " + dateTime['ymd']);
             $('.detail-created-time').html("TIME " + dateTime['time']);
@@ -15,6 +17,7 @@ function requestUrlDetail(urlId) {
             $('.detail-original-url').html(data[0]['original_url']);
             $('.detail-short-url').html(data[0]['short_url']);
             $('.detail-count').html(data[0]['count']);
+            $('#exist-select').show();
         },
         error: function (data) {
             console.log(data);

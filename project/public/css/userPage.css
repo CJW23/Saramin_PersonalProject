@@ -25,7 +25,7 @@
     /* Style the content */
     -webkit-flex: 3;
     -ms-flex: 3;
-    padding: 10px;
+    padding: 50px;
     overflow: auto;
 }
 

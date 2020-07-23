@@ -5,7 +5,7 @@
     <div class="row justify-content-center url-register-group" style="margin-left: 0; margin-right: 0">
 
     </div>
-    <header class="header">
+    <header class="header" style="background-color: white">
         <div class="row">
             <div class="col-1 total-data">
                 <div style="font-size: 25px" id="total-num">{{$totalData[0]->total_num}}</div>
@@ -20,16 +20,18 @@
         </div>
     </header>
 
-    <div>
+    <div style="background-color: white">
         <button type="button" class="btn btn-primary col-2" onclick="initModalButton()" data-toggle="modal"
                 data-target="#url-register-modal"
                 data-whatever="@mdo" style="margin-left: 15px; margin-bottom: 10px">URL 등록
         </button>
         <br>
-        <input type="text" onclick="search()" id="url-search" name="url-search" placeholder="Search"
-               class="form-control col-2" style="float: left; margin-left:15px; margin-right: 10px;">
     </div>
-    <br><br>
+    <div style="background-color: white; padding-bottom: 5px">
+        <input style="margin-left:15px; display: block;" type="text" onclick="search()" id="url-search" name="url-search" placeholder="Search"
+               class="form-control col-2" style="float: left; margin-left:15px; margin-right: 10px;">
+
+    </div>
 
     <section class="section">
         <nav class="nav url-list-group">
@@ -63,17 +65,22 @@
         </article>
 
         <article class="article url-detail-view">
-            <div class="detail-created-date">awd
+            <div id="empty-select" style="color: #4dc0b5; text-align: center; margin-top:100px; font-size: 40px;">
+                Click URL
             </div>
-            <div class="detail-created-time">awd
-            </div>
-            <div class="detail-name-url">awd
-            </div>
-            <div class="detail-original-url">awd
-            </div>
-            <div class="detail-short-url">wad
-            </div>
-            <div class="detail-count">awd
+            <div id="exist-select" style="display: none">
+                <div class="detail-created-date">
+                </div>
+                <div class="detail-created-time">
+                </div>
+                <div class="detail-name-url">
+                </div>
+                <div class="detail-original-url">
+                </div>
+                <div class="detail-short-url">
+                </div>
+                <div class="detail-count">
+                </div>
             </div>
         </article>
     </section>
