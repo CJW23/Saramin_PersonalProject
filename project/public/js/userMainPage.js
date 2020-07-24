@@ -1,6 +1,5 @@
 //URL 상세정보 요청
 function requestUrlDetail(urlId) {
-
     let id = $(urlId).attr('id');
     $.ajax({
         //아래 headers에 반드시 token을 추가해줘야 한다.!!!!!

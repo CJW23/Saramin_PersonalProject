@@ -18,7 +18,6 @@ class UserDAO
                         FROM urls
                         WHERE user_id = :userId"), ['userId'=>auth()->user()->id]);
     }
-
     public function selectUserUrl($url)
     {
         $result = DB::table("urls")->where('original_url', $url)->where('user_id', auth()->user()->id)->get();
