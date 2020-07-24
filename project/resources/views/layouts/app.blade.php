@@ -18,11 +18,11 @@
     <script src="{{ asset('js/urlProcess.js') }}"></script>
     <script src="{{ asset('js/userSettingPage.js') }}"></script>
     <script src="{{ asset('js/userMainPage.js') }}"></script>
+    @yield('script')
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
 </head>
-<body>
-
+<body style="background-color: white">
 
 <div id="app">
     <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">

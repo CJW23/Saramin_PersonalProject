@@ -9,20 +9,21 @@
 .section {
     display: -webkit-flex;
     display: flex;
-    height: 36em;
+    height: 37em;
 
 }
 
 .nav {
     -webkit-flex: 1;
     -ms-flex: 1;
-    flex: 1;
+    flex: 0.677;
     overflow: auto;
     display: block;
 }
 
 .article {
     /* Style the content */
+    border-top: 1px solid #81e6d9;
     -webkit-flex: 3;
     -ms-flex: 3;
     padding: 50px;
@@ -41,24 +42,24 @@
     width: 100%;
     border-bottom: 1px solid;
     border-bottom-color: #81e6d9;
-    background: #f8f8f8;
+    color: #2c7a7b;
 }
 
 .url-list:hover {
-    background: #ffffff;
+    background: #edf2f7;
 }
 
 .original-url-text {
     font-size: 17px;
     padding-top: 10px;
-    padding-left: 1px;
+    padding-left: 0px;
     height: auto;
 }
 
 .shortening-url-text {
     font-size: 13px;
     padding-top: 10px;
-    padding-left: 30px;
+    padding-left: 0px;
 }
 
 .nav::-webkit-scrollbar {
@@ -80,8 +81,27 @@
     font-size: 20px;
 }
 
-.detail-original-url {
-    font-size: 40px;
+.detail-created-date {
+    font-size: 15px;
+    color: #2c7a7b
+}
+.detail-name-url{
+    font-size: 35px;
+    color: #5a67d8;
+
+}
+.detail-original-url{
+    font-size: 15px;
+    color: #2c7a7b;
+}
+.detail-short-url{
+    font-size: 15px;
+    margin-right: 5px;
+    color: #b7791f;
+}
+.detail-count{
+    font-size: 15px;
+    color: #2c7a7b;
 }
 
 .info-container {
@@ -114,6 +134,8 @@
 }
 
 .url-list-group {
+    border-top: 1px solid #81e6d9;
+    border-right: 1px solid #81e6d9;
     padding-left: 0;
     margin-bottom: 0;
     list-style: none;

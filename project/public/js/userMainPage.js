@@ -11,13 +11,14 @@ function requestUrlDetail(urlId) {
         success: function (data) {
             $('#empty-select').hide();
             let dateTime = convertDate(data[0]['created_at']);
-            $('.detail-created-date').html("CREATED " + dateTime['ymd']);
-            $('.detail-created-time').html("TIME " + dateTime['time']);
+            $('.detail-created-date').html("CREATED " + dateTime['ymd'] + " " + dateTime['time']);
             $('.detail-name-url').html(data[0]['name_url']);
-            $('.detail-original-url').html(data[0]['original_url']);
-            $('.detail-short-url').html(data[0]['short_url']);
-            $('.detail-count').html(data[0]['count']);
+            $('.detail-original-url').attr('href', data[0]['original_url']).html(data[0]['original_url']);
+            $('.detail-short-url').attr('href', "http://" + data[0]['short_url']).html(data[0]['short_url']);
+            $('.detail-count').html("TOTAL : "+data[0]['count']);
+            $('#short-url').val(data[0]['short_url']);
             $('#exist-select').show();
+            makeUrlAccessChart();
         },
         error: function (data) {
             console.log(data);
@@ -53,6 +54,11 @@ function convertDate(date) {
     };
 }
 
+function copyUrl() {
+    $('#short-url').select();
+    document.execCommand( 'copy' );
+}
+
 function search() {
     $(document).ready(function () {
         $("#url-search").keyup(function () {
@@ -78,85 +84,9 @@ function urlCheck() {
     }
 }
 
-function makeAccessTimeData() {
-    var ctx = document.getElementById('myChart').getContext('2d');
-    var config = createConfig();
-    new Chart(ctx, config);
-}
 
-function createConfig() {
-    let accessData = JSON.parse($('#accessData').attr('data-field'));
-    let dateArr = getDates(lastMonth(), new Date())
-        .map((v) => v.toISOString().slice(5, 10))
-        .join(" ")
-        .split(' ');
 
-    let countData = [], cnt = 0, dataLength = accessData.length;
-    console.log("accessdata: " + accessData);
-    console.log("dataArr: " + dateArr);
-    console.log("dataLength: " + dataLength);
-    for (let i = 0; i < dateArr.length; i++) {
-        //접근한 날짜가 존재하면
-        if (cnt < dataLength && accessData[cnt]['dates'] === dateArr[i]) {
-            countData.push(Number(accessData[cnt]['count']));
-            ++cnt;
-        } else {
-            countData.push(0);
-        }
-    }
-    var gridLines = {
-        display: true,
-        drawBorder: true,
-        drawOnChartArea: false,
-    }
-    return {
-        type: 'bar',
-        data: {
-            labels: dateArr,
-            datasets: [{
-                backgroundColor: colorPackage(),
-                label: 'Click',
-                data: countData,
-            }]
-        },
-        options: {
-            responsive: true,
-
-            scales: {
-                x: {
-                    gridLines: gridLines
-                },
-                y: {
-                    gridLines: gridLines,
-                    min: 0,
-                    max: 100,
-                    ticks: {
-                        stepSize: 10
-                    }
-                }
-            }
-        }
-    };
-}
-
-//////한달전 날짜에서 현재 날짜까지의 리스트 구하는 함수
-function getDates(start, end) {
-    var arr = [];
-    for (dt = start; dt <= end; dt.setDate(dt.getDate() + 1)) {
-        arr.push(new Date(dt));
-    }
-    return arr;
-}
-
-function lastMonth() {
-    var d = new Date()
-    var monthOfYear = d.getMonth()
-    d.setMonth(monthOfYear - 1)
-    return d
-}
-////////////
-
-function colorPackage(){
+function colorPackage() {
     return [
         'rgba(255, 99, 132, 0.2)',
         'rgba(54, 162, 235, 0.2)',

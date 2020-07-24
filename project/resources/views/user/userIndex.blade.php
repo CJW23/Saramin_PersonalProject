@@ -1,9 +1,12 @@
 @extends('layouts.app')
 
+@section('script')
+    <script src="{{ asset('js/chartConfig.js') }}"></script>
+@endsection
 @section('content')
     <div id="accessData" data-field="{{$urlAccessData}}"></div>
     <div class="row justify-content-center url-register-group" style="margin-left: 0; margin-right: 0">
-
+        <input type="text" id="short-url" value="awd" style="color:white;height: 0.1px;width: 0.1px; opacity: 0">
     </div>
     <header class="header" style="background-color: white">
         <div class="row">
@@ -15,21 +18,25 @@
                 <div style="font-size: 12px">TOTAL CLICK</div>
             </div>
             <div class="col-11">
-                <canvas id="myChart" height="37"></canvas>
+                <canvas id="totalAccessChart" height="37"></canvas>
             </div>
         </div>
     </header>
+    <script>
+        makeTotalAccessChart();
+    </script>
 
-    <div style="background-color: white">
-        <button type="button" class="btn btn-primary col-2" onclick="initModalButton()" data-toggle="modal"
+    <div>
+        <button type="button" class="btn btn-outline-primary col-2" onclick="initModalButton()" data-toggle="modal"
                 data-target="#url-register-modal"
                 data-whatever="@mdo" style="margin-left: 15px; margin-bottom: 10px">URL 등록
         </button>
         <br>
     </div>
-    <div style="background-color: white; padding-bottom: 5px">
-        <input style="margin-left:15px; display: block;" type="text" onclick="search()" id="url-search" name="url-search" placeholder="Search"
-               class="form-control col-2" style="float: left; margin-left:15px; margin-right: 10px;">
+    <div style="margin-bottom: 10px">
+        <input style="margin-left:15px; display: block;" type="text" onclick="search()" id="url-search"
+               name="url-search" placeholder="Search"
+               class="form-control col-2">
 
     </div>
 
@@ -69,24 +76,34 @@
                 Click URL
             </div>
             <div id="exist-select" style="display: none">
-                <div class="detail-created-date">
+                <div style="border-bottom: 1px solid #2c7a7b; padding-bottom: 30px">
+                    <div class="detail-created-date">
+                    </div>
+                    <div class="detail-name-url">
+                    </div>
+                    <a href="" class="detail-original-url">
+                    </a>
+                    <br>
+                    <div class="detail-count">
+                    </div>
+                    <br><br>
+                    <a href="" class="detail-short-url">
+                    </a>
+                    <button onclick="copyUrl()" type="button" class="btn-sm btn-outline-danger"
+                            style="border: 1px solid red">copy
+                    </button>
+
                 </div>
-                <div class="detail-created-time">
-                </div>
-                <div class="detail-name-url">
-                </div>
-                <div class="detail-original-url">
-                </div>
-                <div class="detail-short-url">
-                </div>
-                <div class="detail-count">
+                <div style="border-bottom: 1px solid #2c7a7b; padding-top: 30px; padding-bottom: 30px">
+                    <div>
+                        <canvas id="UrlAccessChart" height="50">
+
+                        </canvas>
+                    </div>
                 </div>
             </div>
         </article>
     </section>
-    <script>
-        makeAccessTimeData();
-    </script>
 
     <!-- url 등록 modal -->
     <div class="modal fade" id="url-register-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"

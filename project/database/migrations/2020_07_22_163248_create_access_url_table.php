@@ -17,7 +17,7 @@ class CreateAccessUrlTable extends Migration
             $table->id();
             $table->unsignedBigInteger('url_id');
             $table->timestamp('access_time')->default(DB::raw('CURRENT_TIMESTAMP'));
-            $table->foreign('url_id')->references('id')->on('urls');
+            $table->foreign('url_id')->references('id')->on('urls')->onDelete('cascade');
         });
     }
 
