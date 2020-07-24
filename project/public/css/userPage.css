@@ -145,8 +145,6 @@
     -webkit-flex: 3;
     -ms-flex: 3;
     text-align: center;
-    align-self: center;
-    padding: 10px;
 }
 #url-count{
     font-size: 20px;

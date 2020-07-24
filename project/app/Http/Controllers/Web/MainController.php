@@ -24,6 +24,10 @@ class MainController extends Controller
     //인덱스 페이지
     public function index()
     {
+        if(auth()->user())
+        {
+            return redirect(route('dashboard', auth()->user()->nickname));
+        }
         return view('main.index');
     }
 

@@ -21,7 +21,7 @@ class UserDAO
 
     public function selectUserUrl($url)
     {
-        $result = DB::table("urls")->where('original_url', $url)->get();
+        $result = DB::table("urls")->where('original_url', $url)->where('user_id', auth()->user()->id)->get();
         return count($result) == 0;
     }
 

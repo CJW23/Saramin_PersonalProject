@@ -15,7 +15,7 @@ function requestUrlDetail(urlId) {
             $('.detail-name-url').html(data[0]['name_url']);
             $('.detail-original-url').attr('href', data[0]['original_url']).html(data[0]['original_url']);
             $('.detail-short-url').attr('href', "http://" + data[0]['short_url']).html(data[0]['short_url']);
-            $('.detail-count').html("TOTAL : "+data[0]['count']);
+            $('.detail-count').html("TOTAL : " + data[0]['count']);
             $('#short-url').val(data[0]['short_url']);
             $('#exist-select').show();
             makeUrlAccessChart();
@@ -56,7 +56,7 @@ function convertDate(date) {
 
 function copyUrl() {
     $('#short-url').select();
-    document.execCommand( 'copy' );
+    document.execCommand('copy');
 }
 
 function search() {
@@ -83,7 +83,6 @@ function urlCheck() {
         $('.url-delete-view').hide();
     }
 }
-
 
 
 function colorPackage() {

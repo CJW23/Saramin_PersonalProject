@@ -35,10 +35,9 @@ class UrlService
 
             //url 등록
             $this->urlDAO->registerUrl(
-                $url['userid'],
+                null,
                 HTTP . $originalUrl,
-                $this->urlManager
-                    ->getQueryString($originalUrl),
+                $this->urlManager->getQueryString($originalUrl),
                 $shorteningUrl
             );
 

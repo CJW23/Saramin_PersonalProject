@@ -66,9 +66,11 @@
             @endforeach
         </nav>
 
-        <article class="url-delete-view" style="display: none">
-            <div id="url-count"></div>
-            <button onclick="requestUserRemoveUrl()" type="button" class="btn btn-outline-danger col-1">삭제</button>
+        <article class="url-delete-view article" style="display: none">
+            <div>
+                <div id="url-count"></div>
+                <button onclick="requestUserRemoveUrl()" type="button" class="btn btn-outline-danger col-1">삭제</button>
+            </div>
         </article>
 
         <article class="article url-detail-view">
