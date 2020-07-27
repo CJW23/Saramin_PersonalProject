@@ -14,10 +14,12 @@ class UserDAO
     {
         return
             DB::select(
-                DB::raw("SELECT id, short_url, user_id, ifnull(name_url, original_url) as name, count
+                DB::raw(
+                    "SELECT id, short_url, user_id, ifnull(name_url, original_url) as name, count
                         FROM urls
-                        WHERE user_id = :userId"), ['userId'=>auth()->user()->id]);
+                        WHERE user_id = :userId"), ['userId' => auth()->user()->id]);
     }
+
     public function selectUserUrl($url)
     {
         $result = DB::table("urls")->where('original_url', $url)->where('user_id', auth()->user()->id)->get();
@@ -36,23 +38,37 @@ class UserDAO
     {
         return json_encode(
             DB::select(
-                DB::raw("SELECT id, short_url, user_id, original_url, ifnull(name_url, original_url) as name_url, created_at, count
+                DB::raw(
+                    "SELECT id, short_url, user_id, original_url, ifnull(name_url, original_url) as name_url, created_at, count
                         FROM urls
                         WHERE id = :urlId"), ['urlId' => $urlId])
         );
     }
 
-    public function selectUrlAccessDate()
+    public function selectTotalUrlAccessData()
     {
         return json_encode(
             DB::select(
-                DB::raw("SELECT date_format(access_time, '%m-%d') AS dates, SUM(1) AS count
+                DB::raw(
+                    "SELECT date_format(access_time, '%m-%d') AS dates, SUM(1) AS count
                         FROM access_urls, users, urls
                         WHERE  users.id = :userid AND
                         users.id = urls.user_id AND
                         urls.id = access_urls.url_id AND
                         date_format(access_time, '%Y-%m-%d') between (NOW() - INTERVAL 1 MONTH) AND NOW()
                         GROUP BY dates"), ['userid' => auth()->user()->id]));
+    }
+
+    public function selectIndividualUrlAccessData($urlId)
+    {
+        return
+            DB::select(
+                DB::raw(
+                    "SELECT date_format(access_time, '%m-%d') AS dates, SUM(1) AS count
+                        FROM access_urls
+                        WHERE access_urls.url_id = :urlid AND
+                        date_format(access_time, '%Y-%m-%d') between (NOW() - INTERVAL 1 MONTH) AND NOW()
+                        GROUP BY dates;"), ['urlid' => $urlId]);
     }
 
     public function updateUserInfo($name)

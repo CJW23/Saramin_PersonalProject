@@ -18,6 +18,6 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::post('/create', 'Api\UrlController@createUrl');
-Route::get('/query', 'Api\UrlController@readUrlQueryString');
-Route::get('/detail/{id}', 'Api\UrlController@readUrlDetail');
+Route::post('/create', 'Api\UrlApiController@createUrl');
+Route::get('/query', 'Api\UrlApiController@readUrlQueryString');
+Route::get('/detail/{id}', 'Api\UrlApiController@readUrlDetail');

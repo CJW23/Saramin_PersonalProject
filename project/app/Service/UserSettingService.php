@@ -6,7 +6,7 @@ namespace App\Service;
 
 use App\DAO\UserDAO;
 
-class UserService
+class UserSettingService
 {
     private $userDAO;
     public function __construct()

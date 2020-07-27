@@ -34,14 +34,6 @@ class UrlDAO
             ->get();
     }
 
-    public function selectQueryStringUrl($id)
-    {
-        return DB::table('urls')
-            ->select('query_string')
-            ->where('id', '=',  $id)
-            ->get();
-    }
-
     public function createUrlAccessTime($id)
     {
         AccessUrl::create([

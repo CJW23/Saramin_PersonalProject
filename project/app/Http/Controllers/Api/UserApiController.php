@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Exceptions\SamePasswordException;
 use App\Http\Controllers\Controller;
 use App\Rules\MatchOldPassword;
-use App\Service\UserService;
+use App\Service\UserSettingService;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -13,7 +13,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Session;
 use Mosquitto\Exception;
 
-class UserController extends Controller
+class UserApiController extends Controller
 {
     private $userService;
 
@@ -22,7 +22,7 @@ class UserController extends Controller
         define('SAME_PASSWORD', 1);
         define('WRONG_PASSWORD', 2);
         define('CORRECT_PASSWORD', 3);
-        $this->userService = new UserService();
+        $this->userService = new UserSettingService();
     }
     /*
      * 회원 정보 수정 Request

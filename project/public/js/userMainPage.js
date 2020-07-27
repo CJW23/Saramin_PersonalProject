@@ -10,6 +10,7 @@ function requestUrlDetail(urlId) {
         success: function (data) {
             $('#empty-select').hide();
             let dateTime = convertDate(data[0]['created_at']);
+            $('#urlId').attr('data-field', data[0]['id']);
             $('.detail-created-date').html("CREATED " + dateTime['ymd'] + " " + dateTime['time']);
             $('.detail-name-url').html(data[0]['name_url']);
             $('.detail-original-url').attr('href', data[0]['original_url']).html(data[0]['original_url']);
@@ -83,6 +84,26 @@ function urlCheck() {
     }
 }
 
+function requestUrlAccessData() {
+    let id = $('#urlId').attr('data-field');
+    let result;
+    $.ajax({
+        //아래 headers에 반드시 token을 추가해줘야 한다.!!!!!
+        headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+        type: 'get',
+        url: '/users/data/url/' + id,
+        dataType: 'json',
+        async: false,
+        success: function (data) {
+            result = data;
+        },
+        error: function (data) {
+            console.log(data);
+            result = {'rst': 'false'};
+        }
+    });
+    return result;
+}
 
 function colorPackage() {
     return [

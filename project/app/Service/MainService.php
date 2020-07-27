@@ -36,4 +36,38 @@ class MainService
         $this->urlDAO->updateUrlCount($id); //count 증가
         $this->urlDAO->createUrlAccessTime($id);    //Access 시간 등록
     }
+
+    /*
+     * Table 최대 id 값에 1을 더한 값을 Base62 인코딩
+    */
+    public function makeUrl($url)
+    {
+        //http://를 제거한 url
+        $originalUrl = $this->urlManager->convertUrl($url['url']);
+
+        //유효나 도메인 체크
+        if ($this->urlManager->urlExists($originalUrl)) {
+            //id의 최대값+1을 base62 인코딩
+            $shorteningUrl = DOMAIN . $this->urlManager
+                    ->encodingUrl($this->urlDAO
+                            ->selectMaxId() + 1);
+
+            //url 등록
+            $this->urlDAO->registerUrl(
+                null,
+                HTTP . $originalUrl,
+                $this->urlManager->getQueryString($originalUrl),
+                $shorteningUrl
+            );
+
+            return json_encode([
+                "originalUrl" => HTTP . $originalUrl,
+                "shortUrl" => $shorteningUrl
+            ], JSON_UNESCAPED_SLASHES);
+        }
+        return json_encode([
+            "originalUrl" => HTTP . $originalUrl,
+            "shortUrl" => "false",
+        ]);
+    }
 }

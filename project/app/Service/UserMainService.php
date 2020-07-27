@@ -79,13 +79,19 @@ class UserMainService
         ]);
     }
 
-    public function getUserUrlAccessData()
+    public function getTotalUrlAccessData()
     {
-        return $this->userDAO->selectUrlAccessDate();
+        return $this->userDAO->selectTotalUrlAccessData();
     }
     public function removeUserUrl($urlIdList)
     {
         $this->userDAO->deleteUrl($urlIdList);
         return $this->userDAO->selectUserUrlList();
+    }
+
+    public function getIndividualUrlAccessData($urlId)
+    {
+        $a = $this->userDAO->selectIndividualUrlAccessData($urlId);
+        return $a;
     }
 }

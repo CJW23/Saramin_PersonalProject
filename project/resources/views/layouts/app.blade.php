@@ -8,6 +8,7 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>SaraminURL</title>
     <link rel="stylesheet" href="{{ asset('css/userPage.css')}}">
+    <link rel="stylesheet" href="{{ asset('css/adminPage.css')}}">
     <link rel="stylesheet" href="{{mix('css/tailwind.css')}}">
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}"></script>
@@ -16,13 +17,14 @@
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <!-- Fonts -->
     <script src="{{ asset('js/urlProcess.js') }}"></script>
+    <script src="{{ asset('js/urlProcess.js') }}"></script>
     <script src="{{ asset('js/userSettingPage.js') }}"></script>
     <script src="{{ asset('js/userMainPage.js') }}"></script>
     @yield('script')
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
 </head>
-<body style="background-color: white">
+<body style="background-color: white; height: 100%">
 
 <div id="app">
     <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
@@ -54,8 +56,7 @@
                                 <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
                             </li>
                         @endif
-                    @else
-
+                    @elseif(auth()->user()->admin == 1)
                         <div class="nav-item dropdown show">
                             <a id="navbarDropdown" class="nav-link dropdown-toggle" role="button" data-toggle="dropdown"
                                aria-haspopup="true" aria-expanded="false" v-pre>
@@ -63,7 +64,33 @@
                             </a>
 
                             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                                <a class="dropdown-item" href="{{ route('dashboard',[Auth::user()->nickname]) }}">
+                                <a class="dropdown-item" href="{{ route('dashboard') }}">
+                                    URL 관리
+                                </a>
+                                <a class="dropdown-item" href="{{ route('info') }}">
+                                    사용자 관리
+                                </a>
+                                <a class="dropdown-item" href="{{ route('logout') }}"
+                                   onclick="event.preventDefault();
+                                                         document.getElementById('logout-form').submit();"
+                                   style="border-top: 1px solid #81e6d9;">
+                                    {{ __('Logout') }}
+                                </a>
+                                <form id="logout-form" action="{{ route('logout') }}" method="POST"
+                                      style="display: none;">
+                                    @csrf
+                                </form>
+                            </div>
+                        </div>
+                    @else
+                        <div class="nav-item dropdown show">
+                            <a id="navbarDropdown" class="nav-link dropdown-toggle" role="button" data-toggle="dropdown"
+                               aria-haspopup="true" aria-expanded="false" v-pre>
+                                {{ Auth::user()->nickname }} <span class="caret"></span>
+                            </a>
+
+                            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                                <a class="dropdown-item" href="{{ route('dashboard') }}">
                                     DashBoard
                                 </a>
                                 <a class="dropdown-item" href="{{ route('info') }}">
@@ -87,9 +114,9 @@
         </div>
     </nav>
 </div>
-    <main>
-        @yield('content')
-    </main>
+<main>
+    @yield('content')
+</main>
 
 </body>
 </html>

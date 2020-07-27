@@ -20,7 +20,6 @@ function requestGuestCreateUrl() {
             'userid': 1
         },
         success: function (data) {
-            console.log(data);
             if (data['shortUrl'] === "false") {
                 urlData.push(data);
                 makeGuestUrlTemplate();
@@ -59,7 +58,6 @@ function requestUserCreateUrl(id) {
             'nameUrl': nameUrl
         },
         success: function (data) {
-            console.log(data['result']);
             if (data['result'] === "not exist") {
                 $('#url_register_help').html("유효하지 않은 URL입니다.");
                 return 0;

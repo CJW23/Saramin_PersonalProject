@@ -78,6 +78,7 @@
                 Click URL
             </div>
             <div id="exist-select" style="display: none">
+                <div id="urlId" data-field=""></div>
                 <div style="border-bottom: 1px solid #2c7a7b; padding-bottom: 30px">
                     <div class="detail-created-date">
                     </div>

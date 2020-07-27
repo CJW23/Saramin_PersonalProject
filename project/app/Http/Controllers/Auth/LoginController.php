@@ -41,7 +41,6 @@ class LoginController extends Controller
 
     protected function authenticated(Request $request, $users)
     {
-        echo auth()->user();
-        return redirect('/users/'.auth()->user()->nickname); //put your redirect url here
+        return redirect('/users'); //put your redirect url here
     }
 }
