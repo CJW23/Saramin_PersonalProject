@@ -2,13 +2,17 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Exceptions\AlreadyExistException;
+use App\Exceptions\NotExistException;
 use App\Http\Controllers\Controller;
+use App\Logic\UrlManager;
 use App\Service\AdminService;
 use Illuminate\Http\Request;
 
 class AdminApiController extends Controller
 {
     private $adminService;
+
 
     public function __construct()
     {
@@ -55,6 +59,41 @@ class AdminApiController extends Controller
             echo $e;
             return [
                 'result' => 'false'
+            ];
+        }
+    }
+
+    public function deleteUrl($urlId)
+    {
+        try {
+            $this->adminService->adminRemoveUrl($urlId);
+            return [
+                'result' => 'true'
+            ];
+        } catch (\Exception $e) {
+            return [
+                'result' => 'false'
+            ];
+        }
+    }
+
+    public function createBanUrl(Request $request)
+    {
+        $url = $request->input('url');
+        try {
+            $this->adminService->adminRegisterUrl($url);
+            return [
+                'result' => 'true'
+            ];
+        } catch (AlreadyExistException $e) {
+            return [
+                'result' => 'false',
+                'msg' => $e
+            ];
+        } catch (NotExistException $e){
+            return [
+                'result' => 'false',
+                'msg' => $e
             ];
         }
     }

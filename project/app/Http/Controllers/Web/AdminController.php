@@ -40,7 +40,7 @@ class AdminController extends Controller
     {
         try {
             $users = DB::table("users")->paginate(10);
-            return view('admin.adminManageUser', ['users'=>$users]);
+            return view('admin.adminUser', ['users'=>$users]);
         } catch (\Exception $e) {
             return view('error');
         }
@@ -49,7 +49,8 @@ class AdminController extends Controller
     public function manageUrl()
     {
         try {
-            return view('admin.adminManageUrl');
+            $urls = $this->adminService->adminGetUrls();
+            return view('admin.adminUrl', ['urls'=>$urls]);
         } catch (\Exception $e){
             return view('error');
         }

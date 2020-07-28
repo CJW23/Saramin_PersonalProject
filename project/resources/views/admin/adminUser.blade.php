@@ -2,9 +2,9 @@
 
 @section('menu')
     <a href="{{Route("adminIndex")}}" class="list-group-item list-group-item-action">통계</a>
-    <a href="{{Route("adminManageUser")}}" class="list-group-item list-group-item-action"
+    <a href="{{Route("adminUser")}}" class="list-group-item list-group-item-action"
        style="border-left: 2px solid red">유저 관리</a>
-    <a href="{{Route("adminManageUrl")}}" class="list-group-item list-group-item-action">URL 관리</a>
+    <a href="{{Route("adminUrl")}}" class="list-group-item list-group-item-action">URL 관리</a>
 @endsection
 @section('script')
     <script src="{{ asset('js/adminUserManage.js') }}"></script>

@@ -19,7 +19,7 @@ Route::prefix('/admin')->middleware('admin.auth')->group(function () {
         ->name("adminIndex");
 
     Route::get('/users', "Web\AdminController@manageUser")
-        ->name("adminManageUser");
+        ->name("adminUser");
 
     Route::delete('/users/{userId}', "Api\AdminApiController@deleteUser")
         ->name("adminDeleteUser");
@@ -31,7 +31,13 @@ Route::prefix('/admin')->middleware('admin.auth')->group(function () {
         ->name("adminWithdrawAuth");
 
     Route::get('/urls', "Web\AdminController@manageUrl")
-        ->name("adminManageUrl");
+        ->name("adminUrl");
+
+    Route::delete('/urls/{urlId}', "Api\AdminApiController@deleteUrl")
+        ->name("adminDeleteUrl");
+
+    Route::post('/ban', "Api\AdminApiController@createBanUrl")
+        ->name("adminCreateBanUrl");
 });
 
 

@@ -4,6 +4,7 @@
 namespace App\DAO;
 
 
+use App\Model\BanUrl;
 use App\User;
 use Illuminate\Support\Facades\DB;
 
@@ -89,5 +90,36 @@ class AdminRepository
         DB::table("users")
             ->where('id', $userId)
             ->update(['admin' => 0]);
+    }
+
+    public function selectAdminUrls()
+    {
+        return DB::table('urls')
+            ->leftJoin('users', 'urls.user_id', '=', 'users.id')
+            ->select('urls.id', 'short_url', DB::raw("ifnull(users.email, 'GUEST') AS email"), "original_url", "count", "urls.created_at")
+            ->paginate(10);
+
+    }
+
+    public function deleteUrl($urlId)
+    {
+        return DB::table('urls')
+            ->delete($urlId);
+    }
+
+    public function insertAdminBanUrl(string $url)
+    {
+        BanUrl::create([
+            "url" => $url
+        ]);
+    }
+
+    public function selectAdminUrl(string $url)
+    {
+        $checkUrl =
+            DB::table('ban_urls')
+                ->where('url', '=', $url)
+                ->get();
+        return count($checkUrl) == 0;
     }
 }
