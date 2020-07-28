@@ -8,3 +8,11 @@
 .admin-total-text {
     margin-top: 10px;
 }
+.admin-chart{
+    border: 1px solid #ced4da;
+    border-radius: 0.25rem
+}
+.user{
+    background-color: #ffffff;
+}
+

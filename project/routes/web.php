@@ -14,8 +14,26 @@ use Illuminate\Support\Facades\Route;
 */
 Auth::routes();
 
-Route::get('/admin', "Web\AdminController@index")
-    ->middleware('admin.auth');
+Route::prefix('/admin')->middleware('admin.auth')->group(function () {
+    Route::get('/', "Web\AdminController@index")
+        ->name("adminIndex");
+
+    Route::get('/users', "Web\AdminController@manageUser")
+        ->name("adminManageUser");
+
+    Route::delete('/users/{userId}', "Api\AdminApiController@deleteUser")
+        ->name("adminDeleteUser");
+
+    Route::put('/users/give-auth/{userId}', "Api\AdminApiController@giveAuth")
+        ->name("adminGiveAuth");
+
+    Route::put('/users/withdraw-auth/{userId}', "Api\AdminApiController@withdrawAuth")
+        ->name("adminWithdrawAuth");
+
+    Route::get('/urls', "Web\AdminController@manageUrl")
+        ->name("adminManageUrl");
+});
+
 
 Route::get('/', 'Web\MainController@index')->middleware('guest.check')
     ->name("index");
@@ -62,8 +80,10 @@ Route::prefix('/users')->middleware('user.auth')->group(function () {
 
     Route::get('/data/url/{urlId}', 'Api\UrlApiController@individualUserUrlData');
 });
-
+Route::get('/test/makeuser', "TestController@makeuser");
+Route::post('/test/makeurl', "TestController@makeurl");
 Route::get('/{path}', 'Web\MainController@originalUrlRedirect');
+
 ////////////////////
 Route::get('/test', "TestController@test");
 Route::get('/test1', "TestController@test1");

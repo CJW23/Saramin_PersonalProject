@@ -2,26 +2,29 @@
 
 namespace App\Http\Controllers;
 use App\Logic\UrlManager;
+use App\User;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Http\Request;
 
 
 class TestController extends Controller
 {
-    public function test(){
-        $urlManager = new UrlManager();
-
-        if($urlManager->urlExists())
+    public function makeuser()
+    {
+        for($i = 0; $i<100; $i++)
         {
-            return "true";
+            $tmp = "tset".$i;
+            $num = mt_rand(0, 1);
+            User::create([
+                'name'=>$tmp,
+                'email'=>$tmp,
+                'password'=>$tmp,
+                'nickname'=>$tmp,
+                'phone'=>$tmp,
+                'admin'=>$num
+            ]);
         }
-        else
-        {
-            return 'false';
-        }
-    }
-
-    public function test1(){
-        return view('test');
+        return view('error');
     }
 }

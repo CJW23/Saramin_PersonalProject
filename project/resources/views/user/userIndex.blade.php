@@ -4,7 +4,7 @@
     <script src="{{ asset('js/chartConfig.js') }}"></script>
 @endsection
 @section('content')
-    <div id="accessData" data-field="{{$urlAccessData}}"></div>
+    <div id="access-data" data-field="{{$urlAccessData}}"></div>
     <div class="row justify-content-center url-register-group" style="margin-left: 0; margin-right: 0">
         <input type="text" id="short-url" value="awd" style="color:white;height: 0.1px;width: 0.1px; opacity: 0">
     </div>

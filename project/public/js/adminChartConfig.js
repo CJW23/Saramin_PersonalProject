@@ -1,24 +1,23 @@
-function makeUserCountChart() {
-    let ctx = document.getElementById('day-url-count').getContext('2d');
-    let config = createUserCountChartConfig();
-    new Chart(ctx, config);
+function makeChart() {
+    let dayUrlDataSet = makeData(JSON.parse($('#day-url-data').attr('data-field')));
+    let dayUserDataSet = makeData(JSON.parse($('#day-user-data').attr('data-field')));
+
+    new Chart(document.getElementById('day-url-count').getContext('2d'),
+        createDayUrlCountChartConfig(dayUrlDataSet));
+    new Chart(document.getElementById('day-user-count').getContext('2d'),
+        createDayUserCountChartConfig(dayUserDataSet));
 }
 
-function createUserCountChartConfig() {
-    let gridLines = {
-        display: true,
-        drawBorder: true,
-        drawOnChartArea: false,
-    }
-
+function createDayUrlCountChartConfig(dataSet) {
+    console.log(dataSet);
     return {
-        type: 'bar',
+        type: 'line',
         data: {
-            labels: ['a', 'b', 'c'],
+            labels: dataSet['dateArr'],
             datasets: [{
                 backgroundColor: colorPackage(),
                 label: 'Click',
-                data: [1, 2, 3],
+                data: dataSet['countData'],
                 barPercentage: 1,
                 barThickness: 6,
                 maxBarThickness: 8,
@@ -26,21 +25,67 @@ function createUserCountChartConfig() {
             }]
         },
         options: {
-            responsive: true,
-
             scales: {
-                x: {
-                    gridLines: gridLines
-                },
-                y: {
-                    gridLines: gridLines,
-                    min: 0,
-                    max: 100,
+                xAxes: [{
+                    gridLines: gridLinesConfig()
+                }],
+                yAxes: [{
+                    gridLines: gridLinesConfig(),
+                    scaleLabel: {
+                        display: true,
+                    },
                     ticks: {
-                        stepSize: 10
+                        min: 0,
+                        stepSize: 1
                     }
-                }
+
+                }]
             }
         }
+    };
+}
+
+function createDayUserCountChartConfig(dataSet) {
+    console.log(dataSet);
+    return {
+        type: 'bar',
+        data: {
+            labels: dataSet['dateArr'],
+            datasets: [{
+                backgroundColor: colorPackage(),
+                label: 'Click',
+                data: dataSet['countData'],
+                barPercentage: 1,
+                barThickness: 6,
+                maxBarThickness: 8,
+                minBarLength: 0
+            }]
+        },
+        options: {
+            scales: {
+                xAxes: [{
+                    gridLines: gridLinesConfig()
+                }],
+                yAxes: [{
+                    gridLines: gridLinesConfig(),
+                    scaleLabel: {
+                        display: true,
+                    },
+                    ticks: {
+                        min: 0,
+                        stepSize: 1
+                    }
+
+                }]
+            }
+        }
+    };
+}
+
+function gridLinesConfig(){
+    return {
+        display: true,
+        drawBorder: true,
+        drawOnChartArea: false,
     };
 }

@@ -4,6 +4,7 @@
 namespace App\DAO;
 
 
+use App\User;
 use Illuminate\Support\Facades\DB;
 
 class AdminRepository
@@ -40,5 +41,53 @@ class AdminRepository
             DB::raw(
                 "SELECT COUNT(1) AS url_access_count
                     FROM access_urls"));
+    }
+
+    /**
+     * 관리자 창에 출력할 7일간 일별 생성된 URL 횟수
+     */
+    public function selectAdminDayUrlCount()
+    {
+        return json_encode(
+            DB::select(
+                DB::raw(
+                    "SELECT date_format(created_at, '%m-%d') AS dates, COUNT(1) AS count
+                    FROM urls
+                    WHERE date_format(created_at, '%Y-%m-%d') BETWEEN (NOW() - INTERVAL 7 DAY) AND NOW()
+                    GROUP BY dates")));
+    }
+
+    /**
+     * 관리자 창에 출력할 7일간 일별 생성된 회원
+     */
+    public function selectAdminDayUserCount()
+    {
+        return json_encode(
+            DB::select(
+                DB::raw(
+                    "SELECT date_format(created_at, '%m-%d') AS dates, COUNT(1) AS count
+                    FROM users
+                    WHERE date_format(created_at, '%Y-%m-%d') BETWEEN (NOW() - INTERVAL 7 DAY) AND NOW()
+                    GROUP BY dates")));
+    }
+
+    public function deleteUser($userId)
+    {
+        DB::table("users")
+            ->delete($userId);
+    }
+
+    public function giveAuth($userId)
+    {
+        DB::table("users")
+            ->where('id', $userId)
+            ->update(['admin' => 1]);
+    }
+
+    public function withdrawAuth($userId)
+    {
+        DB::table("users")
+            ->where('id', $userId)
+            ->update(['admin' => 0]);
     }
 }

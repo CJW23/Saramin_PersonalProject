@@ -16,7 +16,7 @@
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <!-- Fonts -->
-    <script src="{{ asset('js/urlProcess.js') }}"></script>
+    <script src="{{ asset('js/makeData.js') }}"></script>
     <script src="{{ asset('js/urlProcess.js') }}"></script>
     <script src="{{ asset('js/userSettingPage.js') }}"></script>
     <script src="{{ asset('js/userMainPage.js') }}"></script>
