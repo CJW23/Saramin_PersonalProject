@@ -24,12 +24,14 @@ class AdminController extends Controller
             $totalAccessUrl = $this->adminService->adminTotalUrlAccessCount();
             $dayUrlCount = $this->adminService->adminDayUrlCount();
             $dayUserCount = $this->adminService->adminDayUserCount();
+            $dayAccessUrlCount = $this->adminService->adminDayAccessUrlCount();
             return view('admin.adminIndex', [
                 "totalUser" => $totalUser,
                 "totalUrl" => $totalUrl,
                 "totalAccessUrl" => $totalAccessUrl,
                 "dayUrlCount" => $dayUrlCount,
-                "dayUserCount" => $dayUserCount
+                "dayUserCount" => $dayUserCount,
+                "dayAccessUrlCount" =>$dayAccessUrlCount
             ]);
         } catch (\Exception $e) {
             return view('error');

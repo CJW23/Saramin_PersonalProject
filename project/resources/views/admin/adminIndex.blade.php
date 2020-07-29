@@ -13,23 +13,24 @@
 @section('contents')
     <div id="day-url-data" data-field="{{$dayUrlCount}}"></div>
     <div id="day-user-data" data-field="{{$dayUserCount}}"></div>
+    <div id="day-access-url-data" data-field="{{$dayAccessUrlCount}}"></div>
     <div class="container">
         <div class="admin-content row align-items-center justify-content-center">
             <div class=" form-control shadow-sm col-4" style="font-size:20px; height: 100px">
                 <div class="admin-total-text">
-                    총 유저수<br>
+                    유저수<br>
                     {{$totalUser[0]->user_count}}
                 </div>
             </div>
             <div class=" form-control shadow-sm col-4" style="font-size:20px; height: 100px">
                 <div class="admin-total-text">
-                    총 URL<br>
+                    URL<br>
                     {{$totalUrl[0]->url_count}}
                 </div>
             </div>
             <div class=" form-control shadow-sm col-4" style="font-size:20px; height: 100px">
                 <div class="admin-total-text">
-                    총 이용수<br>
+                    URL 접근<br>
                     {{$totalAccessUrl[0]->url_access_count}}
                 </div>
             </div>
@@ -47,6 +48,14 @@
                     7일간 회원가입
                 </div>
                 <canvas id="day-user-count" height="200"></canvas>
+            </div>
+        </div>
+        <div class="row justify-content-center">
+            <div class="admin-chart col-12 shadow-sm">
+                <div style="text-align: center; font-size: 15px">
+                    7일간 URL 접근 수
+                </div>
+                <canvas id="day-access-url-count" height="100"></canvas>
             </div>
         </div>
         <script>makeChart();</script>

@@ -98,4 +98,9 @@ class AdminService
     {
         $this->adminRepository->deleteBanUrl($banUrlId);
     }
+
+    public function adminDayAccessUrlCount()
+    {
+        return $this->adminRepository->selectAdminDayAccessUrlCount();
+    }
 }

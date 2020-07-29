@@ -183,5 +183,16 @@ class AdminRepository
                 ->paginate(10);
         }
     }
+
+    public function selectAdminDayAccessUrlCount()
+    {
+        return json_encode(
+            DB::select(
+                DB::raw(
+                    "SELECT date_format(access_time, '%m-%d') AS dates, COUNT(1) AS count
+                        FROM access_urls
+                        WHERE date_format(access_time, '%Y-%m-%d') BETWEEN (NOW() - INTERVAL 7 DAY) AND NOW()
+                        GROUP BY dates")));
+    }
 }
 

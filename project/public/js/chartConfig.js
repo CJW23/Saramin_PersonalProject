@@ -68,7 +68,7 @@ function createUrlAccessChartConfig(dataSet) {
                     },
                     ticks: {
                         min: 0,
-                        stepSize: 1
+                        maxTicksLimit: 10
                     }
 
                 }]
@@ -110,7 +110,7 @@ function createTotalAccessChartConfig(accessData) {
                     },
                     ticks: {
                         min: 0,
-                        stepSize: 1
+                        maxTicksLimit: 10
                     }
 
                 }]
