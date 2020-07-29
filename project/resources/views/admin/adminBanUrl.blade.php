@@ -14,20 +14,13 @@
 @section('contents')
 
     <div>
-        <div id="user-search-help" class="invalid-feedback">
+        <div id="url-ban-search-help" class="invalid-feedback">
         </div>
 
-        <form action="" method="get" onsubmit="return checkUserSelector()">
-
+        <form action="" method="get" onsubmit="return checkBanUrlSelector()">
             <div class="input-group mb-3">
                 <button class="btn btn-outline-primary col-1" type="button" data-toggle="modal" data-target="#register-ban-url-modal">등록</button>&ensp;
-                <select class="col-1 custom-select" name="keyword" id="keyword">
-                    <option selected value="total">전체</option>
-                    <option value="name">이름</option>
-                    <option value="email">이메일</option>
-                    <option value="nickname">닉네임</option>
-                </select>
-                <input type="text" id="search" name="search" class="col-3 form-control">
+                <input type="text" id="url-ban-search" name="url-ban-search" class="col-3 form-control">
                 &ensp;
                 <button type="submit" class="btn btn-primary">검색</button>
 

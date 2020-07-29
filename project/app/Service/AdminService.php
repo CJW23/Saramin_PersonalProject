@@ -89,9 +89,9 @@ class AdminService
         $this->adminRepository->insertAdminBanUrl(HTTP . $originalUrl);
     }
 
-    public function adminGetBanUrls($info)
+    public function adminGetBanUrls($search)
     {
-        return $this->adminRepository->selectAdminBanUrls($info);
+        return $this->adminRepository->selectAdminBanUrls($search);
     }
 
     public function adminRemoveBanUrl($banUrlId)

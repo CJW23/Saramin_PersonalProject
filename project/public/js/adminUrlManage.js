@@ -76,3 +76,12 @@ function checkUrlSelector() {
         return false;
     }
 }
+
+function checkBanUrlSelector() {
+    if($('#url-ban-search').val() === ""){
+        $('#url-ban-search-help').show();
+        $('#url-ban-search-help').html("검색어를 입력하세요");
+        $("#url-ban-search").addClass("is-invalid");
+        return false;
+    }
+}

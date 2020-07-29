@@ -68,14 +68,11 @@ class AdminController extends Controller
 
     public function manageBanUrl(Request $request)
     {
-        $info = [
-            'keyword' => $request->input('keyword'),
-            'search' => $request->input('search')
-        ];
         try {
-            $banUrls = $this->adminService->adminGetBanUrls($info);
+            $banUrls = $this->adminService->adminGetBanUrls($request->input('url-ban-search'));
             return view('admin.adminBanUrl', ['banUrls' =>$banUrls]);
         } catch (\Exception $e) {
+            echo $e;
             return view('error');
         }
     }
