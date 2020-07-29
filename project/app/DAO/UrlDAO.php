@@ -34,8 +34,20 @@ class UrlDAO
             ->get();
     }
 
-    public function createUrlAccessTime($id)
+    public function urlAccessTransaction($id)
     {
+        DB::transaction(function () use ($id) {
+            AccessUrl::create([
+                'url_id' =>$id
+            ]);
+            DB::table('urls')->where('id', '=', $id)->increment('count');
+        });
+    }
+    /*public function createUrlAccessTime($id)
+    {
+        DB::transaction(function (){
+
+        });
         AccessUrl::create([
             'url_id' =>$id
         ]);
@@ -44,5 +56,10 @@ class UrlDAO
     public function updateUrlCount($id)
     {
         DB::table('urls')->where('id', '=', $id)->increment('count');
+    }*/
+
+    public function getBanUrl($url)
+    {
+        return count(DB::table("ban_urls")->where('url', '=', $url)->get()) == 0;
     }
 }

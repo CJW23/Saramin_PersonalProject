@@ -101,4 +101,5 @@ class UserDAO
         DB::table("urls")->where('user_id', auth()->user()->id)->whereIn('id', $urlIdList, 'and')
             ->delete();
     }
+
 }

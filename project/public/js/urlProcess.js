@@ -16,11 +16,11 @@ function requestGuestCreateUrl() {
         url: '/url/create',
         dataType: 'json',
         data: {
-            'url': url,
-            'userid': 1
+            'url': url
+            //'userid': 1
         },
         success: function (data) {
-            if (data['shortUrl'] === "false") {
+            if (data['rst'] === "false") {
                 urlData.push(data);
                 makeGuestUrlTemplate();
             } else {
@@ -58,16 +58,14 @@ function requestUserCreateUrl(id) {
             'nameUrl': nameUrl
         },
         success: function (data) {
-            if (data['result'] === "not exist") {
-                $('#url_register_help').html("유효하지 않은 URL입니다.");
-                return 0;
-            } else if (data['result'] === "already exist") {
-                $('#url_register_help').html("이미 등록한 url입니다.");
+            //예외 처리->(금지 URL, 이미 등록 URL, 존재하지 않는 URL)
+            if (data['rst'] === "false") {
+                $('#url_register_help').html(data['msg']);
                 return 0;
             }
-            $('#url-register-modal').modal("hide");
-            makeUserUrlTemplate(data);
-            requestTotalData(); //total 데이터 갱신
+            $('#url-register-modal').modal("hide");         //modal 창 닫기
+            makeUserUrlTemplate(data);                      //뷰 갱신
+            requestTotalData();                             //total 데이터 갱신
         },
         error: function (data) {
             console.log(data);
@@ -141,7 +139,7 @@ function makeGuestUrlTemplate() {
             html +=
                 '<tr>' +
                 '<td>' + urlData[i]["originalUrl"] + '</td>' +
-                '<td>유효하지 않은 URL입니다</a>' +
+                '<td>'+ urlData[i]["msg"] +'</a>' +
                 '</td>' +
                 '</tr>';
         } else {

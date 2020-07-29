@@ -31,7 +31,7 @@ class MainController extends Controller
     public function originalUrlRedirect($path)
     {
         //접근 Count증가 및 시간 등록
-        $this->mainService->createUrlAccess($path);
+        $this->mainService->UrlAccess($path);
         //echo $path;
         return redirect($this->mainService
             ->getOriginalUrl($path));
