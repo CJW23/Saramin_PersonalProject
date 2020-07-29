@@ -29,7 +29,7 @@ class AdminController extends Controller
                 "totalUrl" => $totalUrl,
                 "totalAccessUrl" => $totalAccessUrl,
                 "dayUrlCount" => $dayUrlCount,
-                "dayUserCount"=> $dayUserCount
+                "dayUserCount" => $dayUserCount
             ]);
         } catch (\Exception $e) {
             return view('error');
@@ -40,7 +40,7 @@ class AdminController extends Controller
     {
         try {
             $users = DB::table("users")->paginate(10);
-            return view('admin.adminUser', ['users'=>$users]);
+            return view('admin.adminUser', ['users' => $users]);
         } catch (\Exception $e) {
             return view('error');
         }
@@ -50,8 +50,18 @@ class AdminController extends Controller
     {
         try {
             $urls = $this->adminService->adminGetUrls();
-            return view('admin.adminUrl', ['urls'=>$urls]);
-        } catch (\Exception $e){
+            return view('admin.adminUrl', ['urls' => $urls]);
+        } catch (\Exception $e) {
+            return view('error');
+        }
+    }
+
+    public function manageBanUrl()
+    {
+        try {
+            $banUrls = $this->adminService->adminGetBanUrls();
+            return view('admin.adminBanUrl', ['banUrls' =>$banUrls]);
+        } catch (\Exception $e) {
             return view('error');
         }
     }

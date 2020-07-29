@@ -4,6 +4,7 @@
     <a href="{{Route("adminIndex")}}" class="list-group-item list-group-item-action" style="border-left: 2px solid red">통계</a>
     <a href="{{Route("adminUser")}}" class="list-group-item list-group-item-action">유저 관리</a>
     <a href="{{Route("adminUrl")}}" class="list-group-item list-group-item-action">URL 관리</a>
+    <a href="{{Route("adminBanUrl")}}" class="list-group-item list-group-item-action">차단 URL 관리</a>
 @endsection
 
 @section('script')

@@ -88,12 +88,27 @@ class AdminApiController extends Controller
         } catch (AlreadyExistException $e) {
             return [
                 'result' => 'false',
-                'msg' => $e
+                'msg' => $e->getMessage()
             ];
-        } catch (NotExistException $e){
+        } catch (NotExistException $e) {
             return [
                 'result' => 'false',
-                'msg' => $e
+                'msg' => $e->getMessage()
+            ];
+        }
+    }
+
+    public function deleteBanUrl($banUrlId)
+    {
+        try {
+            $this->adminService->adminRemoveBanUrl($banUrlId);
+            return[
+                'result' => 'true'
+            ];
+        } catch (\Exception $e){
+            return[
+                'result'=>'false',
+                'msg'=>$e->getMessage()
             ];
         }
     }

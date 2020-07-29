@@ -122,4 +122,14 @@ class AdminRepository
                 ->get();
         return count($checkUrl) == 0;
     }
+
+    public function selectAdminBanUrls()
+    {
+        return DB::table('ban_urls')->get();
+    }
+
+    public function deleteBanUrl($banUrlId)
+    {
+        DB::table('ban_urls')->delete($banUrlId);
+    }
 }
