@@ -11,6 +11,25 @@
     <script src="{{ asset('js/adminUserManage.js') }}"></script>
 @endsection
 @section('contents')
+
+    <div id="user-search-help" class="invalid-feedback">
+    </div>
+    <form action="" method="get" onsubmit="return checkUserSelector()">
+
+        <div class="input-group mb-3">
+            <select class="col-1 custom-select" name="keyword" id="keyword">
+                <option selected value="total">전체</option>
+                <option value="name">이름</option>
+                <option value="email">이메일</option>
+                <option value="nickname">닉네임</option>
+            </select>
+            <input type="text" id="search" name="search" class="col-3 form-control">
+            &ensp;
+            <button type="submit" class="btn btn-primary">검색</button>
+
+        </div>
+    </form>
+
     <table class="table">
         <thead>
         <tr>
@@ -35,7 +54,8 @@
                     </td>
                 @else
                     <td>
-                        <button class="btn btn-outline-success" onclick="requestAdminWithdrawAuth(this)">관리자 권한 회수</button>
+                        <button class="btn btn-outline-success" onclick="requestAdminWithdrawAuth(this)">관리자 권한 회수
+                        </button>
                     </td>
                 @endif
                 <td>

@@ -11,6 +11,21 @@
     <script src="{{ asset('js/adminUrlManage.js') }}"></script>
 @endsection
 @section('contents')
+    <div id="url-search-help" class="invalid-feedback">
+    </div>
+    <form action="" method="get" onsubmit="return checkUrlSelector()">
+        <div class="input-group mb-3">
+            <select class="col-1 custom-select" name="keyword" id="keyword">
+                <option selected value="total">전체</option>
+                <option value="original_url">원본URL</option>
+                <option value="email">이메일</option>
+                <option value="short_url">단축URL</option>
+            </select>
+            <input type="text" id="url-search" name="url-search" class="col-3 form-control">
+            &ensp;
+            <button type="submit" class="btn btn-primary">검색</button>
+        </div>
+    </form>
     <table class="table">
         <thead>
         <tr>

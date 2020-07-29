@@ -67,3 +67,12 @@ function requestAdminDeleteBanUrl(tagData) {
         }
     });
 }
+
+function checkUrlSelector() {
+    if($('#url-search').val() === ""){
+        $('#url-search-help').show();
+        $('#url-search-help').html("검색어를 입력하세요");
+        $("#url-search").addClass("is-invalid");
+        return false;
+    }
+}

@@ -52,6 +52,11 @@ class AdminService
         $this->adminRepository->deleteUser($userId);
     }
 
+    public function adminGetUsers($info)
+    {
+        return $this->adminRepository->selectAdminUsers($info);
+    }
+
     public function adminGiveAuth($userId)
     {
         $this->adminRepository->giveAuth($userId);
@@ -62,9 +67,9 @@ class AdminService
         $this->adminRepository->withdrawAuth($userId);
     }
 
-    public function adminGetUrls()
+    public function adminGetUrls($info)
     {
-        return $this->adminRepository->selectAdminUrls();
+        return $this->adminRepository->selectAdminUrls($info);
     }
 
     public function adminRemoveUrl($urlId)
@@ -75,20 +80,18 @@ class AdminService
     public function adminRegisterUrl($url)
     {
         $originalUrl = $this->urlManager->convertUrl($url);
-        if(!$this->urlManager->urlExists($originalUrl))
-        {
+        if (!$this->urlManager->urlExists($originalUrl)) {
             throw new NotExistException("존재하지 않는 URL");
         }
-        if(!$this->adminRepository->selectAdminUrl(HTTP.$originalUrl))
-        {
+        if (!$this->adminRepository->selectAdminUrl(HTTP . $originalUrl)) {
             throw new AlreadyExistException("이미 존재하는 URL");
         }
-        $this->adminRepository->insertAdminBanUrl(HTTP.$originalUrl);
+        $this->adminRepository->insertAdminBanUrl(HTTP . $originalUrl);
     }
 
-    public function adminGetBanUrls()
+    public function adminGetBanUrls($info)
     {
-        return $this->adminRepository->selectAdminBanUrls();
+        return $this->adminRepository->selectAdminBanUrls($info);
     }
 
     public function adminRemoveBanUrl($banUrlId)

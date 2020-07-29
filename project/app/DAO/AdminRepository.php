@@ -92,12 +92,37 @@ class AdminRepository
             ->update(['admin' => 0]);
     }
 
-    public function selectAdminUrls()
+    public function selectAdminUrls($info)
     {
-        return DB::table('urls')
-            ->leftJoin('users', 'urls.user_id', '=', 'users.id')
-            ->select('urls.id', 'short_url', DB::raw("ifnull(users.email, 'GUEST') AS email"), "original_url", "count", "urls.created_at")
-            ->paginate(10);
+        if ($info['keyword'] == 'total') {
+            return DB::table('urls')
+                ->select()
+                ->fromSub(function($q) use ($info){
+                    $q->from('urls')->leftJoin('users', 'urls.user_id', '=', 'users.id')
+                        ->select('urls.id', 'short_url', DB::raw("ifnull(users.email, 'GUEST') AS email"), "original_url", "count", "urls.created_at");
+                }, 't')
+                ->where(function($q) use ($info){
+                    $q->where('t.short_url', 'like', '%' . $info['search'] . '%')
+                        ->orWhere('t.original_url', 'like', '%' . $info['search'] . '%')
+                        ->orWhere('t.email', 'like', '%' . $info['search'] . '%');
+                })
+                ->paginate(10);
+
+        } else if($info['keyword'] == null){
+            return DB::table('urls')
+                ->leftJoin('users', 'urls.user_id', '=', 'users.id')
+                ->select('urls.id', 'short_url', DB::raw("ifnull(users.email, 'GUEST') AS email"), "original_url", "count", "urls.created_at")
+                ->paginate(10);
+        } else{
+            return DB::table('urls')
+                ->select()
+                ->fromSub(function($q) use ($info){
+                    $q->from('urls')->leftJoin('users', 'urls.user_id', '=', 'users.id')
+                        ->select('urls.id', 'short_url', DB::raw("ifnull(users.email, 'GUEST') AS email"), "original_url", "count", "urls.created_at");
+                }, 't')
+                ->where($info['keyword'], 'like', '%' . $info['search'] . '%')->paginate(10);
+        }
+
 
     }
 
@@ -125,11 +150,37 @@ class AdminRepository
 
     public function selectAdminBanUrls()
     {
-        return DB::table('ban_urls')->get();
+        return DB::table('ban_urls')
+            ->paginate(10);
     }
 
     public function deleteBanUrl($banUrlId)
     {
         DB::table('ban_urls')->delete($banUrlId);
     }
+
+    public function selectAdminUsers($info)
+    {
+        if ($info['keyword'] == 'total') {
+            return DB::table("users")
+                ->where('id', '!=', auth()->user()->id)
+                ->where(function($q) use ($info){
+                    $q->where('name', 'like', '%' . $info['search'] . '%')
+                        ->orWhere('email', 'like', '%' . $info['search'] . '%')
+                        ->orWhere('nickname', 'like', '%' . $info['search'] . '%');
+                })
+                ->paginate(10);
+
+        } else if($info['keyword'] == null){
+            return DB::table("users")
+                ->where('id', '!=', auth()->user()->id)
+                ->paginate(10);
+        } else{
+            return DB::table("users")
+                ->where('id', '!=', auth()->user()->id)
+                ->where($info['keyword'], 'like', '%' . $info['search'] . '%')
+                ->paginate(10);
+        }
+    }
 }
+

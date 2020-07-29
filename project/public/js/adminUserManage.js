@@ -66,3 +66,12 @@ function requestAdminWithdrawAuth(tagData) {
         }
     });
 }
+
+function checkUserSelector() {
+    if($('#search').val() === ""){
+        $('#user-search-help').show();
+        $('#user-search-help').html("검색어를 입력하세요");
+        $("#search").addClass("is-invalid");
+        return false;
+    }
+}

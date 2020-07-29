@@ -139,7 +139,7 @@ function makeGuestUrlTemplate() {
             html +=
                 '<tr>' +
                 '<td>' + urlData[i]["originalUrl"] + '</td>' +
-                '<td>'+ urlData[i]["msg"] +'</a>' +
+                '<td>' + urlData[i]["msg"] + '</a>' +
                 '</td>' +
                 '</tr>';
         } else {

@@ -36,30 +36,44 @@ class AdminController extends Controller
         }
     }
 
-    public function manageUser()
+    public function manageUser(Request $request)
     {
+        $info = [
+            'keyword' => $request->input('keyword'),
+            'search' => $request->input('search')
+        ];
         try {
-            $users = DB::table("users")->paginate(10);
+            $users = $this->adminService->adminGetUsers($info);
             return view('admin.adminUser', ['users' => $users]);
         } catch (\Exception $e) {
+            echo $e;
             return view('error');
         }
     }
 
-    public function manageUrl()
+    public function manageUrl(Request $request)
     {
+        $info = [
+            'keyword' => $request->input('keyword'),
+            'search' => $request->input('url-search')
+        ];
         try {
-            $urls = $this->adminService->adminGetUrls();
+            $urls = $this->adminService->adminGetUrls($info);
             return view('admin.adminUrl', ['urls' => $urls]);
         } catch (\Exception $e) {
+            echo $e;
             return view('error');
         }
     }
 
-    public function manageBanUrl()
+    public function manageBanUrl(Request $request)
     {
+        $info = [
+            'keyword' => $request->input('keyword'),
+            'search' => $request->input('search')
+        ];
         try {
-            $banUrls = $this->adminService->adminGetBanUrls();
+            $banUrls = $this->adminService->adminGetBanUrls($info);
             return view('admin.adminBanUrl', ['banUrls' =>$banUrls]);
         } catch (\Exception $e) {
             return view('error');
