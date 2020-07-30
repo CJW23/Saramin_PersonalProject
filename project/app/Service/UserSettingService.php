@@ -14,22 +14,36 @@ class UserSettingService
         $this->userRepository = new UserRepository();
     }
 
-    public function changeUserInfo($name)
+    /**
+     * 유저 이름 변경
+     * @param string $name
+     */
+    public function changeUserInfo(string $name)
     {
         $this->userRepository->updateUserInfo($name);
     }
 
-    public function changeUserNickname($nickname)
+    /**
+     * 유저 닉네임 변경
+     * @param string $nickname
+     */
+    public function changeUserNickname(string $nickname)
     {
-        validator(['awd'=>'awd']);
         $this->userRepository->updateUserNickname($nickname);
     }
 
-    public function changeUserPassword($password)
+    /**
+     * 유저 패스워드 변경
+     * @param string $password
+     */
+    public function changeUserPassword(string $password)
     {
         $this->userRepository->updatePassword($password);
     }
 
+    /**
+     * 유저 회원 탈퇴
+     */
     public function dropUser()
     {
         $this->userRepository->deleteUser();

@@ -115,16 +115,11 @@ class AdminApiController extends Controller
     {
         $url = $request->input('url');
         try {
-            $this->adminService->adminRegisterUrl($url);
+            $this->adminService->adminRegisterBanUrl($url);
             return [
                 'result' => 'true'
             ];
-        } catch (AlreadyExistException $e) {
-            return [
-                'result' => 'false',
-                'msg' => $e->getMessage()
-            ];
-        } catch (NotExistException $e) {
+        } catch (\Exception $e) {
             return [
                 'result' => 'false',
                 'msg' => $e->getMessage()

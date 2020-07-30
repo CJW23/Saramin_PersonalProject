@@ -19,16 +19,24 @@ class MainService
         $this->urlManager = new UrlManager();
     }
 
-    //원래 URL 획득
-    public function getOriginalUrl($path)
+    /**
+     * Path를 추출하여 Base62 디코딩하여 Id값을 얻어 원래 URL 획득
+     * @param string $path
+     * @return mixed
+     */
+    public function getOriginalUrl(string $path)
     {
-        //path -> base62 decoding -> id
         $id = $this->urlManager
             ->decodingUrl($path);
         return $this->urlRepository->selectOriginalUrl($id)[0]->original_url;
     }
 
-    //URL 접속 -> Count 증가
+
+    /**
+     * 단축 URL 접근후 횟수 증가, 링크 등록, 접근 시간 등록
+     * @param $path
+     * @param $link
+     */
     public function UrlAccess($path, $link)
     {
         //path -> base62 decoding -> id
