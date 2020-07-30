@@ -13,6 +13,7 @@ use App\Service\MainService;
 use App\Service\UserMainService;
 use App\Url;
 use Illuminate\Http\Request;
+use Illuminate\Support\Collection;
 
 class UrlApiController extends Controller
 {
@@ -106,6 +107,7 @@ class UrlApiController extends Controller
      * Path:/users/data/total
      * Method: GET
      * 유저의 URL 전체 접근 횟수와 URL 개수 요청
+     * @return Collection
      */
     public function totalUserUrlData()
     {
@@ -129,6 +131,7 @@ class UrlApiController extends Controller
      * Method: GET
      * 각 ShortURL이 링크된 곳에서 클릭된 횟수 요청
      * @param $urlId
+     * @return Collection
      */
     public function linkAccessData($urlId)
     {

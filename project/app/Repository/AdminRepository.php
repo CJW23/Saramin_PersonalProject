@@ -6,13 +6,16 @@ namespace App\Repository;
 
 use App\Model\BanUrl;
 use App\User;
+use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Facades\DB;
 
 class AdminRepository
 {
 
     /**
+     * 관리자
      * 관리자 창에 출력할 전체 URL 개수
+     * @return array
      */
     public function selectAdminTotalUrlCount()
     {
@@ -23,7 +26,9 @@ class AdminRepository
     }
 
     /**
+     * 관리자
      * 관리자 창에 출력할 전체 유저 수
+     * @return array
      */
     public function selectAdminTotalUserCount()
     {
@@ -34,7 +39,9 @@ class AdminRepository
     }
 
     /**
+     * 관리자
      * 관리자 창에 출력할 오늘 접근된 URL 횟수
+     * @return array
      */
     public function selectAdminTotalAccessUrlCount()
     {
@@ -45,7 +52,9 @@ class AdminRepository
     }
 
     /**
+     * 관리자
      * 관리자 창에 출력할 7일간 일별 생성된 URL 횟수
+     * @return false|string
      */
     public function selectAdminDayUrlCount()
     {
@@ -59,7 +68,9 @@ class AdminRepository
     }
 
     /**
+     * 관리자
      * 관리자 창에 출력할 7일간 일별 생성된 회원
+     * @return false|string
      */
     public function selectAdminDayUserCount()
     {
@@ -72,28 +83,50 @@ class AdminRepository
                     GROUP BY dates")));
     }
 
-    public function deleteUser($userId)
+    /**
+     * 관리자
+     * 유저 삭제
+     * @param int $userId
+     */
+    public function deleteUser(int $userId)
     {
         DB::table("users")
             ->delete($userId);
     }
 
-    public function giveAuth($userId)
+    /**
+     * 관리자
+     * 유저 관리자 권한 부여
+     * @param int $userId
+     */
+    public function giveAuth(int $userId)
     {
         DB::table("users")
             ->where('id', $userId)
             ->update(['admin' => 1]);
     }
 
-    public function withdrawAuth($userId)
+    /**
+     * 관리자
+     * 유저 관리자 권한 회수
+     * @param int $userId
+     */
+    public function withdrawAuth(int $userId)
     {
         DB::table("users")
             ->where('id', $userId)
             ->update(['admin' => 0]);
     }
 
-    public function selectAdminUrls($info)
+    /**
+     * 관리자
+     * URL 검색
+     * @param array $info
+     * @return LengthAwarePaginator
+     */
+    public function selectAdminUrls(array $info)
     {
+        //전체를 검색할 시
         if ($info['keyword'] == 'total') {
             return DB::table('urls')
                 ->select()
@@ -107,13 +140,16 @@ class AdminRepository
                         ->orWhere('t.email', 'like', '%' . $info['search'] . '%');
                 })
                 ->paginate(10);
-
-        } else if ($info['keyword'] == null) {
+        }
+        //페이지 처음 접속시->검색 안함
+        else if ($info['keyword'] == null) {
             return DB::table('urls')
                 ->leftJoin('users', 'urls.user_id', '=', 'users.id')
                 ->select('urls.id', 'short_url', DB::raw("ifnull(users.email, 'GUEST') AS email"), "original_url", "count", "urls.created_at")
                 ->paginate(10);
-        } else {
+        }
+        //키워드 선택후 검색
+        else {
             return DB::table('urls')
                 ->select()
                 ->fromSub(function ($q) use ($info) {
@@ -126,12 +162,23 @@ class AdminRepository
 
     }
 
-    public function deleteUrl($urlId)
+    /**
+     * 관리자
+     * URL 삭제
+     * @param int $urlId
+     * @return int
+     */
+    public function deleteUrl(int $urlId)
     {
         return DB::table('urls')
             ->delete($urlId);
     }
 
+    /**
+     * 관리자
+     * 금지 URL 등록
+     * @param string $url
+     */
     public function insertAdminBanUrl(string $url)
     {
         BanUrl::create([
@@ -139,6 +186,13 @@ class AdminRepository
         ]);
     }
 
+    /**
+     * 관리자
+     * 특정 URL의 금지된 URL 유무 체크
+     * 금지 URL 등록시 중복 체크 위해 사용
+     * @param string $url
+     * @return bool
+     */
     public function selectAdminUrl(string $url)
     {
         $checkUrl =
@@ -148,19 +202,36 @@ class AdminRepository
         return count($checkUrl) == 0;
     }
 
-    public function selectAdminBanUrls($search)
+    /**
+     * 관리자
+     * 금지 URL 검색
+     * @param string $search
+     * @return LengthAwarePaginator
+     */
+    public function selectAdminBanUrls(string $search)
     {
         return DB::table('ban_urls')
             ->where('url', 'like', '%' . $search . '%')
             ->paginate(10);
     }
 
-    public function deleteBanUrl($banUrlId)
+    /**
+     * 관리자
+     * 금지 URL 삭제
+     * @param int $banUrlId
+     */
+    public function deleteBanUrl(int $banUrlId)
     {
         DB::table('ban_urls')->delete($banUrlId);
     }
 
-    public function selectAdminUsers($info)
+    /**
+     * 관리자
+     * 유저 검색
+     * @param array $info
+     * @return LengthAwarePaginator
+     */
+    public function selectAdminUsers(array $info)
     {
         if ($info['keyword'] == 'total') {
             return DB::table("users")
@@ -184,6 +255,11 @@ class AdminRepository
         }
     }
 
+    /**
+     * 관리자
+     * 일별 URL 접근 횟수
+     * @return false|string
+     */
     public function selectAdminDayAccessUrlCount()
     {
         return json_encode(

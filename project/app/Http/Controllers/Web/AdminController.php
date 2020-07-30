@@ -4,8 +4,10 @@ namespace App\Http\Controllers\Web;
 
 use App\Http\Controllers\Controller;
 use App\Service\AdminService;
+use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
+use Illuminate\View\View;
 
 class AdminController extends Controller
 {
@@ -16,6 +18,12 @@ class AdminController extends Controller
         $this->adminService = new AdminService();
     }
 
+    /**
+     * Path: /admin
+     * Method: GET
+     * 관리자 통계 페이지 요청
+     * @return Application|Factory|View
+     */
     public function index()
     {
         try {
@@ -38,6 +46,13 @@ class AdminController extends Controller
         }
     }
 
+    /**
+     * Path: /admin/users
+     * Method: GET
+     * 관리자 유저 관리 페이지 요청
+     * @param Request $request
+     * @return Application|Factory|View
+     */
     public function manageUser(Request $request)
     {
         $info = [
@@ -53,6 +68,13 @@ class AdminController extends Controller
         }
     }
 
+    /**
+     * Path: /admin/urls
+     * Method: GET
+     * 관리자 URL 관리 페이지 요청
+     * @param Request $request
+     * @return Application|Factory|View
+     */
     public function manageUrl(Request $request)
     {
         $info = [
@@ -68,6 +90,13 @@ class AdminController extends Controller
         }
     }
 
+    /**
+     * Path: /admin/ban
+     * Method: GET
+     * 관리자 금지 URL 관리 페이지 요청
+     * @param Request $request
+     * @return Application|Factory|View
+     */
     public function manageBanUrl(Request $request)
     {
         try {

@@ -6,12 +6,11 @@ use App\Exceptions\SamePasswordException;
 use App\Http\Controllers\Controller;
 use App\Rules\MatchOldPassword;
 use App\Service\UserSettingService;
-use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Session;
-use Mosquitto\Exception;
+
 
 class UserApiController extends Controller
 {
@@ -24,10 +23,12 @@ class UserApiController extends Controller
         define('CORRECT_PASSWORD', 3);
         $this->userService = new UserSettingService();
     }
-    /*
-     * 회원 정보 수정 Request
+
+    /**
      * Path: /users/info
      * Method: PUT
+     * 회원 정보 수정 요청
+     * @param Request $request
      */
     public function editInfoRequest(Request $request)
     {
@@ -35,10 +36,12 @@ class UserApiController extends Controller
         $this->userService->changeUserInfo($name);
     }
 
-    /*
-     * 패스워드 수정 Request
+    /**
      * Path: /users/setting/password
      * Method: PUT
+     * 패스워드 수정 요청
+     * @param Request $request
+     * @return array
      */
     public function editPasswordRequest(Request $request)
     {
@@ -72,10 +75,11 @@ class UserApiController extends Controller
         ];
     }
 
-    /*
-     * 닉네임 수정 Request
+    /**
      * Path: /users/setting/nickname
      * Method: PUT
+     * 닉네임 수정 요청
+     * @param Request $request
      */
     public function editNicknameRequest(Request $request)
     {
@@ -83,10 +87,12 @@ class UserApiController extends Controller
         $this->userService->changeUserNickname($nickname);
     }
 
-    /*
-     * 회원 탈퇴 Request
+    /**
      * Path: /users/setting/delete
      * Method: DELETE
+     * 회원 탈퇴 요청
+     * @param Request $request
+     * @return string
      */
     public function dropUserRequest(Request $request)
     {

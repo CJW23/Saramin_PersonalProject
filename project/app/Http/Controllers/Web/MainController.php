@@ -4,7 +4,12 @@ namespace App\Http\Controllers\Web;
 
 use App\Http\Controllers\Controller;
 use App\Service\MainService;
+use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Routing\Redirector;
 use Illuminate\Support\Facades\URL;
+use Illuminate\View\View;
 use Symfony\Component\HttpFoundation\Request;
 
 
@@ -18,14 +23,25 @@ class MainController extends Controller
         $this->mainService = new MainService();
     }
 
-    //인덱스 페이지
+    /**
+     * Path: /
+     * Method: GET
+     * Index 페이지 요청
+     * @return Application|Factory|View
+     */
     public function index()
     {
         return view('main.index');
     }
 
-    //shortening url 원본 url 리다이렉트
-    public function originalUrlRedirect($path)
+    /**
+     * Path: /{path}
+     * Method: GET
+     * 단축 URL 접근시 원본 URL로 Redirect 요청
+     * @param string $path
+     * @return Application|RedirectResponse|Redirector
+     */
+    public function originalUrlRedirect(string $path)
     {
         //접근 Count증가 및 시간 등록
         $link = request()->headers->get('referer');

@@ -5,11 +5,16 @@ namespace App\Repository;
 
 
 use App\User;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 
 class UserRepository
 {
+    /**
+     * 각 유저의 URL 리스트
+     * @return array
+     */
     public function selectUserUrlList()
     {
         return
@@ -20,12 +25,22 @@ class UserRepository
                         WHERE user_id = :userId"), ['userId' => auth()->user()->id]);
     }
 
-    public function selectUserUrl($url)
+    /**
+     * 유저의 URL 유무 판별
+     * 중복 등록 방지
+     * @param string $url
+     * @return bool
+     */
+    public function selectUserUrl(string $url)
     {
         $result = DB::table("urls")->where('original_url', $url)->where('user_id', auth()->user()->id)->get();
         return count($result) == 0;
     }
 
+    /**
+     * 유저가 등록한 URL의 개수, URL을 접근한 횟수
+     * @return Collection
+     */
     public function selectUserTotalData()
     {
         return $result = DB::table("urls")
@@ -34,7 +49,12 @@ class UserRepository
             ->get();
     }
 
-    public function selectUserUrlDetail($urlId)
+    /**
+     * URL의 상세정보
+     * @param int $urlId
+     * @return false|string
+     */
+    public function selectUserUrlDetail(int $urlId)
     {
         return json_encode(
             DB::select(
@@ -45,6 +65,10 @@ class UserRepository
         );
     }
 
+    /**
+     * 일별 모든 URL 접근 횟수
+     * @return false|string
+     */
     public function selectTotalUrlAccessData()
     {
         return json_encode(
@@ -59,7 +83,12 @@ class UserRepository
                         GROUP BY dates"), ['userid' => auth()->user()->id]));
     }
 
-    public function selectIndividualUrlAccessData($urlId)
+    /**
+     * 특정 URL의 일별 접근 횟수
+     * @param int $urlId
+     * @return array
+     */
+    public function selectIndividualUrlAccessData(int $urlId)
     {
         return
             DB::select(
@@ -71,38 +100,62 @@ class UserRepository
                         GROUP BY dates;"), ['urlid' => $urlId]);
     }
 
-    public function updateUserInfo($name)
+    /**
+     * 유저의 이름 변경
+     * @param string $name
+     */
+    public function updateUserInfo(string $name)
     {
         DB::table("users")
             ->where('id', auth()->user()->id)
             ->update(['name' => $name]);
     }
 
-    public function updateUserNickname($nickname)
+    /**
+     * 유저의 닉네임 변경
+     * @param string $nickname
+     */
+    public function updateUserNickname(string $nickname)
     {
         DB::table("users")
             ->where('id', auth()->user()->id)
             ->update(['nickname' => $nickname]);
     }
 
-    public function updatePassword($password)
+    /**
+     * 유저의 패스워드 변경
+     * @param string $password
+     */
+    public function updatePassword(string $password)
     {
         User::find(auth()->user()->id)->update(['password' => Hash::make($password)]);
     }
 
+    /**
+     * 유저 회원탈퇴
+     */
     public function deleteUser()
     {
         DB::table("users")
             ->delete(auth()->user()->id);
     }
 
-    public function deleteUrl($urlIdList)
+    /**
+     * 유저의 URL 삭제(다중 삭제)
+     * @param array $urlIdList
+     */
+    public function deleteUrl(array $urlIdList)
     {
         DB::table("urls")->where('user_id', auth()->user()->id)->whereIn('id', $urlIdList, 'and')
             ->delete();
     }
 
-    public function selectLinkAccessData($urlId)
+    /**
+     * 링크된 URL 통계
+     * @param int $urlId
+     * @return Collection
+     */
+    public function selectLinkAccessData(int $urlId)
     {
         return DB::table("access_urls")
             ->select(DB::raw("IFNULL(before_url, 'Direct') AS before_url, COUNT(1) AS cnt"))

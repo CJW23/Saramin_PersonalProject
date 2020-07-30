@@ -55,7 +55,7 @@ function requestAdminDeleteBanUrl(tagData) {
         //아래 headers에 반드시 token을 추가해줘야 한다.!!!!!
         headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
         type: 'delete',
-        url: '/admin/ban-urls/' + id,
+        url: '/admin/ban/' + id,
         dataType: 'json',
         success: function (data) {
             if (data['result'] === 'true') {

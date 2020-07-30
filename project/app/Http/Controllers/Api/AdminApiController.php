@@ -13,13 +13,19 @@ class AdminApiController extends Controller
 {
     private $adminService;
 
-
     public function __construct()
     {
         $this->adminService = new AdminService();
     }
 
-    public function deleteUser($userId)
+    /**
+     * Path: /admin/users/{userId}
+     * Method: DELETE
+     * 관리자가 유저 삭제 요청
+     * @param int $userId
+     * @return string[]
+     */
+    public function deleteUser(int $userId)
     {
         try {
             $this->adminService->adminRemoveUser($userId);
@@ -33,7 +39,14 @@ class AdminApiController extends Controller
         }
     }
 
-    public function giveAuth($userId)
+    /**
+     * Path: /admin/users/give-auth/{userId}
+     * Method: PUT
+     * 관리자가 일반 유저에게 관리자 권한 요청
+     * @param int $userId
+     * @return string[]
+     */
+    public function giveAuth(int $userId)
     {
         try {
             $this->adminService->adminGiveAuth($userId);
@@ -48,7 +61,14 @@ class AdminApiController extends Controller
         }
     }
 
-    public function withdrawAuth($userId)
+    /**
+     * Path: /admin/users/withdraw-auth/{userId}
+     * Method: PUT
+     * 관리자가 일반 유저의 관리자 권한 해제 요청
+     * @param int $userId
+     * @return string[]
+     */
+    public function withdrawAuth(int $userId)
     {
         try {
             $this->adminService->adminWithdrawAuth($userId);
@@ -63,7 +83,14 @@ class AdminApiController extends Controller
         }
     }
 
-    public function deleteUrl($urlId)
+    /**
+     * Path: /admin/urls/{urlId}
+     * Method: DELETE
+     * 관리자가 URL 삭제 요청
+     * @param int $urlId
+     * @return string[]
+     */
+    public function deleteUrl(int $urlId)
     {
         try {
             $this->adminService->adminRemoveUrl($urlId);
@@ -77,6 +104,13 @@ class AdminApiController extends Controller
         }
     }
 
+    /**
+     * Path: /admin/ban
+     * Method: POST
+     * 관리자가 금지 URL 등록 요청
+     * @param Request $request
+     * @return array|string[]
+     */
     public function createBanUrl(Request $request)
     {
         $url = $request->input('url');
@@ -98,7 +132,14 @@ class AdminApiController extends Controller
         }
     }
 
-    public function deleteBanUrl($banUrlId)
+    /**
+     * Path: /admin/ban/{banUrlId}
+     * Method: DELETE
+     * 관리자가 금지 URL 삭제 요청
+     * @param int $banUrlId
+     * @return array|string[]
+     */
+    public function deleteBanUrl(int $banUrlId)
     {
         try {
             $this->adminService->adminRemoveBanUrl($banUrlId);

@@ -36,13 +36,13 @@ Route::prefix('/admin')->middleware('admin.auth')->group(function () {
     Route::delete('/urls/{urlId}', "Api\AdminApiController@deleteUrl")
         ->name("adminDeleteUrl");
 
-    Route::get('/ban-urls', "Web\AdminController@manageBanUrl")
+    Route::get('/ban', "Web\AdminController@manageBanUrl")
         ->name("adminBanUrl");
 
     Route::post('/ban', "Api\AdminApiController@createBanUrl")
         ->name("adminCreateBanUrl");
 
-    Route::delete('/ban-urls/{banUrlId}', "Api\AdminApiController@deleteBanUrl")
+    Route::delete('/ban/{banUrlId}', "Api\AdminApiController@deleteBanUrl")
         ->name("adminDeleteBanUrl");
 });
 

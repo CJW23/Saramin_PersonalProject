@@ -1,7 +1,7 @@
 function makeChart() {
     let dayUrlDataSet = makeDayData(JSON.parse($('#day-url-data').attr('data-field')));
     let dayUserDataSet = makeDayData(JSON.parse($('#day-user-data').attr('data-field')));
-    let dayAccessUrlDataSet = makedayData(JSON.parse($('#day-access-url-data').attr('data-field')));
+    let dayAccessUrlDataSet = makeDayData(JSON.parse($('#day-access-url-data').attr('data-field')));
     new Chart(document.getElementById('day-url-count').getContext('2d'),
         createDayUrlCountChartConfig(dayUrlDataSet));
     new Chart(document.getElementById('day-user-count').getContext('2d'),
