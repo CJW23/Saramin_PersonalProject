@@ -4,18 +4,18 @@
 namespace App\Service;
 
 
-use App\DAO\UrlDAO;
+use App\Repository\UrlRepository;
 use App\Exceptions\UrlException;
 use App\Logic\UrlManager;
 
 class MainService
 {
-    private $urlDAO;
+    private $urlRepository;
     private $urlManager;
 
     public function __construct()
     {
-        $this->urlDAO = new UrlDAO();
+        $this->urlRepository = new UrlRepository();
         $this->urlManager = new UrlManager();
     }
 
@@ -25,15 +25,16 @@ class MainService
         //path -> base62 decoding -> id
         $id = $this->urlManager
             ->decodingUrl($path);
-        return $this->urlDAO->selectOriginalUrl($id)[0]->original_url;
+        return $this->urlRepository->selectOriginalUrl($id)[0]->original_url;
     }
 
     //URL 접속 -> Count 증가
-    public function UrlAccess($path)
+    public function UrlAccess($path, $link)
     {
         //path -> base62 decoding -> id
         $id = $this->urlManager->decodingUrl($path);
-        $this->urlDAO->urlAccessTransaction($id);
+        $this->urlRepository->urlAccessTransaction($id, $link);
+        //이전 링크가 있다면 디비에 저장
     }
 
     /**
@@ -53,7 +54,7 @@ class MainService
             throw new UrlException("존재하지 않는 URL");
         }
         //금지된 URL 체크
-        if (!$this->urlDAO->getBanUrl(HTTP . $originalUrl)) {
+        if (!$this->urlRepository->getBanUrl(HTTP . $originalUrl)) {
             throw new UrlException("금지된 URL");
         }
 
@@ -63,19 +64,21 @@ class MainService
         $randomId = "";
         while (true) {
             $randomId = $this->urlManager->makeRandomNumber();
-            if ($this->urlDAO->checkExistUrlId($randomId)) {
+            if ($this->urlRepository->checkExistUrlId($randomId)) {
                 $shorteningUrl = DOMAIN . $this->urlManager->encodingUrl($randomId);
                 break;
             }
         }
+
         //url 등록
-        $this->urlDAO->registerUrl(
+        $this->urlRepository->registerUrl(
             $randomId,
             null,
             HTTP . $originalUrl,
             $this->urlManager->getQueryString($originalUrl),
             $shorteningUrl
         );
+
         return json_encode([
             "originalUrl" => HTTP . $originalUrl,
             "shortUrl" => $shorteningUrl

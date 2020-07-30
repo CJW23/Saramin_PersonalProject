@@ -4,7 +4,7 @@
 namespace App\Service;
 
 
-use App\DAO\AdminRepository;
+use App\Repository\AdminRepository;
 use App\Exceptions\AlreadyExistException;
 use App\Exceptions\NotExistException;
 use App\Logic\UrlManager;

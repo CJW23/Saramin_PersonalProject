@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\DAO\UrlDAO;
+use App\Repository\UrlRepository;
 use App\Exceptions\AlreadyExistException;
 use App\Exceptions\BanUrlException;
 use App\Exceptions\NotExistException;
@@ -119,8 +119,19 @@ class UrlApiController extends Controller
      * @param $urlId
      * @return array
      */
-    public function individualUserUrlData($urlId)
+    public function individualUserUrlAccessData($urlId)
     {
         return $this->userMainService->getIndividualUrlAccessData($urlId);
+    }
+
+    /**
+     * Path: /users/data/link/{urlId}
+     * Method: GET
+     * 각 ShortURL이 링크된 곳에서 클릭된 횟수 요청
+     * @param $urlId
+     */
+    public function linkAccessData($urlId)
+    {
+        return $this->userMainService->getLinkAccessData($urlId);
     }
 }

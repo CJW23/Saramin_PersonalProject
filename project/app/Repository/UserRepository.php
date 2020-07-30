@@ -1,14 +1,14 @@
 <?php
 
 
-namespace App\DAO;
+namespace App\Repository;
 
 
 use App\User;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 
-class UserDAO
+class UserRepository
 {
     public function selectUserUrlList()
     {
@@ -100,6 +100,14 @@ class UserDAO
     {
         DB::table("urls")->where('user_id', auth()->user()->id)->whereIn('id', $urlIdList, 'and')
             ->delete();
+    }
+
+    public function selectLinkAccessData($urlId)
+    {
+        return DB::table("access_urls")
+            ->select(DB::raw("IFNULL(before_url, 'Direct') AS before_url, COUNT(1) AS cnt"))
+            ->where('url_id',$urlId)
+            ->groupBy('before_url')->get();
     }
 
 }

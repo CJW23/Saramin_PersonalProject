@@ -98,11 +98,14 @@
 
                 </div>
                 <div style="border-bottom: 1px solid #2c7a7b; padding-top: 30px; padding-bottom: 30px">
-                    <div>
-                        <canvas id="UrlAccessChart" height="50">
+                    <canvas id="urlAccessChart" height="50">
 
-                        </canvas>
-                    </div>
+                    </canvas>
+                </div>
+                <div style="border-bottom: 1px solid #2c7a7b; padding-top: 30px; padding-bottom: 30px">
+                    <canvas id="linkAccessChart" height="50">
+
+                    </canvas>
                 </div>
             </div>
         </article>

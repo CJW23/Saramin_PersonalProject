@@ -4,34 +4,34 @@
 namespace App\Service;
 
 
-use App\DAO\UserDAO;
+use App\Repository\UserRepository;
 
 class UserSettingService
 {
-    private $userDAO;
+    private $userRepository;
     public function __construct()
     {
-        $this->userDAO = new UserDAO();
+        $this->userRepository = new UserRepository();
     }
 
     public function changeUserInfo($name)
     {
-        $this->userDAO->updateUserInfo($name);
+        $this->userRepository->updateUserInfo($name);
     }
 
     public function changeUserNickname($nickname)
     {
         validator(['awd'=>'awd']);
-        $this->userDAO->updateUserNickname($nickname);
+        $this->userRepository->updateUserNickname($nickname);
     }
 
     public function changeUserPassword($password)
     {
-        $this->userDAO->updatePassword($password);
+        $this->userRepository->updatePassword($password);
     }
 
     public function dropUser()
     {
-        $this->userDAO->deleteUser();
+        $this->userRepository->deleteUser();
     }
 }

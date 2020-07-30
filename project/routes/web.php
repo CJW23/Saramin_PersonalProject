@@ -90,7 +90,9 @@ Route::prefix('/users')->middleware('user.auth')->group(function () {
     Route::get('/data/total', 'Api\UrlApiController@totalUserUrlData')
         ->name('totalUserUrlData');
 
-    Route::get('/data/url/{urlId}', 'Api\UrlApiController@individualUserUrlData');
+    Route::get('/data/url/{urlId}', 'Api\UrlApiController@individualUserUrlAccessData');
+
+    Route::get('/data/link/{urlId}', 'Api\UrlApiController@linkAccessData');
 });
 Route::get('/test/makeuser', "TestController@makeuser");
 Route::post('/test/makeurl', "TestController@makeurl");

@@ -1,14 +1,14 @@
 <?php
 
 
-namespace App\DAO;
+namespace App\Repository;
 
 
 use App\Model\AccessUrl;
 use App\Url;
 use Illuminate\Support\Facades\DB;
 
-class UrlDAO
+class UrlRepository
 {
     public function selectMaxId()
     {
@@ -38,29 +38,16 @@ class UrlDAO
             ->get();
     }
 
-    public function urlAccessTransaction($id)
+    public function urlAccessTransaction($id, $link)
     {
-        DB::transaction(function () use ($id) {
+        DB::transaction(function () use ($link, $id) {
             AccessUrl::create([
-                'url_id' =>$id
+                'url_id' =>$id,
+                'before_url'=>$link
             ]);
             DB::table('urls')->where('id', '=', $id)->increment('count');
         });
     }
-    /*public function createUrlAccessTime($id)
-    {
-        DB::transaction(function (){
-
-        });
-        AccessUrl::create([
-            'url_id' =>$id
-        ]);
-    }
-
-    public function updateUrlCount($id)
-    {
-        DB::table('urls')->where('id', '=', $id)->increment('count');
-    }*/
 
     public function getBanUrl($url)
     {

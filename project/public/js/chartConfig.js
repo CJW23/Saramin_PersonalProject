@@ -1,7 +1,9 @@
 let totalConfig;
 let totalChart;
-let urlChart;
-let urlConfig;
+let accessUrlChart;
+let accessUrlConfig;
+let accessLinkChart;
+let accessLinkConfig;
 
 function makeTotalAccessChart() {
     let accessData = JSON.parse($('#access-data').attr('data-field'));
@@ -13,35 +15,41 @@ function makeTotalAccessChart() {
 
 function makeUrlAccessChart() {
     let ctx;
-    let accessData;
-    let dataSet;
+    let accessUrlData, accessLinkData;
+    let accessUrlDataSet, accessLinkDataSet;
 
-    accessData = requestUrlAccessData();
-    if (accessData['rst'] === 'false') {
-        return;
+    accessUrlData = requestUrlAccessData();
+    if (accessUrlData['rst'] !== 'false') {
+        accessUrlDataSet = makeDayData(accessUrlData);
+
+        //차트가 이미 생성되어있다면(다른 url을 클릭해서 차트가 만들어져있다면) 데이터만 조작하여 update
+        if (accessUrlChart == null) {
+            ctx = document.getElementById('urlAccessChart').getContext('2d');
+            accessUrlConfig = createUrlAccessChartConfig(accessUrlDataSet);
+            accessUrlChart = new Chart(ctx, accessUrlConfig);
+        } else {
+            accessUrlConfig.data.datasets[0].data = accessUrlDataSet['countData'];
+            accessUrlChart.update();
+        }
     }
 
-    dataSet = makeData(accessData);
-
-    //차트가 이미 생성되어있다면(다른 url을 클릭해서 차트가 만들어져있다면) 데이터만 조작하여 update
-    if (urlChart == null) {
-        ctx = document.getElementById('UrlAccessChart').getContext('2d');
-        urlConfig = createUrlAccessChartConfig(dataSet);
-        urlChart = new Chart(ctx, urlConfig);
-    } else {
-        urlConfig.data.datasets[0].data = dataSet['countData'];
-        urlChart.update();
+    accessLinkData = requestLinkAccessData();
+    if(accessLinkData['rst'] !== 'false'){
+        accessLinkDataSet = makeLinkData(accessLinkData);
+        //차트가 이미 생성되어있다면(다른 url을 클릭해서 차트가 만들어져있다면) 데이터만 조작하여 update
+        if (accessLinkChart == null) {
+            ctx = document.getElementById('linkAccessChart').getContext('2d');
+            accessLinkConfig = createLinkAccessChartConfig(accessLinkDataSet);
+            accessLinkChart = new Chart(ctx, accessLinkConfig);
+        } else {
+            accessLinkConfig.data.datasets[0].data = accessLinkDataSet['countData'];
+            accessLinkChart.update();
+        }
     }
+
 }
 
 function createUrlAccessChartConfig(dataSet) {
-
-    let gridLines = {
-        display: true,
-        drawBorder: true,
-        drawOnChartArea: false,
-    }
-
     return {
         type: 'bar',
         data: {
@@ -59,10 +67,10 @@ function createUrlAccessChartConfig(dataSet) {
         options: {
             scales: {
                 xAxes: [{
-                    gridLines: gridLines
+                    gridLines: gridLinesConfig()
                 }],
                 yAxes: [{
-                    gridLines: gridLines,
+                    gridLines: gridLinesConfig(),
                     scaleLabel: {
                         display: true,
                     },
@@ -78,12 +86,7 @@ function createUrlAccessChartConfig(dataSet) {
 }
 
 function createTotalAccessChartConfig(accessData) {
-    let dataSet = makeData(accessData);
-    var gridLines = {
-        display: true,
-        drawBorder: true,
-        drawOnChartArea: false,
-    }
+    let dataSet = makeDayData(accessData);
     return {
         type: 'line',
         data: {
@@ -101,10 +104,10 @@ function createTotalAccessChartConfig(accessData) {
         options: {
             scales: {
                 xAxes: [{
-                    gridLines: gridLines
+                    gridLines: gridLinesConfig()
                 }],
                 yAxes: [{
-                    gridLines: gridLines,
+                    gridLines: gridLinesConfig(),
                     scaleLabel: {
                         display: true,
                     },
@@ -119,4 +122,46 @@ function createTotalAccessChartConfig(accessData) {
     };
 }
 
+function createLinkAccessChartConfig(accessLinkData) {
+    return {
+        type: 'bar',
+        data: {
+            labels: accessLinkData['linkName'],
+            datasets: [{
+                backgroundColor: colorPackage(),
+                label: 'Click',
+                data: accessLinkData['linkCount'],
+                barPercentage: 1,
+                barThickness: 6,
+                maxBarThickness: 8,
+                minBarLength: 0
+            }]
+        },
+        options: {
+            scales: {
+                xAxes: [{
+                    gridLines: gridLinesConfig()
+                }],
+                yAxes: [{
+                    gridLines: gridLinesConfig(),
+                    scaleLabel: {
+                        display: true,
+                    },
+                    ticks: {
+                        min: 0,
+                        maxTicksLimit: 10
+                    }
 
+                }]
+            }
+        }
+    };
+}
+
+function gridLinesConfig() {
+    return {
+        display: true,
+        drawBorder: true,
+        drawOnChartArea: false,
+    };
+}

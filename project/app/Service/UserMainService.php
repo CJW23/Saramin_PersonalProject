@@ -4,8 +4,8 @@
 namespace App\Service;
 
 
-use App\DAO\UrlDAO;
-use App\DAO\UserDAO;
+use App\Repository\UrlRepository;
+use App\Repository\UserRepository;
 use App\Exceptions\AlreadyExistException;
 use App\Exceptions\BanUrlException;
 use App\Exceptions\NotExistException;
@@ -15,26 +15,26 @@ use App\User;
 
 class UserMainService
 {
-    private $urlDAO;
+    private $urlRepository;
     private $urlManager;
-    private $userDAO;
+    private $userRepository;
 
     public function __construct()
     {
-        $this->urlDAO = new UrlDAO();
+        $this->urlRepository = new UrlRepository();
         $this->urlManager = new UrlManager();
-        $this->userDAO = new UserDAO();
+        $this->userRepository = new UserRepository();
     }
 
     public function getUserUrlList()
     {
         //각 유저의 original_url, short_url 가져옴
-        return $this->userDAO->selectUserUrlList();
+        return $this->userRepository->selectUserUrlList();
     }
 
     public function getUserUrlDetail($id)
     {
-        return $this->userDAO->selectUserUrlDetail($id);
+        return $this->userRepository->selectUserUrlDetail($id);
     }
 
     /*
@@ -42,7 +42,7 @@ class UserMainService
      */
     public function getUserTotalData()
     {
-        return $this->userDAO->selectUserTotalData();
+        return $this->userRepository->selectUserTotalData();
     }
 
     /*
@@ -58,11 +58,11 @@ class UserMainService
             throw new UrlException("존재하지 않는 URL");
         }
         //금지된 URL 체크
-        if (!$this->urlDAO->getBanUrl(HTTP . $originalUrl)) {
+        if (!$this->urlRepository->getBanUrl(HTTP . $originalUrl)) {
             throw new UrlException("금지된 URL");
         }
         //이미 등록 URL 체크
-        if (!$this->userDAO->selectUserUrl(HTTP . $originalUrl)) {
+        if (!$this->userRepository->selectUserUrl(HTTP . $originalUrl)) {
             throw new UrlException("이미 존재하는 URL");
         }
 
@@ -71,7 +71,7 @@ class UserMainService
         $randomId = "";
         while (true) {
             $randomId = $this->urlManager->makeRandomNumber();
-            if ($this->urlDAO->checkExistUrlId($randomId)) {
+            if ($this->urlRepository->checkExistUrlId($randomId)) {
                 $shorteningUrl = DOMAIN . $this->urlManager->encodingUrl($randomId);
                 break;
             }
@@ -80,30 +80,35 @@ class UserMainService
         //url 등록
         if ($url['nameUrl'] == "")       //URL 이름을 입력했을시
         {
-            $this->urlDAO->registerUrl(
+            $this->urlRepository->registerUrl(
                 $randomId, $url['userid'], HTTP . $originalUrl, $this->urlManager->getQueryString($originalUrl), $shorteningUrl);
         } else                            //URL 이름을 입력안했을시
         {
-            $this->urlDAO->registerUrl(
+            $this->urlRepository->registerUrl(
                 $randomId, $url['userid'], HTTP . $originalUrl, $this->urlManager->getQueryString($originalUrl), $shorteningUrl, $url['nameUrl']);
         }
 
-        return $this->userDAO->selectUserUrlList();
+        return $this->userRepository->selectUserUrlList();
     }
 
     public function getTotalUrlAccessData()
     {
-        return $this->userDAO->selectTotalUrlAccessData();
+        return $this->userRepository->selectTotalUrlAccessData();
     }
 
     public function removeUserUrl($urlIdList)
     {
-        $this->userDAO->deleteUrl($urlIdList);
-        return $this->userDAO->selectUserUrlList();
+        $this->userRepository->deleteUrl($urlIdList);
+        return $this->userRepository->selectUserUrlList();
     }
 
     public function getIndividualUrlAccessData($urlId)
     {
-        return $this->userDAO->selectIndividualUrlAccessData($urlId);
+        return $this->userRepository->selectIndividualUrlAccessData($urlId);
+    }
+
+    public function getLinkAccessData($urlId)
+    {
+        return $this->userRepository->selectLinkAccessData($urlId);
     }
 }

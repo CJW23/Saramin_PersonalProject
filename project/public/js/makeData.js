@@ -1,7 +1,7 @@
 /**
  * chartjs config에 넣을 dataSet
  */
-function makeData(data) {
+function makeDayData(data) {
     //날짜 리스트
     let dateArr = getDates(lastWeek(), new Date())
         .map((v) => v.toISOString().slice(5, 10))
@@ -25,6 +25,20 @@ function makeData(data) {
     return {
         'countData': countData,
         'dateArr': dateArr
+    };
+}
+
+function makeLinkData(data) {
+    let linkName = [];
+    let linkCount = [];
+    alert(data);
+    for(let i = 0; i<data.length; i++){
+        linkName.push(data[i]['before_url']);
+        linkCount.push(data[i]['cnt']);
+    }
+    return {
+        'linkName': linkName,
+        'linkCount': linkCount
     };
 }
 

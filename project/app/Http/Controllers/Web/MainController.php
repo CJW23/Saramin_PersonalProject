@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Web;
 
-use App\DAO\UrlDAO;
+use App\Repository\UrlRepository;
 use App\Http\Controllers\Controller;
 use App\Logic\UrlManager;
 use App\Service\MainService;
@@ -31,9 +31,10 @@ class MainController extends Controller
     public function originalUrlRedirect($path)
     {
         //접근 Count증가 및 시간 등록
-        $this->mainService->UrlAccess($path);
-        //echo $path;
-        return redirect($this->mainService
-            ->getOriginalUrl($path));
+        $link = request()->headers->get('referer');
+
+        $this->mainService->UrlAccess($path, $link);
+        return redirect(
+            $this->mainService->getOriginalUrl($path));
     }
 }

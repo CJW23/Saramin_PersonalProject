@@ -105,6 +105,26 @@ function requestUrlAccessData() {
     return result;
 }
 
+function requestLinkAccessData() {
+    let id = $('#urlId').attr('data-field');
+    let result;
+    $.ajax({
+        //아래 headers에 반드시 token을 추가해줘야 한다.!!!!!
+        headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+        type: 'get',
+        url: '/users/data/link/' + id,
+        dataType: 'json',
+        async: false,
+        success: function (data) {
+            result = data;
+        },
+        error: function (data) {
+            console.log(data);
+            result = {'rst': 'false'};
+        }
+    });
+    return result;
+}
 function colorPackage() {
     return [
         'rgba(255, 99, 132, 0.2)',

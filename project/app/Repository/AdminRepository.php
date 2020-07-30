@@ -1,7 +1,7 @@
 <?php
 
 
-namespace App\DAO;
+namespace App\Repository;
 
 
 use App\Model\BanUrl;
