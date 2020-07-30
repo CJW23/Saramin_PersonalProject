@@ -66,7 +66,6 @@ class MainService
             throw new UrlException("금지된 URL");
         }
 
-
         //랜덤 id값을 생성해 중복체크 후 URL 등록
         $shorteningUrl = null;
         $randomId = "";

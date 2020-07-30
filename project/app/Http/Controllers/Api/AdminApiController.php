@@ -54,7 +54,6 @@ class AdminApiController extends Controller
                 'result' => 'true'
             ];
         } catch (\Exception $e) {
-            echo $e;
             return [
                 'result' => 'false'
             ];
@@ -76,7 +75,6 @@ class AdminApiController extends Controller
                 'result' => 'true'
             ];
         } catch (\Exception $e) {
-            echo $e;
             return [
                 'result' => 'false'
             ];
@@ -122,7 +120,7 @@ class AdminApiController extends Controller
         } catch (\Exception $e) {
             return [
                 'result' => 'false',
-                'msg' => $e->getMessage()
+                'msg' => $e->getMessage()       //예외 메세지 출력해줌
             ];
         }
     }
@@ -143,8 +141,7 @@ class AdminApiController extends Controller
             ];
         } catch (\Exception $e){
             return[
-                'result'=>'false',
-                'msg'=>$e->getMessage()
+                'result'=>'false'
             ];
         }
     }

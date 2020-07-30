@@ -31,7 +31,7 @@ class UrlApiController extends Controller
     /**
      * Path: /url/create
      * method: POST
-     * url 변환 요청
+     * 비회원 url 변환 요청
      * @param Request $request
      * @return array|false|string
      */
@@ -51,6 +51,8 @@ class UrlApiController extends Controller
                 'msg' => $e->getMessage()
             ];
         }
+        //예를 들어서 catch로 에러 잡고 클라이언트로 success처럼 처리하는게 좋은가
+        //아니면 에러 코드를 전송해서 클라이언트에서 처리하는게 좋은가
     }
 
     /**
