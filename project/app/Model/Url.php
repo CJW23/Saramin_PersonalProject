@@ -11,6 +11,7 @@ class Url extends Model
 {
     public $timestamps = false;
     protected $fillable = [
+        'id',
         'user_id',
         'original_url',
         'short_url',

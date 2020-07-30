@@ -42,7 +42,7 @@ class UrlManager
         return substr($url, $start);
 
     }
-    function urlExists($url = NULL)
+    public function urlExists($url = NULL)
     {
         if ($url == NULL) return false;
         $ch = curl_init($url);
@@ -53,5 +53,16 @@ class UrlManager
         $httpcode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
         curl_close($ch);
         return ($httpcode >= 200 && $httpcode < 400) ? true : false;
+    }
+
+    public function makeRandomNumber()
+    {
+        $digit = mt_rand(11, 13);
+        $num = "";
+        for($i=0; $i<$digit; $i++){
+            $min = ($i == 0) ? 1:0;
+            $num .= mt_rand($min, 9);
+        }
+        return intval($num);
     }
 }

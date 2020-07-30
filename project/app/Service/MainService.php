@@ -39,7 +39,10 @@ class MainService
     /**
      * 비회원 단축 URL 요청
      * Table 최대 id 값에 1을 더한 값을 Base62 인코딩
-    */
+     * @param $url
+     * @return false|string
+     * @throws UrlException
+     */
     public function makeUrl($url)
     {
         //http://를 제거한 url
@@ -54,13 +57,20 @@ class MainService
             throw new UrlException("금지된 URL");
         }
 
-        //id의 최대값+1을 base62 인코딩
-        $shorteningUrl = DOMAIN . $this->urlManager
-                ->encodingUrl($this->urlDAO
-                        ->selectMaxId() + 1);
 
+        //랜덤 id값을 생성해 중복체크 후 URL 등록
+        $shorteningUrl = null;
+        $randomId = "";
+        while (true) {
+            $randomId = $this->urlManager->makeRandomNumber();
+            if ($this->urlDAO->checkExistUrlId($randomId)) {
+                $shorteningUrl = DOMAIN . $this->urlManager->encodingUrl($randomId);
+                break;
+            }
+        }
         //url 등록
         $this->urlDAO->registerUrl(
+            $randomId,
             null,
             HTTP . $originalUrl,
             $this->urlManager->getQueryString($originalUrl),

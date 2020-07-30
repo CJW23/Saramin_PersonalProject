@@ -66,19 +66,26 @@ class UserMainService
             throw new UrlException("이미 존재하는 URL");
         }
 
-        //id의 최대값+1을 base62 인코딩
-        $shorteningUrl = DOMAIN . $this->urlManager->encodingUrl(
-                $this->urlDAO->selectMaxId() + 1);
+        //랜덤 id값을 생성해 중복체크 후 URL 등록
+        $shorteningUrl = null;
+        $randomId = "";
+        while (true) {
+            $randomId = $this->urlManager->makeRandomNumber();
+            if ($this->urlDAO->checkExistUrlId($randomId)) {
+                $shorteningUrl = DOMAIN . $this->urlManager->encodingUrl($randomId);
+                break;
+            }
+        }
 
         //url 등록
         if ($url['nameUrl'] == "")       //URL 이름을 입력했을시
         {
             $this->urlDAO->registerUrl(
-                $url['userid'], HTTP . $originalUrl, $this->urlManager->getQueryString($originalUrl), $shorteningUrl);
+                $randomId, $url['userid'], HTTP . $originalUrl, $this->urlManager->getQueryString($originalUrl), $shorteningUrl);
         } else                            //URL 이름을 입력안했을시
         {
             $this->urlDAO->registerUrl(
-                $url['userid'], HTTP . $originalUrl, $this->urlManager->getQueryString($originalUrl), $shorteningUrl, $url['nameUrl']);
+                $randomId, $url['userid'], HTTP . $originalUrl, $this->urlManager->getQueryString($originalUrl), $shorteningUrl, $url['nameUrl']);
         }
 
         return $this->userDAO->selectUserUrlList();
