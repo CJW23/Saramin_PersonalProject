@@ -1,6 +1,7 @@
 //URL 상세정보 요청
 function requestUrlDetail(urlId) {
     let id = $(urlId).attr('id');
+    $('#spinner'+id).show();
     $.ajax({
         //아래 headers에 반드시 token을 추가해줘야 한다.!!!!!
         headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
@@ -19,6 +20,7 @@ function requestUrlDetail(urlId) {
             $('#short-url').val(data[0]['short_url']);
             $('#exist-select').show();
             makeUrlAccessChart();
+            $('#spinner'+id).hide();
         },
         error: function (data) {
             console.log(data);

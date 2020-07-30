@@ -31,7 +31,6 @@ function makeDayData(data) {
 function makeLinkData(data) {
     let linkName = [];
     let linkCount = [];
-    alert(data);
     for(let i = 0; i<data.length; i++){
         linkName.push(data[i]['before_url']);
         linkCount.push(data[i]['cnt']);

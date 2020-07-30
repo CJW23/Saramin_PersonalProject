@@ -42,7 +42,8 @@ function makeUrlAccessChart() {
             accessLinkConfig = createLinkAccessChartConfig(accessLinkDataSet);
             accessLinkChart = new Chart(ctx, accessLinkConfig);
         } else {
-            accessLinkConfig.data.datasets[0].data = accessLinkDataSet['countData'];
+            accessLinkConfig.data.labels = accessLinkDataSet['linkName'];
+            accessLinkConfig.data.datasets[0].data = accessLinkDataSet['linkCount'];
             accessLinkChart.update();
         }
     }

@@ -46,6 +46,7 @@ function requestUserCreateUrl(id) {
         $('#url_register_help').html("URL을 입력하세요");
         return;
     }
+    $('#register-spinner').show();
     $.ajax({
         //아래 headers에 반드시 token을 추가해줘야 한다.!!!!!
         headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
@@ -63,9 +64,11 @@ function requestUserCreateUrl(id) {
                 $('#url_register_help').html(data['msg']);
                 return 0;
             }
+            $('#register-spinner').hide();//total 데이터 갱신
             $('#url-register-modal').modal("hide");         //modal 창 닫기
             makeUserUrlTemplate(data);                      //뷰 갱신
-            requestTotalData();                             //total 데이터 갱신
+            requestTotalData();
+
         },
         error: function (data) {
             console.log(data);
@@ -120,6 +123,7 @@ function makeUserUrlTemplate(datas) {
             "<div>" +
             data['short_url'] +
             "</div>" +
+            "<div class='spinner-border' id='spinner" + data['id'] + "' role='status' style='display: none'></div> " +
             "<div class='url-count'>" +
             data['count'] + "<img src='/images/graph.png' height='25' width='25' style='float:right; margin-left: 5px;'>" +
             "</div>" +

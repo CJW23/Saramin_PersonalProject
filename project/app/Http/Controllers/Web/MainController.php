@@ -2,14 +2,11 @@
 
 namespace App\Http\Controllers\Web;
 
-use App\Repository\UrlRepository;
 use App\Http\Controllers\Controller;
-use App\Logic\UrlManager;
 use App\Service\MainService;
-use App\Url;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\URL;
+use Symfony\Component\HttpFoundation\Request;
+
 
 class MainController extends Controller
 {
@@ -32,8 +29,10 @@ class MainController extends Controller
     {
         //접근 Count증가 및 시간 등록
         $link = request()->headers->get('referer');
-
+        //echo URL::previous();
         $this->mainService->UrlAccess($path, $link);
+        //echo json_encode(request()->headers->all());
+        //return view('error');
         return redirect(
             $this->mainService->getOriginalUrl($path));
     }

@@ -47,6 +47,7 @@
 
 .url-list:hover {
     background: #edf2f7;
+    cursor: pointer;
 }
 
 .original-url-text {

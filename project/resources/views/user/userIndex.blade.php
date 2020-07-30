@@ -55,6 +55,8 @@
                                 <div>
                                     {{$urlList->short_url}}
                                 </div>
+                                <div class="spinner-border" id="spinner{{$urlList->id}}" role="status" style="display: none">
+                                </div>
                                 <div class="url-count">
                                     {{$urlList->count}}<img src="{{url('/images/graph.png')}}" height="25" width="25"
                                                             style="float:right; margin-left: 5px;">
@@ -138,6 +140,8 @@
                     </div>
                 </div>
                 <div class="modal-footer">
+                    <div class="spinner-border" id="register-spinner" role="status" style="display: none">
+                    </div>
                     <button type="button" onclick="requestUserCreateUrl({{Auth::user()->id}})" class="btn btn-primary">
                         등록
                     </button>
