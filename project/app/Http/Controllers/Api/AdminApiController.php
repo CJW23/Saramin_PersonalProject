@@ -8,6 +8,7 @@ use App\Http\Controllers\Controller;
 use App\Logic\UrlManager;
 use App\Service\AdminService;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 
 class AdminApiController extends Controller
 {
@@ -33,6 +34,8 @@ class AdminApiController extends Controller
                 'result' => 'true'
             ];
         } catch (\Exception $e) {
+            Log::channel('single')
+                ->critical('Call AdminApiController.deleteUser()->' . $e->getMessage());
             return [
                 'result' => 'false'
             ];
@@ -54,6 +57,8 @@ class AdminApiController extends Controller
                 'result' => 'true'
             ];
         } catch (\Exception $e) {
+            Log::channel('single')
+                ->critical('Call AdminApiController.giveAuth()->' . $e->getMessage());
             return [
                 'result' => 'false'
             ];
@@ -75,6 +80,8 @@ class AdminApiController extends Controller
                 'result' => 'true'
             ];
         } catch (\Exception $e) {
+            Log::channel('single')
+                ->critical('Call AdminApiController.withdrawAuth()->' . $e->getMessage());
             return [
                 'result' => 'false'
             ];
@@ -96,6 +103,8 @@ class AdminApiController extends Controller
                 'result' => 'true'
             ];
         } catch (\Exception $e) {
+            Log::channel('single')
+                ->critical('Call AdminApiController.deleteUrl()->' . $e->getMessage());
             return [
                 'result' => 'false'
             ];
@@ -118,6 +127,8 @@ class AdminApiController extends Controller
                 'result' => 'true'
             ];
         } catch (\Exception $e) {
+            Log::channel('single')
+                ->critical('Call AdminApiController.createBanUrl()->' . $e->getMessage());
             return [
                 'result' => 'false',
                 'msg' => $e->getMessage()       //예외 메세지 출력해줌
@@ -140,6 +151,8 @@ class AdminApiController extends Controller
                 'result' => 'true'
             ];
         } catch (\Exception $e){
+            Log::channel('single')
+                ->critical('Call AdminApiController.deleteBanUser()->' . $e->getMessage());
             return[
                 'result'=>'false'
             ];

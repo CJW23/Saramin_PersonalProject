@@ -62,15 +62,17 @@ function requestUserCreateUrl(id) {
             //예외 처리->(금지 URL, 이미 등록 URL, 존재하지 않는 URL)
             if (data['rst'] === "false") {
                 $('#url_register_help').html(data['msg']);
+                $('#register-spinner').hide();
                 return 0;
             }
-            $('#register-spinner').hide();//total 데이터 갱신
+            $('#register-spinner').hide();
             $('#url-register-modal').modal("hide");         //modal 창 닫기
             makeUserUrlTemplate(data);                      //뷰 갱신
             requestTotalData();
 
         },
         error: function (data) {
+
             console.log(data);
         }
     });

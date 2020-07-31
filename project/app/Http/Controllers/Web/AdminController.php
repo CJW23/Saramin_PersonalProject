@@ -59,13 +59,10 @@ class AdminController extends Controller
             'keyword' => $request->input('keyword'),
             'search' => $request->input('search')
         ];
-        try {
-            $users = $this->adminService->adminGetUsers($info);
-            return view('admin.adminUser', ['users' => $users]);
-        } catch (\Exception $e) {
-            echo $e;
-            return view('error');
-        }
+
+        $users = $this->adminService->adminGetUsers($info);
+        return view('admin.adminUser', ['users' => $users]);
+
     }
 
     /**
@@ -81,13 +78,8 @@ class AdminController extends Controller
             'keyword' => $request->input('keyword'),
             'search' => $request->input('url-search')
         ];
-        try {
-            $urls = $this->adminService->adminGetUrls($info);
-            return view('admin.adminUrl', ['urls' => $urls]);
-        } catch (\Exception $e) {
-            echo $e;
-            return view('error');
-        }
+        $urls = $this->adminService->adminGetUrls($info);
+        return view('admin.adminUrl', ['urls' => $urls]);
     }
 
     /**
@@ -99,12 +91,7 @@ class AdminController extends Controller
      */
     public function manageBanUrl(Request $request)
     {
-        try {
-            $banUrls = $this->adminService->adminGetBanUrls($request->input('url-ban-search'));
-            return view('admin.adminBanUrl', ['banUrls' =>$banUrls]);
-        } catch (\Exception $e) {
-            echo $e;
-            return view('error');
-        }
+        $banUrls = $this->adminService->adminGetBanUrls($request->input('url-ban-search'));
+        return view('admin.adminBanUrl', ['banUrls' =>$banUrls]);
     }
 }

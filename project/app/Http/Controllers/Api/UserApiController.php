@@ -6,12 +6,21 @@ use App\Exceptions\SamePasswordException;
 use App\Http\Controllers\Controller;
 use App\Rules\MatchOldPassword;
 use App\Service\UserSettingService;
+use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Contracts\Routing\ResponseFactory;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Session;
 
 
+/**
+ *
+ * Class UserApiController
+ * @package App\Http\Controllers\Api
+ */
 class UserApiController extends Controller
 {
     private $userService;
@@ -32,8 +41,13 @@ class UserApiController extends Controller
      */
     public function editInfoRequest(Request $request)
     {
-        $name = $request->input('name');
-        $this->userService->changeUserInfo($name);
+        try {
+            $name = $request->input('name');
+            $this->userService->changeUserInfo($name);
+        } catch (\Exception $e) {
+            Log::channel('single')
+                ->critical('Call UserApiController.editInfoRequest()->' . $e->getMessage());
+        }
     }
 
     /**
@@ -54,25 +68,29 @@ class UserApiController extends Controller
                 'new_password' => ['required', 'string', 'min:8', 'max:15', 'regex:/(?=.*\d{1,50})(?=.*[~`!@#$%\^&*()-+=]{1,50})(?=.*[a-zA-Z]{2,50}).{8,50}$/'],
                 'new_confirm_password' => ['same:new_password'],
             ]);
-            if($curPassword == $newPassword){
+            if ($curPassword == $newPassword) {
                 throw new SamePasswordException("기존 패스워드와 동일합니다");
             }
             $this->userService->changeUserPassword($newPassword);
-        }catch (SamePasswordException $e){      //변경할 패스워드와 기존 패스워드 같을때
             return [
-                'type'=>SAME_PASSWORD,
-                'msg'=>$e->getMessage()
+                'type' => CORRECT_PASSWORD,
+                'msg' => '변경 완료'
             ];
-        } catch (\Exception $e){
+        } catch (SamePasswordException $e) {      //변경할 패스워드와 기존 패스워드 같을때
+            Log::channel('single')
+                ->debug('Call UserApiController.editPasswordRequest()->' . $e->getMessage());
             return [
-                'type'=>WRONG_PASSWORD,
-                'msg'=>"비밀번호를 확인하세요"
+                'type' => SAME_PASSWORD,
+                'msg' => $e->getMessage()
+            ];
+        } catch (\Exception $e) {
+            Log::channel('single')
+                ->debug('Call UserApiController.editPasswordRequest()->' . $e->getMessage());
+            return [
+                'type' => WRONG_PASSWORD,
+                'msg' => "비밀번호를 확인하세요"
             ];
         }
-        return [
-            'type'=>CORRECT_PASSWORD,
-            'msg'=>'변경 완료'
-        ];
     }
 
     /**
@@ -83,8 +101,13 @@ class UserApiController extends Controller
      */
     public function editNicknameRequest(Request $request)
     {
-        $nickname = $request->input('nickname');
-        $this->userService->changeUserNickname($nickname);
+        try {
+            $nickname = $request->input('nickname');
+            $this->userService->changeUserNickname($nickname);
+        } catch (\Exception $e){
+            Log::channel('single')
+                ->debug('Call UserApiController.editNicknameRequest()->' . $e->getMessage());
+        }
     }
 
     /**
@@ -92,18 +115,23 @@ class UserApiController extends Controller
      * Method: DELETE
      * 회원 탈퇴 요청
      * @param Request $request
-     * @return string
+     * @return Application|ResponseFactory|Response|string
      */
     public function dropUserRequest(Request $request)
     {
-        $curPassword = $request->input('current_password');
-        if(Hash::check($curPassword, auth()->user()->getAuthPassword()))
-        {
-            $this->userService->dropUser();
-            Auth::logout();
-            Session::flush();
-            return 'true';
+        try {
+            $curPassword = $request->input('current_password');
+            if (Hash::check($curPassword, auth()->user()->getAuthPassword())) {
+                $this->userService->dropUser();
+                Auth::logout();
+                Session::flush();
+                return 'true';
+            }
+            return 'false';
+        } catch (\Exception $e){
+            Log::channel('single')
+                ->debug('Call UserApiController.dropUserRequest()->' . $e->getMessage());
+            return response("", 500);
         }
-        return 'false';
     }
 }

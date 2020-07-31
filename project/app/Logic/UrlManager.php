@@ -29,7 +29,7 @@ class UrlManager
      * @param int $id
      * @return mixed
      */
-    public function decodingUrl(int $id)
+    public function decodingUrl(string $id)
     {
         return $this->base62->decode($id);
     }

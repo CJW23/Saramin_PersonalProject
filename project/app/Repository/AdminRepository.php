@@ -208,7 +208,7 @@ class AdminRepository
      * @param string $search
      * @return LengthAwarePaginator
      */
-    public function selectAdminBanUrls(string $search)
+    public function selectAdminBanUrls(string $search=null)
     {
         return DB::table('ban_urls')
             ->where('url', 'like', '%' . $search . '%')

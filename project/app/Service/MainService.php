@@ -69,12 +69,17 @@ class MainService
         //랜덤 id값을 생성해 중복체크 후 URL 등록
         $shorteningUrl = null;
         $randomId = "";
+        $tryCount = 0;      //일정 횟수 랜덤 시도 -> 중복체크 일정 횟수 실행되면 throw
         while (true) {
+            if ($tryCount >= MAX_TRY) {
+                throw new UrlException("다시 시도해주십시오");
+            }
             $randomId = $this->urlManager->makeRandomNumber();
             if ($this->urlRepository->checkExistUrlId($randomId)) {
                 $shorteningUrl = DOMAIN . $this->urlManager->encodingUrl($randomId);
                 break;
             }
+            $tryCount++;
         }
 
         //url 등록

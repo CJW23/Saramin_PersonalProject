@@ -31,7 +31,7 @@ class UrlRepository
      * @param string $shortUrl
      * @param string|null $nameUrl
      */
-    public function registerUrl(int $id, int $userId, string $originalUrl, string $queryString, string $shortUrl, string $nameUrl=null)
+    public function registerUrl(int $id, $userId, string $originalUrl, string $queryString, string $shortUrl, string $nameUrl=null)
     {
         Url::create([
             "id" => $id,

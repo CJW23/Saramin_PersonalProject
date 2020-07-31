@@ -9,16 +9,22 @@ use App\Exceptions\NotExistException;
 use App\Exceptions\UrlException;
 use App\Http\Controllers\Controller;
 use App\Logic\UrlManager;
+use App\Response\UrlApiControllerResponse;
 use App\Service\MainService;
 use App\Service\UserMainService;
 use App\Url;
+use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Contracts\Routing\ResponseFactory;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\Log;
 
 class UrlApiController extends Controller
 {
     private $userMainService;
     private $mainService;
+    private $response;
 
     public function __construct()
     {
@@ -26,6 +32,7 @@ class UrlApiController extends Controller
         define('DOMAIN', "localhost:8000/");
         $this->userMainService = new UserMainService();
         $this->mainService = new MainService();
+        $this->response = new UrlApiControllerResponse();
     }
 
     /**
@@ -39,20 +46,16 @@ class UrlApiController extends Controller
     {
         $info = [
             'url' => $request->input('url'),
-            'userid' => $request->input('userid')
-        ];
+            'userid' => $request->input('userid')];
 
         try {
             return $this->mainService->makeUrl($info);
         } catch (UrlException $e) {
-            return [
-                'shortUrl' => 'false',
-                'originalUrl' => $info['url'],
-                'msg' => $e->getMessage()
-            ];
+
+            return $this->response->createUrlResponse($info['url'], __METHOD__, $e->getMessage());
+        } catch (\Exception $e) {
+            return $this->response->createUrlResponse($info['url'], __METHOD__, $e->getMessage(), "Error 발생");
         }
-        //예를 들어서 catch로 에러 잡고 클라이언트로 success처럼 처리하는게 좋은가
-        //아니면 에러 코드를 전송해서 클라이언트에서 처리하는게 좋은가
     }
 
     /**
@@ -79,18 +82,15 @@ class UrlApiController extends Controller
         $info = [
             'url' => $request->input('url'),
             'userid' => $request->input('userid'),
-            'nameUrl' => $request->input('nameUrl')
-        ];
+            'nameUrl' => $request->input('nameUrl')];
 
         try {
             return $this->userMainService->makeUserUrl($info);
         } catch (UrlException $e) {
-            return [
-                'rst' => 'false',
-                'msg' => $e->getMessage()
-            ];
+            return $this->response->createUserUrlResponse( __METHOD__, $e->getMessage());
+        } catch (\Exception $e) {
+            return $this->response->createUserUrlResponse( __METHOD__, $e->getMessage(), "Error 발생");
         }
-
     }
 
     /**
@@ -98,22 +98,32 @@ class UrlApiController extends Controller
      * Method: DELETE
      * user url 삭제 요청
      * @param Request $request
-     * @return array
+     * @return array|Application|ResponseFactory|Response
      */
     public function deleteUserUrl(Request $request)
     {
-        return $this->userMainService->removeUserUrl($request->input('urlIdList'));
+        try {
+            return $this->userMainService->removeUserUrl($request->input('urlIdList'));
+        } catch (\Exception $e) {
+            return $this->response->errorResponse(__METHOD__, $e->getMessage());
+        }
     }
 
     /**
      * Path:/users/data/total
      * Method: GET
      * 유저의 URL 전체 접근 횟수와 URL 개수 요청
-     * @return Collection
+     * @return Application|ResponseFactory|Response|Collection
      */
     public function totalUserUrlData()
     {
-        return $this->userMainService->getUserTotalData();
+        try {
+            return $this->userMainService->getUserTotalData();
+        } catch (\Exception $e) {
+            return $this->response->errorResponse( __METHOD__, $e->getMessage());
+        }
+
+
     }
 
     /**
@@ -121,11 +131,15 @@ class UrlApiController extends Controller
      * Method: GET
      * 유저의 일주일간 각 URL 일별 접근 횟수 요청
      * @param $urlId
-     * @return array
+     * @return array|Application|ResponseFactory|Response
      */
     public function individualUserUrlAccessData($urlId)
     {
-        return $this->userMainService->getIndividualUrlAccessData($urlId);
+        try {
+            return $this->userMainService->getIndividualUrlAccessData($urlId);
+        } catch (\Exception $e) {
+            $this->response->errorResponse(__METHOD__, $e->getMessage());
+        }
     }
 
     /**
@@ -133,10 +147,14 @@ class UrlApiController extends Controller
      * Method: GET
      * 각 ShortURL이 링크된 곳에서 클릭된 횟수 요청
      * @param $urlId
-     * @return Collection
+     * @return Application|ResponseFactory|Response|Collection
      */
     public function linkAccessData($urlId)
     {
-        return $this->userMainService->getLinkAccessData($urlId);
+        try {
+            return $this->userMainService->getLinkAccessData($urlId);
+        } catch (\Exception $e) {
+            $this->response->errorResponse(__METHOD__, $e->getMessage());
+        }
     }
 }

@@ -126,11 +126,11 @@ class AdminService
 
     /**
      * 금지 URL 등록
-     * @param string $url
+     * @param $url
      * @throws AlreadyExistException
      * @throws NotExistException
      */
-    public function adminRegisterBanUrl(string $url)
+    public function adminRegisterBanUrl($url)
     {
         $originalUrl = $this->urlManager->convertUrl($url);
         if (!$this->urlManager->urlExists($originalUrl)) {
@@ -147,7 +147,7 @@ class AdminService
      * @param string $search
      * @return LengthAwarePaginator
      */
-    public function adminGetBanUrls(string $search)
+    public function adminGetBanUrls($search=null)
     {
         return $this->adminRepository->selectAdminBanUrls($search);
     }

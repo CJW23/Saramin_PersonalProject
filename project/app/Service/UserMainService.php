@@ -22,6 +22,7 @@ class UserMainService
 
     public function __construct()
     {
+        define("MAX_TRY", 10);
         $this->urlRepository = new UrlRepository();
         $this->urlManager = new UrlManager();
         $this->userRepository = new UserRepository();
@@ -84,12 +85,15 @@ class UserMainService
         //랜덤 id값을 생성해 중복체크 후 URL 등록
         $shorteningUrl = null;
         $randomId = "";
+        $tryCount = 0;
         while (true) {
+            if($tryCount >= MAX_TRY)
             $randomId = $this->urlManager->makeRandomNumber();
             if ($this->urlRepository->checkExistUrlId($randomId)) {
                 $shorteningUrl = DOMAIN . $this->urlManager->encodingUrl($randomId);
                 break;
             }
+            $tryCount++;
         }
 
         //url 등록

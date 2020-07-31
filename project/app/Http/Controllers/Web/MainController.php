@@ -8,6 +8,7 @@ use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Routing\Redirector;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\URL;
 use Illuminate\View\View;
 use Symfony\Component\HttpFoundation\Request;
@@ -45,10 +46,7 @@ class MainController extends Controller
     {
         //접근 Count증가 및 시간 등록
         $link = request()->headers->get('referer');
-        //echo URL::previous();
         $this->mainService->UrlAccess($path, $link);
-        //echo json_encode(request()->headers->all());
-        //return view('error');
         return redirect(
             $this->mainService->getOriginalUrl($path));
     }

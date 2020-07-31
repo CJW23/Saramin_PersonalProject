@@ -43,8 +43,8 @@ return [
 
         'single' => [
             'driver' => 'single',
-            'path' => storage_path('logs/laravel.log'),
-            'level' => 'debug',
+            'path' => storage_path('logs/servererr.log'),
+            'level' => 'debug', 'critical'
         ],
 
         'daily' => [
@@ -86,11 +86,6 @@ return [
             'level' => 'debug',
         ],
 
-        'errorlog' => [
-            'driver' => 'errorlog',
-            'level' => 'debug',
-        ],
-
         'null' => [
             'driver' => 'monolog',
             'handler' => NullHandler::class,
@@ -99,6 +94,7 @@ return [
         'emergency' => [
             'path' => storage_path('logs/laravel.log'),
         ],
+
     ],
 
 ];
