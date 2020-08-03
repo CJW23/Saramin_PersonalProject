@@ -66,22 +66,25 @@ Route::prefix('/users')->middleware('user.auth')->group(function () {
     Route::get('/setting/password', 'Web\UserController@userEditPassword')
         ->name("password");
 
+    Route::post('/setting/checknickname', 'Api\UserApiController@checkNickname')
+        ->name("checknickname");
+
     Route::get('/setting/delete', 'Web\UserController@userDelete')
         ->name("delete");
 
     Route::post('/urls/create', 'Api\UrlApiController@createUserUrl')
         ->name("createUserUrlRequest");
 
-    Route::put('/setting/password', 'Api\UserApiController@editPasswordRequest')
+    Route::put('/setting/password', 'Api\UserApiController@editPassword')
         ->name("editPasswordRequest");
 
-    Route::put('/setting/info', 'Api\UserApiController@editInfoRequest')
+    Route::put('/setting/info', 'Api\UserApiController@editInfo')
         ->name("editInfoRequest");
 
-    Route::put('/setting/nickname', 'Api\UserApiController@editNicknameRequest')
+    Route::put('/setting/nickname', 'Api\UserApiController@editNickname')
         ->name("editNicknameRequest");
 
-    Route::delete('/setting/delete', 'Api\UserApiController@dropUserRequest')
+    Route::delete('/setting/delete', 'Api\UserApiController@dropUser')
         ->name("dropUserRequest");
 
     Route::delete('/urls/delete', 'Api\UrlApiController@deleteUserUrl')
@@ -98,7 +101,3 @@ Route::get('/test/makeuser', "TestController@makeuser");
 Route::post('/test/makeurl', "TestController@makeurl");
 Route::get('/{path}', 'Web\MainController@originalUrlRedirect');
 
-////////////////////
-Route::get('/test', "TestController@test");
-Route::get('/test1', "TestController@test1");
-///////////////////

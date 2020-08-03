@@ -62,7 +62,7 @@ class UrlRepository
      * @param int $id
      * @param string $link
      */
-    public function urlAccessTransaction(int $id, string $link)
+    public function urlAccessTransaction(int $id, string $link = null)
     {
         DB::transaction(function () use ($link, $id) {
             AccessUrl::create([

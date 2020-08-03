@@ -47,14 +47,14 @@ class UrlApiController extends Controller
         $info = [
             'url' => $request->input('url'),
             'userid' => $request->input('userid')];
-
         try {
             return $this->mainService->makeUrl($info);
         } catch (UrlException $e) {
-
-            return $this->response->createUrlResponse($info['url'], __METHOD__, $e->getMessage());
+            return $this->response
+                ->createUrlResponse($info['url'], __METHOD__, $e->getMessage());
         } catch (\Exception $e) {
-            return $this->response->createUrlResponse($info['url'], __METHOD__, $e->getMessage(), "Error 발생");
+            return $this->response
+                ->createUrlResponse($info['url'], __METHOD__, $e->getMessage(), "Error 발생");
         }
     }
 
@@ -87,9 +87,11 @@ class UrlApiController extends Controller
         try {
             return $this->userMainService->makeUserUrl($info);
         } catch (UrlException $e) {
-            return $this->response->createUserUrlResponse( __METHOD__, $e->getMessage());
+            return $this->response
+                ->createUserUrlResponse( __METHOD__, $e->getMessage());
         } catch (\Exception $e) {
-            return $this->response->createUserUrlResponse( __METHOD__, $e->getMessage(), "Error 발생");
+            return $this->response
+                ->createUserUrlResponse( __METHOD__, $e->getMessage(), "Error 발생");
         }
     }
 
@@ -103,9 +105,11 @@ class UrlApiController extends Controller
     public function deleteUserUrl(Request $request)
     {
         try {
-            return $this->userMainService->removeUserUrl($request->input('urlIdList'));
+            return $this->userMainService
+                ->removeUserUrl($request->input('urlIdList'));
         } catch (\Exception $e) {
-            return $this->response->errorResponse(__METHOD__, $e->getMessage());
+            return $this->response
+                ->errorResponse(__METHOD__, $e->getMessage());
         }
     }
 
@@ -118,9 +122,11 @@ class UrlApiController extends Controller
     public function totalUserUrlData()
     {
         try {
-            return $this->userMainService->getUserTotalData();
+            return $this->userMainService
+                ->getUserTotalData();
         } catch (\Exception $e) {
-            return $this->response->errorResponse( __METHOD__, $e->getMessage());
+            return $this->response
+                ->errorResponse( __METHOD__, $e->getMessage());
         }
 
 
@@ -136,9 +142,11 @@ class UrlApiController extends Controller
     public function individualUserUrlAccessData($urlId)
     {
         try {
-            return $this->userMainService->getIndividualUrlAccessData($urlId);
+            return $this->userMainService
+                ->getIndividualUrlAccessData($urlId);
         } catch (\Exception $e) {
-            $this->response->errorResponse(__METHOD__, $e->getMessage());
+            $this->response
+                ->errorResponse(__METHOD__, $e->getMessage());
         }
     }
 
@@ -152,9 +160,11 @@ class UrlApiController extends Controller
     public function linkAccessData($urlId)
     {
         try {
-            return $this->userMainService->getLinkAccessData($urlId);
+            return $this->userMainService
+                ->getLinkAccessData($urlId);
         } catch (\Exception $e) {
-            $this->response->errorResponse(__METHOD__, $e->getMessage());
+            $this->response
+                ->errorResponse(__METHOD__, $e->getMessage());
         }
     }
 }

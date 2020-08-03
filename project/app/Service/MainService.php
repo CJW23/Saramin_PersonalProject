@@ -68,7 +68,7 @@ class MainService
 
         //랜덤 id값을 생성해 중복체크 후 URL 등록
         $shorteningUrl = null;
-        $randomId = "";
+        $randomId = 0;
         $tryCount = 0;      //일정 횟수 랜덤 시도 -> 중복체크 일정 횟수 실행되면 throw
         while (true) {
             if ($tryCount >= MAX_TRY) {

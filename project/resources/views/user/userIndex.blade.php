@@ -55,7 +55,8 @@
                                 <div>
                                     {{$urlList->short_url}}
                                 </div>
-                                <div class="spinner-border" id="spinner{{$urlList->id}}" role="status" style="display: none">
+                                <div class="spinner-border" id="spinner{{$urlList->id}}" role="status"
+                                     style="display: none">
                                 </div>
                                 <div class="url-count">
                                     {{$urlList->count}}<img src="{{url('/images/graph.png')}}" height="25" width="25"

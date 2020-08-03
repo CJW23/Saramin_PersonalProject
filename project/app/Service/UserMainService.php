@@ -84,11 +84,14 @@ class UserMainService
 
         //랜덤 id값을 생성해 중복체크 후 URL 등록
         $shorteningUrl = null;
-        $randomId = "";
         $tryCount = 0;
+        $randomId = 0;
         while (true) {
-            if($tryCount >= MAX_TRY)
+            if($tryCount >= MAX_TRY){
+                throw new UrlException("다시 시도해주십시오");
+            }
             $randomId = $this->urlManager->makeRandomNumber();
+
             if ($this->urlRepository->checkExistUrlId($randomId)) {
                 $shorteningUrl = DOMAIN . $this->urlManager->encodingUrl($randomId);
                 break;

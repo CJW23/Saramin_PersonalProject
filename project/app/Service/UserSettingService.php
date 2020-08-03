@@ -48,4 +48,9 @@ class UserSettingService
     {
         $this->userRepository->deleteUser();
     }
+
+    public function checkUserNickName($nickname)
+    {
+        return $this->userRepository->checkUserNickname($nickname);
+    }
 }

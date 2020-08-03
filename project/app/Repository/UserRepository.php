@@ -33,8 +33,10 @@ class UserRepository
      */
     public function selectUserUrl(string $url)
     {
-        $result = DB::table("urls")->where('original_url', $url)->where('user_id', auth()->user()->id)->get();
-        return count($result) == 0;
+        return count(DB::table("urls")
+                ->where('original_url', $url)
+                ->where('user_id', auth()->user()->id)
+                ->get()) == 0;
     }
 
     /**
@@ -161,6 +163,14 @@ class UserRepository
             ->select(DB::raw("IFNULL(before_url, 'Direct') AS before_url, COUNT(1) AS cnt"))
             ->where('url_id',$urlId)
             ->groupBy('before_url')->get();
+    }
+
+    public function checkUserNickname($nickname)
+    {
+        return count(DB::table("users")
+            ->where("nickname", '=', $nickname)
+            ->get()) == 0;
+
     }
 
 }

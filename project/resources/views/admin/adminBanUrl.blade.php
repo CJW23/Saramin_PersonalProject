@@ -19,7 +19,9 @@
 
         <form action="" method="get" onsubmit="return checkBanUrlSelector()">
             <div class="input-group mb-3">
-                <button class="btn btn-outline-primary col-1" type="button" data-toggle="modal" data-target="#register-ban-url-modal">등록</button>&ensp;
+                <button class="btn btn-outline-primary col-1" type="button" data-toggle="modal"
+                        data-target="#register-ban-url-modal">등록
+                </button>&ensp;
                 <input type="text" id="url-ban-search" name="url-ban-search" class="col-3 form-control">
                 &ensp;
                 <button type="submit" class="btn btn-primary">검색</button>

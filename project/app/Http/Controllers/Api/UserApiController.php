@@ -3,7 +3,9 @@
 namespace App\Http\Controllers\Api;
 
 use App\Exceptions\SamePasswordException;
+use App\Exceptions\WrongPasswordException;
 use App\Http\Controllers\Controller;
+use App\Response\UserControllerResponse;
 use App\Rules\MatchOldPassword;
 use App\Service\UserSettingService;
 use Illuminate\Contracts\Foundation\Application;
@@ -24,6 +26,7 @@ use Illuminate\Support\Facades\Session;
 class UserApiController extends Controller
 {
     private $userService;
+    private $response;
 
     public function __construct()
     {
@@ -31,22 +34,25 @@ class UserApiController extends Controller
         define('WRONG_PASSWORD', 2);
         define('CORRECT_PASSWORD', 3);
         $this->userService = new UserSettingService();
+        $this->response = new UserControllerResponse();
     }
 
     /**
-     * Path: /users/info
+     * Path: /users/setting/info
      * Method: PUT
-     * 회원 정보 수정 요청
+     * 회원 이름 수정 요청
      * @param Request $request
      */
-    public function editInfoRequest(Request $request)
+    public function editInfo(Request $request)
     {
         try {
             $name = $request->input('name');
             $this->userService->changeUserInfo($name);
+            return $this->response
+                ->editInfoResponse('true', __METHOD__);
         } catch (\Exception $e) {
-            Log::channel('single')
-                ->critical('Call UserApiController.editInfoRequest()->' . $e->getMessage());
+            return $this->response
+                ->editInfoResponse('false', __METHOD__, $e->getMessage());
         }
     }
 
@@ -57,7 +63,7 @@ class UserApiController extends Controller
      * @param Request $request
      * @return array
      */
-    public function editPasswordRequest(Request $request)
+    public function editPassword(Request $request)
     {
         $curPassword = $request->input('current_password');
         $newPassword = $request->input('new_password');
@@ -72,24 +78,14 @@ class UserApiController extends Controller
                 throw new SamePasswordException("기존 패스워드와 동일합니다");
             }
             $this->userService->changeUserPassword($newPassword);
-            return [
-                'type' => CORRECT_PASSWORD,
-                'msg' => '변경 완료'
-            ];
-        } catch (SamePasswordException $e) {      //변경할 패스워드와 기존 패스워드 같을때
-            Log::channel('single')
-                ->debug('Call UserApiController.editPasswordRequest()->' . $e->getMessage());
-            return [
-                'type' => SAME_PASSWORD,
-                'msg' => $e->getMessage()
-            ];
+            return $this->response
+                ->editPasswordResponse(CORRECT_PASSWORD, '변경 완료', __METHOD__);
+        } catch (SamePasswordException $e) {
+            return $this->response
+                ->editPasswordResponse(SAME_PASSWORD, $e->getMessage(), __METHOD__, $e->getMessage());
         } catch (\Exception $e) {
-            Log::channel('single')
-                ->debug('Call UserApiController.editPasswordRequest()->' . $e->getMessage());
-            return [
-                'type' => WRONG_PASSWORD,
-                'msg' => "비밀번호를 확인하세요"
-            ];
+            return $this->response
+                ->editPasswordResponse(WRONG_PASSWORD, '에러 잠시 후 다시 시도', __METHOD__, $e->getMessage());
         }
     }
 
@@ -99,14 +95,29 @@ class UserApiController extends Controller
      * 닉네임 수정 요청
      * @param Request $request
      */
-    public function editNicknameRequest(Request $request)
+    public function editNickname(Request $request)
     {
         try {
             $nickname = $request->input('nickname');
             $this->userService->changeUserNickname($nickname);
-        } catch (\Exception $e){
-            Log::channel('single')
-                ->debug('Call UserApiController.editNicknameRequest()->' . $e->getMessage());
+            return $this->response
+                ->editNicknameResponse('true', __METHOD__);
+        } catch (\Exception $e) {
+            return $this->response
+                ->editNicknameResponse('false', __METHOD__, $e->getMessage());
+        }
+    }
+
+    public function checkNickname(Request $request)
+    {
+        $nickname = $request->input('nickname');
+        //중복된 닉네임이 없을경우
+        if ($this->userService->checkUserNickName($nickname)) {
+            return $this->response
+                ->checkNicknameResponse('true');
+        } else {
+            return $this->response
+                ->checkNicknameResponse('false');
         }
     }
 
@@ -115,23 +126,26 @@ class UserApiController extends Controller
      * Method: DELETE
      * 회원 탈퇴 요청
      * @param Request $request
-     * @return Application|ResponseFactory|Response|string
+     * @return Application|ResponseFactory|Response|string|string[]
      */
-    public function dropUserRequest(Request $request)
+    public function dropUser(Request $request)
     {
         try {
             $curPassword = $request->input('current_password');
-            if (Hash::check($curPassword, auth()->user()->getAuthPassword())) {
-                $this->userService->dropUser();
-                Auth::logout();
-                Session::flush();
-                return 'true';
+            if (!Hash::check($curPassword, auth()->user()->getAuthPassword())) {
+                throw new WrongPasswordException("비밀번호를 확인하세요");
             }
-            return 'false';
-        } catch (\Exception $e){
-            Log::channel('single')
-                ->debug('Call UserApiController.dropUserRequest()->' . $e->getMessage());
-            return response("", 500);
+            $this->userService->dropUser();
+            Auth::logout();
+            Session::flush();
+            return $this->response
+                ->dropUserResponse('true', __METHOD__);
+        } catch (WrongPasswordException $e) {
+            return $this->response
+                ->dropUserResponse('wrong', __METHOD__);
+        } catch (\Exception $e) {
+            return $this->response
+                ->dropUserResponse('false', __METHOD__, $e->getMessage());
         }
     }
 }

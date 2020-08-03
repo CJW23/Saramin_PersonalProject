@@ -6,6 +6,7 @@ use App\Exceptions\AlreadyExistException;
 use App\Exceptions\NotExistException;
 use App\Http\Controllers\Controller;
 use App\Logic\UrlManager;
+use App\Response\AdminApiControllerResponse;
 use App\Service\AdminService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
@@ -13,10 +14,12 @@ use Illuminate\Support\Facades\Log;
 class AdminApiController extends Controller
 {
     private $adminService;
+    private $adminResponse;
 
     public function __construct()
     {
         $this->adminService = new AdminService();
+        $this->adminResponse = new AdminApiControllerResponse();
     }
 
     /**
@@ -30,15 +33,12 @@ class AdminApiController extends Controller
     {
         try {
             $this->adminService->adminRemoveUser($userId);
-            return [
-                'result' => 'true'
-            ];
+            return $this->adminResponse
+                ->response('true', __METHOD__);
+
         } catch (\Exception $e) {
-            Log::channel('single')
-                ->critical('Call AdminApiController.deleteUser()->' . $e->getMessage());
-            return [
-                'result' => 'false'
-            ];
+            return $this->adminResponse
+                ->response('false', __METHOD__, $e->getMessage());
         }
     }
 
@@ -53,15 +53,11 @@ class AdminApiController extends Controller
     {
         try {
             $this->adminService->adminGiveAuth($userId);
-            return [
-                'result' => 'true'
-            ];
+            return $this->adminResponse
+                ->response('true', __METHOD__);
         } catch (\Exception $e) {
-            Log::channel('single')
-                ->critical('Call AdminApiController.giveAuth()->' . $e->getMessage());
-            return [
-                'result' => 'false'
-            ];
+            return $this->adminResponse
+                ->response('false', __METHOD__, $e->getMessage());
         }
     }
 
@@ -76,15 +72,11 @@ class AdminApiController extends Controller
     {
         try {
             $this->adminService->adminWithdrawAuth($userId);
-            return [
-                'result' => 'true'
-            ];
+            return $this->adminResponse
+                ->response('true', __METHOD__);
         } catch (\Exception $e) {
-            Log::channel('single')
-                ->critical('Call AdminApiController.withdrawAuth()->' . $e->getMessage());
-            return [
-                'result' => 'false'
-            ];
+            return $this->adminResponse
+                ->response('false', __METHOD__, $e->getMessage());
         }
     }
 
@@ -99,15 +91,11 @@ class AdminApiController extends Controller
     {
         try {
             $this->adminService->adminRemoveUrl($urlId);
-            return [
-                'result' => 'true'
-            ];
+            return $this->adminResponse
+                ->response('true', __METHOD__);
         } catch (\Exception $e) {
-            Log::channel('single')
-                ->critical('Call AdminApiController.deleteUrl()->' . $e->getMessage());
-            return [
-                'result' => 'false'
-            ];
+            return $this->adminResponse
+                ->response('false', __METHOD__, $e->getMessage());
         }
     }
 
@@ -123,16 +111,11 @@ class AdminApiController extends Controller
         $url = $request->input('url');
         try {
             $this->adminService->adminRegisterBanUrl($url);
-            return [
-                'result' => 'true'
-            ];
+            return $this->adminResponse
+                ->response('true', __METHOD__);
         } catch (\Exception $e) {
-            Log::channel('single')
-                ->critical('Call AdminApiController.createBanUrl()->' . $e->getMessage());
-            return [
-                'result' => 'false',
-                'msg' => $e->getMessage()       //예외 메세지 출력해줌
-            ];
+            return $this->adminResponse
+                ->response('false', __METHOD__, $e->getMessage());
         }
     }
 
@@ -147,15 +130,11 @@ class AdminApiController extends Controller
     {
         try {
             $this->adminService->adminRemoveBanUrl($banUrlId);
-            return[
-                'result' => 'true'
-            ];
-        } catch (\Exception $e){
-            Log::channel('single')
-                ->critical('Call AdminApiController.deleteBanUser()->' . $e->getMessage());
-            return[
-                'result'=>'false'
-            ];
+            return $this->adminResponse
+                ->response('true', __METHOD__);
+        } catch (\Exception $e) {
+            return $this->adminResponse
+                ->response('false', __METHOD__, $e->getMessage());
         }
     }
 }
