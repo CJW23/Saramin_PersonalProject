@@ -1,5 +1,10 @@
 @extends('layouts.app')
 
+@section('script')
+    <script src="{{ asset('js/user/userSetting.js') }}"></script>
+    <script src="{{ asset('js/user/userMain.js') }}"></script>
+    <script src="{{ asset('js/user/userResponse.js') }}"></script>
+@endsection
 @section('content')
     <div class="container info-container" style="padding-top: 50px; max-width: 1000px">
         <div class="col-4 float-left">

@@ -21,4 +21,19 @@ class AdminApiControllerResponse
             'result' => $rst
         ];
     }
+
+    function createBanUrlResponse(string $rst, string $method, string $msg = null)
+    {
+        if($msg != null){
+            Log::channel('single')
+                ->debug($method . ": " . $msg);
+            return [
+                'result' => $rst,
+                'msg' => $msg
+            ];
+        }
+        return [
+            'result' => $rst
+        ];
+    }
 }

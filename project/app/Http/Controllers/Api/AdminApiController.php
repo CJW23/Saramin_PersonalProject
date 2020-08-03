@@ -112,10 +112,10 @@ class AdminApiController extends Controller
         try {
             $this->adminService->adminRegisterBanUrl($url);
             return $this->adminResponse
-                ->response('true', __METHOD__);
+                ->createBanUrlResponse('true', __METHOD__);
         } catch (\Exception $e) {
             return $this->adminResponse
-                ->response('false', __METHOD__, $e->getMessage());
+                ->createBanUrlResponse('false', __METHOD__, $e->getMessage());
         }
     }
 

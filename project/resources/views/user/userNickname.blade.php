@@ -22,5 +22,5 @@
         <input class="form-control" value="{{old('name') ? old('name'):Auth::user()->nickname}}" oninput="requestCheckNickname()" id="nickname" name={{Auth::user()->nickname}}>
         <small id="nickname-check-help" style="color: green;"></small>
     </div>
-    <button type="button" onclick="requestNickname()" class="btn btn-success col-2">수정</button>
+    <button type="button" onclick="requestEditNickname()" class="btn btn-success col-2">수정</button>
 @endsection

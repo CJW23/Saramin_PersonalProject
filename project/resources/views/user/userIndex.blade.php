@@ -1,8 +1,12 @@
 @extends('layouts.app')
 
 @section('script')
-    <script src="{{ asset('js/chartConfig.js') }}"></script>
+    <script src="{{ asset('js/user/userChartConfig.js') }}"></script>
+    <script src="{{ asset('js/user/userSetting.js') }}"></script>
+    <script src="{{ asset('js/user/userMain.js') }}"></script>
+    <script src="{{ asset('js/user/userResponse.js') }}"></script>
 @endsection
+
 @section('content')
     <div id="access-data" data-field="{{$urlAccessData}}"></div>
     <div class="row justify-content-center url-register-group" style="margin-left: 0; margin-right: 0">
@@ -13,7 +17,6 @@
             <div class="col-1 total-data">
                 <div style="font-size: 25px" id="total-num">{{$totalData[0]->total_num}}</div>
                 <div style="font-size: 12px; margin-bottom: 25px">TOTAL URL</div>
-
                 <div style="font-size: 25px" id="total-sum">{{$totalData[0]->total_sum}}</div>
                 <div style="font-size: 12px">TOTAL CLICK</div>
             </div>

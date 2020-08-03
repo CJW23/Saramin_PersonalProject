@@ -42,6 +42,7 @@ class UserApiController extends Controller
      * Method: PUT
      * 회원 이름 수정 요청
      * @param Request $request
+     * @return string[]
      */
     public function editInfo(Request $request)
     {

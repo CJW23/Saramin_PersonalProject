@@ -8,9 +8,7 @@
     <a href="{{Route("adminBanUrl")}}" class="list-group-item list-group-item-action"
        style="border-left: 2px solid red">차단 URL 관리</a>
 @endsection
-@section('script')
-    <script src="{{ asset('js/adminUrlManage.js') }}"></script>
-@endsection
+
 @section('contents')
 
     <div>

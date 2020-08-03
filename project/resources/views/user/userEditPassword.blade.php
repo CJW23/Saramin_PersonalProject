@@ -32,5 +32,5 @@
         <small id="confirm_password_help" class="form-text text-muted">
         </small>
     </div>
-    <button type="button" onclick="requestPassword()" id="edit-password" class="btn btn-success col-2" disabled>수정</button>
+    <button type="button" onclick="requestEditPassword()" id="edit-password" class="btn btn-success col-2" disabled>수정</button>
 @endsection

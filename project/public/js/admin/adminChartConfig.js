@@ -1,3 +1,6 @@
+/**
+ * 관리자 모든 차트 생성
+ */
 function makeChart() {
     let dayUrlDataSet = makeDayData(JSON.parse($('#day-url-data').attr('data-field')));
     let dayUserDataSet = makeDayData(JSON.parse($('#day-user-data').attr('data-field')));
@@ -11,6 +14,10 @@ function makeChart() {
 
 }
 
+/**
+ * 일별 URL 등록 차트 설정
+ * @param dataSet 데이터 JSON
+ */
 function createDayUrlCountChartConfig(dataSet) {
     console.log(dataSet);
     return {
@@ -48,6 +55,10 @@ function createDayUrlCountChartConfig(dataSet) {
     };
 }
 
+/**
+ * 일별 유저 회원가입 차트 설정
+ * @param dataSet 데이터 JSON
+ */
 function createDayUserCountChartConfig(dataSet) {
     console.log(dataSet);
     return {
@@ -85,6 +96,10 @@ function createDayUserCountChartConfig(dataSet) {
     };
 }
 
+/**
+ * 일별 URL 접근 차트 설정
+ * @param dataSet 데이터 JSON
+ */
 function createDayAccessUrlCountChartConfig(dataSet) {
     console.log(dataSet);
     return {
@@ -122,10 +137,4 @@ function createDayAccessUrlCountChartConfig(dataSet) {
     };
 }
 
-function gridLinesConfig() {
-    return {
-        display: true,
-        drawBorder: true,
-        drawOnChartArea: false,
-    };
-}
+

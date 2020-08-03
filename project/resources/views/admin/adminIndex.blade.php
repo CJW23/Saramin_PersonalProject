@@ -7,9 +7,6 @@
     <a href="{{Route("adminBanUrl")}}" class="list-group-item list-group-item-action">차단 URL 관리</a>
 @endsection
 
-@section('script')
-    <script src="{{ asset('js/adminChartConfig.js') }}"></script>
-@endsection
 @section('contents')
     <div id="day-url-data" data-field="{{$dayUrlCount}}"></div>
     <div id="day-user-data" data-field="{{$dayUserCount}}"></div>
