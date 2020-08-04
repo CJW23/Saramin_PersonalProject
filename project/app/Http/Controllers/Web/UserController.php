@@ -30,7 +30,7 @@ class UserController extends Controller
     public function index(User $user)
     {
 
-        //사용자의 id를 통해 url 목록 가져옴
+        //사용자의 id를 통해 guest 목록 가져옴
         $urlLists = $this->userMainService->getUserUrlList();
         $totalData = $this->userMainService->getUserTotalData();
         $urlAccessData = $this->userMainService->getTotalUrlAccessData();

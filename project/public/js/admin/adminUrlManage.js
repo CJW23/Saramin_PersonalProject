@@ -28,7 +28,7 @@ function requestAdminDeleteUrl(tagData) {
  * 금지 URL이 이미 존재하거나, 유효하지 않은 URL일경우 화면에 표시
  */
 function requestAdminCreateBanUrl() {
-    let url = $('#register-ban-url').val();
+    let url = $('#register-ban-guest').val();
     $.ajax({
         //아래 headers에 반드시 token을 추가해줘야 한다.!!!!!
         headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
@@ -77,10 +77,10 @@ function requestAdminDeleteBanUrl(tagData) {
  * @returns {boolean}
  */
 function checkUrlSelector() {
-    if($('#url-search').val() === ""){
-        $('#url-search-help').show();
-        $('#url-search-help').html("검색어를 입력하세요");
-        $("#url-search").addClass("is-invalid");
+    if($('#guest-search').val() === ""){
+        $('#guest-search-help').show();
+        $('#guest-search-help').html("검색어를 입력하세요");
+        $("#guest-search").addClass("is-invalid");
         return false;
     }
 }
@@ -90,10 +90,10 @@ function checkUrlSelector() {
  * @returns {boolean}
  */
 function checkBanUrlSelector() {
-    if($('#url-ban-search').val() === ""){
-        $('#url-ban-search-help').show();
-        $('#url-ban-search-help').html("검색어를 입력하세요");
-        $("#url-ban-search").addClass("is-invalid");
+    if($('#guest-ban-search').val() === ""){
+        $('#guest-ban-search-help').show();
+        $('#guest-ban-search-help').html("검색어를 입력하세요");
+        $("#guest-ban-search").addClass("is-invalid");
         return false;
     }
 }

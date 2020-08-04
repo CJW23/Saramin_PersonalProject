@@ -66,8 +66,8 @@ class UserMainService
      */
     public function makeUserUrl(array $url)
     {
-        //http://를 제거한 url
-        $originalUrl = $this->urlManager->convertUrl($url['url']);
+        //http://를 제거한 guest
+        $originalUrl = $this->urlManager->convertUrl($url['guest']);
 
         //유효 도메인 체크
         if (!$this->urlManager->urlExists($originalUrl) ) {
@@ -99,7 +99,7 @@ class UserMainService
             $tryCount++;
         }
 
-        //url 등록
+        //guest 등록
         if ($url['nameUrl'] == "")       //URL 이름을 입력했을시
         {
             $this->urlRepository->registerUrl(

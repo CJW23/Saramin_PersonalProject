@@ -1,3 +1,7 @@
+/**
+ * 차트 모양 설정
+ * @returns {{drawBorder: boolean, drawOnChartArea: boolean, display: boolean}}
+ */
 function gridLinesConfig() {
     return {
         display: true,
@@ -6,6 +10,10 @@ function gridLinesConfig() {
     };
 }
 
+/**
+ * 차트 Bar Color
+ * @returns {string[]}
+ */
 function colorPackage() {
     return [
         'rgba(255, 99, 132, 0.2)',

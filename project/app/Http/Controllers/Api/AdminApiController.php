@@ -108,7 +108,7 @@ class AdminApiController extends Controller
      */
     public function createBanUrl(Request $request)
     {
-        $url = $request->input('url');
+        $url = $request->input('guest');
         try {
             $this->adminService->adminRegisterBanUrl($url);
             return $this->adminResponse

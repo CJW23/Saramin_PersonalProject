@@ -36,30 +36,30 @@ class UrlApiController extends Controller
     }
 
     /**
-     * Path: /url/create
+     * Path: /guest/create
      * method: POST
-     * 비회원 url 변환 요청
+     * 비회원 guest 변환 요청
      * @param Request $request
      * @return array|false|string
      */
     public function createUrl(Request $request)
     {
         $info = [
-            'url' => $request->input('url'),
+            'guest' => $request->input('guest'),
             'userid' => $request->input('userid')];
         try {
             return $this->mainService->makeUrl($info);
         } catch (UrlException $e) {
             return $this->response
-                ->createUrlResponse($info['url'], __METHOD__, $e->getMessage());
+                ->createUrlResponse($info['guest'], __METHOD__, $e->getMessage());
         } catch (\Exception $e) {
             return $this->response
-                ->createUrlResponse($info['url'], __METHOD__, $e->getMessage(), "Error 발생");
+                ->createUrlResponse($info['guest'], __METHOD__, $e->getMessage(), "Error 발생");
         }
     }
 
     /**
-     * Path: /url/detail/{id}
+     * Path: /guest/detail/{id}
      * Method: GET
      * 각 url의 세부사항 GET
      * @param $id
@@ -73,14 +73,14 @@ class UrlApiController extends Controller
     /**
      * Path:/users/urls/create
      * Method: POST
-     * user url 변환 요청
+     * user guest 변환 요청
      * @param Request $request
      * @return array
      */
     public function createUserUrl(Request $request)
     {
         $info = [
-            'url' => $request->input('url'),
+            'guest' => $request->input('guest'),
             'userid' => $request->input('userid'),
             'nameUrl' => $request->input('nameUrl')];
 
@@ -98,7 +98,7 @@ class UrlApiController extends Controller
     /**
      * Path:/users/urls/delete
      * Method: DELETE
-     * user url 삭제 요청
+     * user guest 삭제 요청
      * @param Request $request
      * @return array|Application|ResponseFactory|Response
      */
@@ -133,7 +133,7 @@ class UrlApiController extends Controller
     }
 
     /**
-     * Path: /users/data/url/{urlId}
+     * Path: /users/data/guest/{urlId}
      * Method: GET
      * 유저의 일주일간 각 URL 일별 접근 횟수 요청
      * @param $urlId

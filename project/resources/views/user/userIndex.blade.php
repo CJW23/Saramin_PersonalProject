@@ -75,7 +75,7 @@
         <article class="url-delete-view article" style="display: none">
             <div>
                 <div id="url-count"></div>
-                <button onclick="requestUserRemoveUrl()" type="button" class="btn btn-outline-danger col-1">삭제</button>
+                <button onclick="requestRemoveUrl()" type="button" class="btn btn-outline-danger col-1">삭제</button>
             </div>
         </article>
 
@@ -117,7 +117,7 @@
         </article>
     </section>
 
-    <!-- url 등록 modal -->
+    <!-- guest 등록 modal -->
     <div class="modal fade" id="url-register-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
          aria-hidden="true">
         <div class="modal-dialog">
@@ -146,7 +146,7 @@
                 <div class="modal-footer">
                     <div class="spinner-border" id="register-spinner" role="status" style="display: none">
                     </div>
-                    <button type="button" onclick="requestUserCreateUrl({{Auth::user()->id}})" class="btn btn-primary">
+                    <button type="button" onclick="requestCreateUrl({{Auth::user()->id}})" class="btn btn-primary">
                         등록
                     </button>
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">취소</button>

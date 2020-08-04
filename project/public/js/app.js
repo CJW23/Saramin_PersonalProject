@@ -507,7 +507,7 @@
              */
             Axios.prototype.request = function request(config) {
                 /*eslint no-param-reassign:0*/
-                // Allow for axios('example/url'[, config]) a la fetch API
+                // Allow for axios('example/guest'[, config]) a la fetch API
                 if (typeof config === 'string') {
                     config = arguments[1] || {};
                     config.url = arguments[0];
@@ -1161,9 +1161,9 @@
             /**
              * Build a URL by appending params to the end
              *
-             * @param {string} url The base of the url (e.g., http://www.google.com)
+             * @param {string} url The base of the guest (e.g., http://www.google.com)
              * @param {object} [params] The params to be appended
-             * @returns {string} The formatted url
+             * @returns {string} The formatted guest
              */
             module.exports = function buildURL(url, params, paramsSerializer) {
                 /*eslint no-param-reassign:0*/
@@ -15740,7 +15740,7 @@
                     // Main method
                     ajax: function( url, options ) {
 
-                        // If url is an object, simulate pre-1.5 signature
+                        // If guest is an object, simulate pre-1.5 signature
                         if ( typeof url === "object" ) {
                             options = url;
                             url = undefined;
@@ -15773,7 +15773,7 @@
                             // Loop variable
                             i,
 
-                            // uncached part of the url
+                            // uncached part of the guest
                             uncached,
 
                             // Create the final options object
@@ -15880,8 +15880,8 @@
                         deferred.promise( jqXHR );
 
                         // Add protocol if not provided (prefilters might expect it)
-                        // Handle falsy url in the settings object (#10093: consistency with old signature)
-                        // We also use the url parameter if available
+                        // Handle falsy guest in the settings object (#10093: consistency with old signature)
+                        // We also use the guest parameter if available
                         s.url = ( ( url || s.url || location.href ) + "" )
                             .replace( rprotocol, location.protocol + "//" );
 
@@ -15896,13 +15896,13 @@
                             urlAnchor = document.createElement( "a" );
 
                             // Support: IE <=8 - 11, Edge 12 - 15
-                            // IE throws exception on accessing the href property if url is malformed,
+                            // IE throws exception on accessing the href property if guest is malformed,
                             // e.g. http://example.com:80x/
                             try {
                                 urlAnchor.href = s.url;
 
                                 // Support: IE <=8 - 11 only
-                                // Anchor's host property isn't correctly set when s.url is relative
+                                // Anchor's host property isn't correctly set when s.guest is relative
                                 urlAnchor.href = urlAnchor.href;
                                 s.crossDomain = originAnchor.protocol + "//" + originAnchor.host !==
                                     urlAnchor.protocol + "//" + urlAnchor.host;
@@ -15944,7 +15944,7 @@
 
                         // Save the URL in case we're toying with the If-Modified-Since
                         // and/or If-None-Match header later on
-                        // Remove hash to simplify url manipulation
+                        // Remove hash to simplify guest manipulation
                         cacheURL = s.url.replace( rhash, "" );
 
                         // More options handling for requests with no content
@@ -15953,7 +15953,7 @@
                             // Remember the hash so we can put it back
                             uncached = s.url.slice( cacheURL.length );
 
-                            // If data is available and should be processed, append data to url
+                            // If data is available and should be processed, append data to guest
                             if ( s.data && ( s.processData || typeof s.data === "string" ) ) {
                                 cacheURL += ( rquery.test( cacheURL ) ? "&" : "?" ) + s.data;
 
@@ -16203,7 +16203,7 @@
                             data = undefined;
                         }
 
-                        // The url can be an options object (which then must have .url)
+                        // The guest can be an options object (which then must have .guest)
                         return jQuery.ajax( jQuery.extend( {
                             url: url,
                             type: method,
@@ -16590,7 +16590,7 @@
                             s.jsonpCallback() :
                             s.jsonpCallback;
 
-                        // Insert callback into url or form data
+                        // Insert callback into guest or form data
                         if ( jsonProp ) {
                             s[ jsonProp ] = s[ jsonProp ].replace( rjsonp, "$1" + callbackName );
                         } else if ( s.jsonp !== false ) {
@@ -16716,7 +16716,7 @@
 
 
                 /**
-                 * Load a url into a page
+                 * Load a guest into a page
                  */
                 jQuery.fn.load = function( url, params, callback ) {
                     var selector, type, response,
@@ -43277,7 +43277,7 @@
                     }
                 }
 
-                var isTextInputType = makeMap('text,number,password,search,email,tel,url');
+                var isTextInputType = makeMap('text,number,password,search,email,tel,guest');
 
                 /*  */
 

@@ -182,7 +182,7 @@ class AdminRepository
     public function insertAdminBanUrl(string $url)
     {
         BanUrl::create([
-            "url" => $url
+            "guest" => $url
         ]);
     }
 
@@ -197,7 +197,7 @@ class AdminRepository
     {
         $checkUrl =
             DB::table('ban_urls')
-                ->where('url', '=', $url)
+                ->where('guest', '=', $url)
                 ->get();
         return count($checkUrl) == 0;
     }
@@ -211,7 +211,7 @@ class AdminRepository
     public function selectAdminBanUrls(string $search=null)
     {
         return DB::table('ban_urls')
-            ->where('url', 'like', '%' . $search . '%')
+            ->where('guest', 'like', '%' . $search . '%')
             ->paginate(10);
     }
 

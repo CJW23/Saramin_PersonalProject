@@ -41,6 +41,6 @@ class LoginController extends Controller
 
     protected function authenticated(Request $request, $users)
     {
-        return redirect('/users'); //put your redirect url here
+        return redirect('/users'); //put your redirect guest here
     }
 }

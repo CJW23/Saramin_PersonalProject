@@ -8,6 +8,6 @@ class BanUrl extends Model
 {
     public $timestamps = false;
     protected $fillable = [
-        'url'
+        'guest'
     ];
 }

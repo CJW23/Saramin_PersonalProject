@@ -10,12 +10,9 @@ class AdminApiControllerResponse
 {
     function response(string $rst, string $method, string $msg = null)
     {
-        if($msg != null){
+        if ($msg != null) {
             Log::channel('single')
                 ->debug($method . ": " . $msg);
-            return [
-                'result' => $rst
-            ];
         }
         return [
             'result' => $rst
@@ -24,7 +21,7 @@ class AdminApiControllerResponse
 
     function createBanUrlResponse(string $rst, string $method, string $msg = null)
     {
-        if($msg != null){
+        if ($msg != null) {
             Log::channel('single')
                 ->debug($method . ": " . $msg);
             return [

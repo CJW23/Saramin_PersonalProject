@@ -15,7 +15,7 @@ class CreateBanUrlsTable extends Migration
     {
         Schema::create('ban_urls', function (Blueprint $table) {
             $table->id();
-            $table->string('url', 500);
+            $table->string('guest', 500);
             $table->timestamp('created_at')->default(DB::raw('CURRENT_TIMESTAMP'));
         });
     }

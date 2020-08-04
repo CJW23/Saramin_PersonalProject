@@ -19,7 +19,7 @@
     <script src="{{ asset('js/makeData.js') }}"></script>
     <script src="{{ asset('js/constConfig.js') }}"></script>
     <script src="{{ asset('js/chartConfig.js') }}"></script>
-    <script src="{{ asset('js/urlProcess.js') }}"></script>
+    <script src="{{ asset('js/guest/urlProcess.js') }}"></script>
     @yield('script')
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">

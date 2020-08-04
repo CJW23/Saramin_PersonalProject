@@ -1,17 +1,22 @@
 /**
- * chartjs config에 넣을 dataSet
+ * 차트 설정에 넣을 dataSet
+ * 날짜 데이터(일주일전부터 지금)
+ * 날짜별 데이터(URL접근, URL등록 등...)
+ * 분리
  */
 function makeDayData(data) {
-    //날짜 리스트
+
+    /*
+     * 지난주(lastWeek() 부터 지금까지의 날짜를 dateArr에 담음)
+     */
     let dateArr = getDates(lastWeek(), new Date())
         .map((v) => v.toISOString().slice(5, 10))
         .join(" ")
         .split(' ');
 
-    //날짜별 접근 횟수 저장
-    let countData = [];
-    let cnt = 0;
-    let dataLength = data.length;
+    let countData = [];             // 일별 데이터 담을 배열
+    let cnt = 0;                    // 데이터 개수 체크
+    let dataLength = data.length;   // 데이터 개수
     //날짜별 접근 횟수 리스트 생성
     for (let i = 0; i < dateArr.length; i++) {
         //접근한 날짜가 존재하면
@@ -28,6 +33,11 @@ function makeDayData(data) {
     };
 }
 
+/**
+ * 이전 URL링크 차트 데이터 생성
+ * @param data
+ * @returns {{linkCount: [], linkName: []}}
+ */
 function makeLinkData(data) {
     let linkName = [];
     let linkCount = [];
@@ -42,6 +52,12 @@ function makeLinkData(data) {
 }
 
 //////한달전 날짜에서 현재 날짜까지의 리스트 구하는 함수
+/**
+ * 날짜 리스트 생성
+ * @param start
+ * @param end
+ * @returns {[]}
+ */
 function getDates(start, end) {
     var arr = [];
     for (dt = start; dt <= end; dt.setDate(dt.getDate() + 1)) {
@@ -50,6 +66,10 @@ function getDates(start, end) {
     return arr;
 }
 
+/**
+ * 한달전의 날짜 반환
+ * @returns {Date}
+ */
 function lastMonth() {
     var d = new Date()
     var monthOfYear = d.getMonth();
@@ -57,6 +77,10 @@ function lastMonth() {
     return d
 }
 
+/**
+ * 일주일전의 날짜 반환
+ * @returns {Date}
+ */
 function lastWeek() {
     var d = new Date()
     var day = d.getDate();
