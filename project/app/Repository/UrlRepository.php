@@ -81,6 +81,6 @@ class UrlRepository
      */
     public function getBanUrl(string $url)
     {
-        return count(DB::table("ban_urls")->where('guest', '=', $url)->get()) == 0;
+        return count(DB::table("ban_urls")->where('url', '=', $url)->get()) == 0;
     }
 }

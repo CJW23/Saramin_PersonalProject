@@ -93,7 +93,7 @@ Route::prefix('/users')->middleware('user.auth')->group(function () {
     Route::get('/data/total', 'Api\UrlApiController@totalUserUrlData')
         ->name('totalUserUrlData');
 
-    Route::get('/data/guest/{urlId}', 'Api\UrlApiController@individualUserUrlAccessData');
+    Route::get('/data/url/{urlId}', 'Api\UrlApiController@individualUserUrlAccessData');
 
     Route::get('/data/link/{urlId}', 'Api\UrlApiController@linkAccessData');
 });

@@ -14,7 +14,7 @@ function createUrlResponse(data) {
     makeUserUrlTemplate(data);                      //뷰 갱신
     requestTotalData();
     $('#register-spinner').hide();
-    $('#guest-register-modal').modal("hide");         //modal 창 닫기
+    $('#url-register-modal').modal("hide");         //modal 창 닫기
 }
 
 /**
@@ -27,8 +27,8 @@ function removeUrlResponse(data) {
     $('#empty-select').show();
     makeUserUrlTemplate(data);
     requestTotalData();     //total데이터 갱신
-    $('.guest-detail-view').show();
-    $('.guest-delete-view').hide();
+    $('.url-detail-view').show();
+    $('.url-delete-view').hide();
 }
 
 /**
@@ -44,11 +44,11 @@ function urlDetailResponse(id, createdAt, nameUrl, originalUrl, shortUrl, count)
     let dateTime = convertDate(createdAt);
     $('#urlId').attr('data-field', id);
     $('.detail-created-date').html("CREATED " + dateTime['ymd'] + " " + dateTime['time']);
-    $('.detail-name-guest').html(nameUrl);
-    $('.detail-original-guest').attr('href', originalUrl).html(originalUrl);
-    $('.detail-short-guest').attr('href', "http://" + shortUrl).html(shortUrl);
+    $('.detail-name-url').html(nameUrl);
+    $('.detail-original-url').attr('href', originalUrl).html(originalUrl);
+    $('.detail-short-url').attr('href', "http://" + shortUrl).html(shortUrl);
     $('.detail-count').html("TOTAL : " + count);
-    $('#short-guest').val(shortUrl);
+    $('#short-url').val(shortUrl);
     $('#exist-select').show();
     makeUrlAccessChart();
 }
@@ -155,19 +155,19 @@ function makeUserUrlTemplate(datas) {
     let html = "";
     datas.forEach(data => {
         html +=
-            "<div class='guest-list'>" +
-            "<input type='checkbox' id='" + data['id'] + "' name='guest-check' onclick='urlCheck()' style='float: right'>" +
+            "<div class='url-list'>" +
+            "<input type='checkbox' id='" + data['id'] + "' name='url-check' onclick='urlCheck()' style='float: right'>" +
             "<div id='" + data['id'] + "' onclick='requestUrlDetail(this)'>" +
-            "<div class='original-guest-text'>" +
+            "<div class='original-url-text'>" +
             data['name'] +
             "</div>" +
             "<div class='container'>" +
-            "<div class='shortening-guest-text row justify-content-between'>" +
+            "<div class='shortening-url-text row justify-content-between'>" +
             "<div>" +
             data['short_url'] +
             "</div>" +
             "<div class='spinner-border' id='spinner" + data['id'] + "' role='status' style='display: none'></div> " +
-            "<div class='guest-count'>" +
+            "<div class='url-count'>" +
             data['count'] + "<img src='/images/graph.png' height='25' width='25' style='float:right; margin-left: 5px;'>" +
             "</div>" +
             "</div>" +
@@ -175,5 +175,5 @@ function makeUserUrlTemplate(datas) {
             "</div>" +
             "</div>"
     });
-    $(".guest-list-group").html(html);
+    $(".url-list-group").html(html);
 }

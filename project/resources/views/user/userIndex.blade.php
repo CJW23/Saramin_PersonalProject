@@ -117,7 +117,7 @@
         </article>
     </section>
 
-    <!-- guest 등록 modal -->
+    <!-- url 등록 modal -->
     <div class="modal fade" id="url-register-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
          aria-hidden="true">
         <div class="modal-dialog">

@@ -54,8 +54,8 @@ class MainService
      */
     public function makeUrl($url)
     {
-        //http://를 제거한 guest
-        $originalUrl = $this->urlManager->convertUrl($url['guest']);
+        //http://를 제거한 url
+        $originalUrl = $this->urlManager->convertUrl($url['url']);
 
         //유효나 도메인 체크
         if (!$this->urlManager->urlExists($originalUrl)) {
@@ -82,7 +82,7 @@ class MainService
             $tryCount++;
         }
 
-        //guest 등록
+        //url 등록
         $this->urlRepository->registerUrl(
             $randomId,
             null,

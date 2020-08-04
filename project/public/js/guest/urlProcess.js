@@ -1,7 +1,7 @@
-let urlData = [];
+let urlData =[];
 
 /**
- * Guest URL 등록 요청
+ * url URL 등록 요청
  */
 function requestGuestCreateUrl() {
     let url = $('#enter_url').val();
@@ -12,14 +12,16 @@ function requestGuestCreateUrl() {
     $.ajax({
         headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
         type: 'post',
-        url: '/guest/create',
+        url: 'url/create',
         dataType: 'json',
         data: {'url': url},
         success: function (data) {
             if (data['rst'] === "false") {
+                localStorage.setItem("awd", data['shortUrl']);
                 urlData.push(data);
                 makeGuestUrlTemplate();
             } else {
+                localStorage.setItem("awd", data['shortUrl']);
                 urlData.push(data);
                 makeGuestUrlTemplate();
             }

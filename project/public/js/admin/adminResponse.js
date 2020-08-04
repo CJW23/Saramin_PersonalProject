@@ -17,6 +17,6 @@ function adminCreateBanUrlResponse(rst, msg) {
     if (rst === TRUE) {
         location.reload();
     } else {
-        $('#register-ban-guest-help').html(msg);
+        $('#register-ban-url-help').html(msg);
     }
 }

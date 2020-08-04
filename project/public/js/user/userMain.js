@@ -5,8 +5,8 @@
 function requestCreateUrl(id) {
     //유효하지 않은 URL 표현 없애기(있는 경우)
     $('#url_register_help').html("");
-    let url = $('#guest-register').val();
-    let nameUrl = $('#guest-name-register').val();
+    let url = $('#url-register').val();
+    let nameUrl = $('#url-name-register').val();
 
     //URL 입력이 없을때.
     if (url === "" || url === "http://" || url === "https://") {
@@ -36,7 +36,7 @@ function requestCreateUrl(id) {
 function requestRemoveUrl() {
     if (confirm("정말 삭제하시겠습니까?") === false) {return;}
     let deleteList = [];
-    $('input:checkbox[name=guest-check]:checked').each(function () {
+    $('input:checkbox[name=url-check]:checked').each(function () {
         deleteList.push(this.id);           //체크된 URL들 배열에 넣음
     });
     $.ajax({
@@ -63,7 +63,7 @@ function requestUrlDetail(urlId) {
     $.ajax({
         headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
         type: 'get',
-        url: '/guest/detail/' + id,
+        url: '/url/detail/' + id,
         dataType: 'json',
         success: function (data) {
             $('#empty-select').hide();
@@ -112,7 +112,7 @@ function requestUrlAccessData() {
     $.ajax({
         headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
         type: 'get',
-        url: '/users/data/guest/' + id,
+        url: '/users/data/url/' + id,
         dataType: 'json',
         async: false,
         success: function (data) {
@@ -166,7 +166,7 @@ function convertDate(date) {
  * copy버튼 누를시 호출
  */
 function copyUrl() {
-    $('#short-guest').select();
+    $('#short-url').select();
     document.execCommand('copy');
 }
 
@@ -175,10 +175,10 @@ function copyUrl() {
  */
 function search() {
     $(document).ready(function () {
-        $("#guest-search").keyup(function () {
+        $("#url-search").keyup(function () {
             const k = $(this).val();
-            $(".guest-list-group > .guest-list").hide();
-            const temp = $(".guest-list-group > .guest-list > div > div:nth-child(1):contains('" + k + "')");
+            $(".url-list-group > .url-list").hide();
+            const temp = $(".url-list-group > .url-list > div > div:nth-child(1):contains('" + k + "')");
             $(temp).parent().parent().show();
         })
     })
@@ -188,15 +188,15 @@ function search() {
  * URL 리스트의 체크박스 선택시 화면 갱신(체크박스로 URL 선택한 수 갱신)
  */
 function urlCheck() {
-    let count = $('input:checkbox[name=guest-check]:checked').length;
+    let count = $('input:checkbox[name=url-check]:checked').length;
     if (count > 0) {
-        $('.guest-detail-view').hide();
-        $('.guest-delete-view').show();
+        $('.url-detail-view').hide();
+        $('.url-delete-view').show();
         let html = count + "개의 URL이 선택되었습니다<br><br>";
-        $('#guest-count').html(html);
+        $('#url-count').html(html);
     } else {
-        $('.guest-detail-view').show();
-        $('.guest-delete-view').hide();
+        $('.url-detail-view').show();
+        $('.url-delete-view').hide();
     }
 }
 
@@ -205,6 +205,6 @@ function urlCheck() {
  */
 function initModalButton() {
     $('#url_register_help').html("");
-    $('#guest-register').val("http://");
-    $('#guest-name-register').val("");
+    $('#url-register').val("http://");
+    $('#url-name-register').val("");
 }

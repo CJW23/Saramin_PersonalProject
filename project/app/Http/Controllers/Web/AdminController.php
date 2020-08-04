@@ -76,7 +76,7 @@ class AdminController extends Controller
     {
         $info = [
             'keyword' => $request->input('keyword'),
-            'search' => $request->input('guest-search')
+            'search' => $request->input('url-search')
         ];
         $urls = $this->adminService->adminGetUrls($info);
         return view('admin.adminUrl', ['urls' => $urls]);
@@ -91,7 +91,7 @@ class AdminController extends Controller
      */
     public function manageBanUrl(Request $request)
     {
-        $banUrls = $this->adminService->adminGetBanUrls($request->input('guest-ban-search'));
+        $banUrls = $this->adminService->adminGetBanUrls($request->input('url-ban-search'));
         return view('admin.adminBanUrl', ['banUrls' =>$banUrls]);
     }
 }

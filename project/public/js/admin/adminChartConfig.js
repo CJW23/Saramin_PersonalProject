@@ -2,14 +2,14 @@
  * 관리자 모든 차트 생성
  */
 function makeChart() {
-    let dayUrlDataSet = makeDayData(JSON.parse($('#day-guest-data').attr('data-field')));
+    let dayUrlDataSet = makeDayData(JSON.parse($('#day-url-data').attr('data-field')));
     let dayUserDataSet = makeDayData(JSON.parse($('#day-user-data').attr('data-field')));
-    let dayAccessUrlDataSet = makeDayData(JSON.parse($('#day-access-guest-data').attr('data-field')));
-    new Chart(document.getElementById('day-guest-count').getContext('2d'),
+    let dayAccessUrlDataSet = makeDayData(JSON.parse($('#day-access-url-data').attr('data-field')));
+    new Chart(document.getElementById('day-url-count').getContext('2d'),
         createDayUrlCountChartConfig(dayUrlDataSet));
     new Chart(document.getElementById('day-user-count').getContext('2d'),
         createDayUserCountChartConfig(dayUserDataSet));
-    new Chart(document.getElementById('day-access-guest-count').getContext('2d'),
+    new Chart(document.getElementById('day-access-url-count').getContext('2d'),
         createDayAccessUrlCountChartConfig(dayAccessUrlDataSet));
 
 }
