@@ -2,6 +2,7 @@
 
 @section('content')
     <br><br>
+
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-4">
@@ -33,4 +34,5 @@
             </div>
         </div>
     </div>
+    <script>makeStorageUrlList()</script>
 @endsection()
