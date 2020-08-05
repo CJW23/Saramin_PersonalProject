@@ -18,8 +18,8 @@ class AdminApiController extends Controller
 
     public function __construct()
     {
-        $this->adminService = new AdminService();
-        $this->adminResponse = new AdminApiControllerResponse();
+        $this->adminService = app("AdminService");
+        $this->adminResponse = app("AdminApiControllerResponse");
     }
 
     /**

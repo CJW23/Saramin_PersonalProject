@@ -3,7 +3,6 @@ const MIN_NAME_LENGTH = 1;
 const MAX_NICKNAME_LENGTH = 10;
 const MIN_NICKNAME_LENGTH = 3;
 const FAIL = 0;
-const SUCCESS = 0;
 const SAME_PASSWORD = 1;
 const WRONG_PASSWORD = 2;
 const CORRECT_PASSWORD = 3;

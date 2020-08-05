@@ -15,8 +15,8 @@ class MainService
 
     public function __construct()
     {
-        $this->urlRepository = new UrlRepository();
-        $this->urlManager = new UrlManager();
+        $this->urlRepository = app("UrlRepository");
+        $this->urlManager = app("UrlManager");
     }
 
     /**

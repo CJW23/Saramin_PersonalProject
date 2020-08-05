@@ -17,7 +17,7 @@ class UserController extends Controller
     {
         define('DOMAIN', "localhost:8000/");
         define("HTTP", "http://");
-        $this->userMainService = new UserMainService();
+        $this->userMainService = app("UserMainService");
     }
 
     /**
@@ -29,7 +29,6 @@ class UserController extends Controller
      */
     public function index(User $user)
     {
-
         //사용자의 id를 통해 url 목록 가져옴
         $urlLists = $this->userMainService->getUserUrlList();
         $totalData = $this->userMainService->getUserTotalData();

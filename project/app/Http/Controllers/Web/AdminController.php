@@ -15,7 +15,7 @@ class AdminController extends Controller
 
     public function __construct()
     {
-        $this->adminService = new AdminService();
+        $this->adminService = app("AdminService");
     }
 
     /**

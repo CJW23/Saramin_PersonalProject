@@ -33,8 +33,8 @@ class UserApiController extends Controller
         define('SAME_PASSWORD', 1);
         define('WRONG_PASSWORD', 2);
         define('CORRECT_PASSWORD', 3);
-        $this->userService = new UserSettingService();
-        $this->response = new UserControllerResponse();
+        $this->userService = app("UserSettingService");
+        $this->response = app("UserControllerResponse");
     }
 
     /**

@@ -11,7 +11,7 @@ class UserSettingService
     private $userRepository;
     public function __construct()
     {
-        $this->userRepository = new UserRepository();
+        $this->userRepository = app("UserRepository");
     }
 
     /**

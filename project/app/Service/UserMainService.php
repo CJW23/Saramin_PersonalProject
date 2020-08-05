@@ -23,9 +23,9 @@ class UserMainService
     public function __construct()
     {
         define("MAX_TRY", 10);
-        $this->urlRepository = new UrlRepository();
-        $this->urlManager = new UrlManager();
-        $this->userRepository = new UserRepository();
+        $this->urlRepository = app("UrlRepository");
+        $this->urlManager = app("UrlManager");
+        $this->userRepository = app("UserRepository");
     }
 
     /**

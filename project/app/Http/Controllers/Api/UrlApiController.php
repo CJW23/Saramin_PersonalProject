@@ -30,9 +30,9 @@ class UrlApiController extends Controller
     {
         define("HTTP", "http://");
         define('DOMAIN', "localhost:8000/");
-        $this->userMainService = new UserMainService();
-        $this->mainService = new MainService();
-        $this->response = new UrlApiControllerResponse();
+        $this->userMainService = app("UserMainService");
+        $this->mainService = app("MainService");
+        $this->response = app("UrlApiControllerResponse");
     }
 
     /**

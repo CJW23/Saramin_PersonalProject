@@ -51,7 +51,6 @@ function makeLinkData(data) {
     };
 }
 
-//////한달전 날짜에서 현재 날짜까지의 리스트 구하는 함수
 /**
  * 날짜 리스트 생성
  * @param start

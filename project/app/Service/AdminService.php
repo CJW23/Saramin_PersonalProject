@@ -19,8 +19,8 @@ class AdminService
     public function __construct()
     {
         define("HTTP", "http://");
-        $this->adminRepository = new AdminRepository();
-        $this->urlManager = new UrlManager();
+        $this->adminRepository = app("AdminRepository");
+        $this->urlManager = app("UrlManager");
     }
 
     /**

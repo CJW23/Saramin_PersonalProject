@@ -8,12 +8,16 @@ use DOMDocument;
 class UrlManager
 {
     private $base62;
-
+    public $test = 123;
     public function __construct()
     {
         $this->base62 = new Base62();
     }
 
+    public function test()
+    {
+        echo $this->test;
+    }
     /**
      * Id값을 Base62로 인코딩
      * @param int $id

@@ -2,21 +2,34 @@
 
 namespace Tests\Unit;
 
-use App\Logic\UrlManager;
-use Base62\Base62;
-use PHPUnit\Framework\TestCase;
+
+use App\Service\MainService;
+use Illuminate\Support\Facades\DB;
+use Tests\TestCase;
 
 class ExampleTest extends TestCase
 {
     /**
      * A basic test example.
      *
-     * @return void
+     * @param null $name
+     * @param array $data
+     * @param string $dataName
      */
+    public function __construct($name = null, array $data = [], $dataName = '')
+    {
+        parent::__construct($name, $data, $dataName);
+        define('DOMAIN', "localhost:8000/");
+        define("HTTP", "http://");
+        define("MAX_TRY", 10);
+
+    }
+
     public function testBasicTest()
     {
-        $base62 = new UrlManager();
-        $a = $base62->encodingUrl("123123");
-        $this->assertSame($a, 123);
+        DB::beginTransaction();
+        $service = new MainService();
+        $service->makeUrl(['url'=>"http://sammaru.cbnu.ac.kr"]);
+        DB::rollback();
     }
 }
