@@ -16,12 +16,9 @@ class MainServiceTest extends TestCase
      */
     public function testExample()
     {
-
         DB::beginTransaction();
         $service = new MainService();
         $rst = $service->makeUrl(['url'=>"http://sammaru.cbnu.ac.kr"]);
         self::assertSame("http://sammaru.cbnu.ac.kr", $rst);
-
-
     }
 }

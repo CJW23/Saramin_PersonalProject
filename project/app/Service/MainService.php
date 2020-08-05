@@ -54,18 +54,17 @@ class MainService
      */
     public function makeUrl($url)
     {
-        //http://를 제거한 url
+        //:http//를 제거한 url
         $originalUrl = $this->urlManager->convertUrl($url['url']);
 
         //유효나 도메인 체크
         if (!$this->urlManager->urlExists($originalUrl)) {
             throw new UrlException("존재하지 않는 URL");
         }
-        //금지된 URL 체크
+        //금지된 URL 체크 //파라미터 위치  HTTP HTTPS
         if (!$this->urlRepository->getBanUrl(HTTP . $originalUrl)) {
             throw new UrlException("금지된 URL");
         }
-
         //랜덤 id값을 생성해 중복체크 후 URL 등록
         $shorteningUrl = null;
         $randomId = 0;

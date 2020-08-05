@@ -11,7 +11,7 @@
 @endsection
 
 @section('contents')
-    <p style="border-bottom: 1px solid #f7c6c5">회원 탈퇴</p>
+    <div class="form-group content-name">회원 탈퇴</div>
     <div class="form-group">
         <label for="current_password">패스워드</label><br>
         <input type="password" id="current_password" name="current_password"

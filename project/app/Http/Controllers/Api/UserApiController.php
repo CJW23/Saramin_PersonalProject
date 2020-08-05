@@ -44,6 +44,7 @@ class UserApiController extends Controller
      * @param Request $request
      * @return string[]
      */
+    //http https parse_url
     public function editInfo(Request $request)
     {
         try {

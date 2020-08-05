@@ -30,7 +30,7 @@ class UrlManager
 
     /**
      * Id값을 Base62로 디코딩
-     * @param int $id
+     * @param string $id
      * @return mixed
      */
     public function decodingUrl(string $id)
@@ -46,6 +46,7 @@ class UrlManager
      */
     public function convertUrl(string $url)
     {
+        //PARSE URL
         $url = str_replace('http://', "", $url);
         $url = str_replace( 'https://', "", $url);
         return $url;

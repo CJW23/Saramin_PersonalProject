@@ -13,7 +13,7 @@
 
 @section('contents')
     <div class="form-group content-name">
-        개인 정보 수정
+        닉네임 수정
     </div>
 
     <div id="nickname-check" data-check="0"></div>

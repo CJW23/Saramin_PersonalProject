@@ -81,7 +81,6 @@ class UserMainService
         if (!$this->userRepository->selectUserUrl(HTTP . $originalUrl)) {
             throw new UrlException("이미 존재하는 URL");
         }
-
         //랜덤 id값을 생성해 중복체크 후 URL 등록
         $shorteningUrl = null;
         $tryCount = 0;
@@ -100,15 +99,10 @@ class UserMainService
         }
 
         //url 등록
-        if ($url['nameUrl'] == "")       //URL 이름을 입력했을시
-        {
-            $this->urlRepository->registerUrl(
-                $randomId, $url['userid'], HTTP . $originalUrl, $this->urlManager->getQueryString($originalUrl), $shorteningUrl);
-        } else                            //URL 이름을 입력안했을시
-        {
-            $this->urlRepository->registerUrl(
-                $randomId, $url['userid'], HTTP . $originalUrl, $this->urlManager->getQueryString($originalUrl), $shorteningUrl, $url['nameUrl']);
-        }
+        $this->urlRepository
+            ->registerUrl($randomId, $url['userid'], HTTP . $originalUrl, $this->urlManager->getQueryString($originalUrl), $shorteningUrl,
+                empty($url['nameUrl']) ? null : $url['nameUrl']);
+
 
         return $this->userRepository->selectUserUrlList();
     }
