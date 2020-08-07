@@ -101,5 +101,6 @@ Route::get('/test/make-user', "TestController@makeUser");
 Route::get('/test/update-user-time', "TestController@updateUserTime");
 Route::get('/test/update-url-time', "TestController@updateUrlTime");
 Route::get('/test/make-url', "TestController@makeSampleUrl");
+Route::get('/test/make-access-url', "TestController@makeAccessUrl");
 Route::get('/{path}', 'Web\MainController@originalUrlRedirect');
 

@@ -82,7 +82,8 @@ class UserRepository
                         users.id = urls.user_id AND
                         urls.id = access_urls.url_id AND
                         date_format(access_time, '%Y-%m-%d') between (NOW() - INTERVAL 1 MONTH) AND NOW()
-                        GROUP BY dates"), ['userid' => auth()->user()->id]));
+                        GROUP BY dates
+                        ORDER BY dates"), ['userid' => auth()->user()->id]));
     }
 
     /**
@@ -99,7 +100,8 @@ class UserRepository
                         FROM access_urls
                         WHERE access_urls.url_id = :urlid AND
                         date_format(access_time, '%Y-%m-%d') between (NOW() - INTERVAL 1 MONTH) AND NOW()
-                        GROUP BY dates;"), ['urlid' => $urlId]);
+                        GROUP BY dates
+                        ORDER BY dates;"), ['urlid' => $urlId]);
     }
 
     /**

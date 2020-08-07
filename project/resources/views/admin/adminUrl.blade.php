@@ -38,10 +38,10 @@
         <tbody>
         @foreach($urls as $url)
             <tr class="user" id="{{$url->id}}">
-                <th>{{$url->short_url}}</th>
+                <th style="width: 100px">{{$url->short_url}}</th>
                 <td>{{$url->email}}</td>
-                <td>{{$url->original_url}}</td>
-                <td>{{$url->count}}</td>
+                <td style="width: 350px"><a href="{{$url->original_url}}"> {{$url->original_url}}</a></td>
+                <td style="width: 110px">{{$url->count}}</td>
                 <td>{{$url->created_at}}</td>
                 <td>
                     <button class="btn btn-outline-danger" onclick="requestAdminDeleteUrl(this)">삭제</button>

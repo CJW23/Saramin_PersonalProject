@@ -9,6 +9,7 @@ class AccessUrl extends Model
     public $timestamps = false;
     protected $fillable = [
         'url_id',
-        'before_url'
+        'before_url',
+        'access_time'
     ];
 }

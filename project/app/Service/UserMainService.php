@@ -69,7 +69,8 @@ class UserMainService
      */
     public function makeUserUrl(array $url)
     {
-        $originalUrl = $url['url'];
+        $originalUrl = $this->urlManager->checkUrlPattern($url['url']);
+       // echo $originalUrl;
         if (!$this->urlManager->urlExists($originalUrl)) {
             throw new UrlException("존재하지 않는 URL");
         }

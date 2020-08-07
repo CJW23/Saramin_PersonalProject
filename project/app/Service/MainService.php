@@ -57,7 +57,7 @@ class MainService
      */
     public function makeUrl($originalUrl)
     {
-
+        $originalUrl = $this->urlManager->checkUrlPattern($originalUrl);
         if (!$this->urlManager->urlExists($originalUrl)) {
             throw new UrlException("존재하지 않는 URL");
         }

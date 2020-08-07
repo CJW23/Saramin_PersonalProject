@@ -35,20 +35,6 @@ class UrlManager
     }
 
     /**
-     * http://를 제거하여 Resource 얻음
-     * 이후 URL 유효성 검사에서 //(슬래시) 처리 이슈가 있기에 만든 메소드
-     * @param string $url
-     * @return string|string[]
-     */
-    public function convertUrl(string $url)
-    {
-        //PARSE URL
-        $url = str_replace('http://', "", $url);
-        $url = str_replace( 'https://', "", $url);
-        return $url;
-    }
-
-    /**
      * URL에서 Query String 추출
      * 없을 경우 ""를 반환
      * @param string $url
@@ -86,6 +72,11 @@ class UrlManager
         return ($httpcode >= 200 && $httpcode < 400) ? true : false;
     }
 
+    /**
+     * 랜덤 id값을 생성해 shortUrl에 들어갈 path 생성
+     * @param $urlRepository
+     * @return array|bool
+     */
     public function makeShortUrl($urlRepository)
     {
         //랜덤 id값을 생성해 중복체크 후 URL 등록
@@ -124,9 +115,25 @@ class UrlManager
         return intval($num);
     }
 
+    /**
+     * 도메인만 추출 ex) http://naver.com/test -> naver.com
+     * @param $url
+     * @return string|string[]|null
+     */
     public function makeOnlyDomain($url)
     {
         return preg_replace("(/([a-zA-Z0-9.-_]+)*)", "",
             preg_replace("(^http:(/*)|https:(/*))", "", $url));
     }
+
+    public function checkUrlPattern($url)
+    {
+        preg_match("(^http:(/*)|https:(/*))", $url, $matches, PREG_OFFSET_CAPTURE);
+        //echo json_encode($matches);
+        if($matches == []){
+            return "http://".$url;
+        }
+        return $url;
+    }
+
 }

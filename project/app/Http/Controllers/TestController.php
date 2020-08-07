@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Exceptions\UrlException;
 use App\Logic\UrlManager;
+use App\Model\AccessUrl;
 use App\Service\UserMainService;
 use App\User;
 use Illuminate\Support\Facades\DB;
@@ -597,6 +598,9 @@ class TestController extends Controller
             '2020-08-05 00:00:00',
             '2020-08-05 00:00:00',
             '2020-08-05 00:00:00',
+            '2020-08-06 00:00:00',
+            '2020-08-07 00:00:00',
+            '2020-08-07 00:00:00',
         ];
         $id = [
             10317645839,
@@ -1075,11 +1079,20 @@ class TestController extends Controller
             9994774448885,
         ];
 
-        for($i = 0; $i<=474; $i++)
-        {
-            $numRan = mt_rand(10, 100);
-            $dateRan = mt_rand(0, 8);
-
+        for($i = 0; $i<=474; $i++) {
+            $numRan = mt_rand(10, 300);     //횟수
+            for($j=0; $j<$numRan; $j++) {
+                $dateRan = mt_rand(0, 11);       //날짜
+                AccessUrl::create([
+                    'url_id' => $id[$i],
+                    'access_time' => $date[$dateRan]
+                ]);
+            }
+            DB::table('urls')
+                ->where('id', $id[$i])
+                ->update([
+                    'count' => $numRan
+                ]);
         }
     }
 }
