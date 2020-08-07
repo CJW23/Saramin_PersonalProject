@@ -64,7 +64,8 @@ class AdminRepository
                     "SELECT date_format(created_at, '%m-%d') AS dates, COUNT(1) AS count
                     FROM urls
                     WHERE date_format(created_at, '%Y-%m-%d') BETWEEN (NOW() - INTERVAL 7 DAY) AND NOW()
-                    GROUP BY dates")));
+                    GROUP BY dates
+                    ORDER BY dates")));
     }
 
     /**
@@ -80,7 +81,8 @@ class AdminRepository
                     "SELECT date_format(created_at, '%m-%d') AS dates, COUNT(1) AS count
                     FROM users
                     WHERE date_format(created_at, '%Y-%m-%d') BETWEEN (NOW() - INTERVAL 7 DAY) AND NOW()
-                    GROUP BY dates")));
+                    GROUP BY dates
+                    ORDER BY dates")));
     }
 
     /**
@@ -268,7 +270,8 @@ class AdminRepository
                     "SELECT date_format(access_time, '%m-%d') AS dates, COUNT(1) AS count
                         FROM access_urls
                         WHERE date_format(access_time, '%Y-%m-%d') BETWEEN (NOW() - INTERVAL 7 DAY) AND NOW()
-                        GROUP BY dates")));
+                        GROUP BY dates
+                        ORDER BY dates")));
     }
 }
 

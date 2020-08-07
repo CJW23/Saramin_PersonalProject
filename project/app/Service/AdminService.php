@@ -132,14 +132,16 @@ class AdminService
      */
     public function adminRegisterBanUrl($url)
     {
-        $originalUrl = $this->urlManager->convertUrl($url);
+        $originalUrl = $this->urlManager->makeOnlyDomain($url);
         if (!$this->urlManager->urlExists($originalUrl)) {
+            //echo $originalUrl;
             throw new NotExistException("존재하지 않는 URL");
         }
-        if (!$this->adminRepository->selectAdminUrl(HTTP . $originalUrl)) {
+        if (!$this->adminRepository->selectAdminUrl($originalUrl)) {
+            //echo $originalUrl;
             throw new AlreadyExistException("이미 존재하는 URL");
         }
-        $this->adminRepository->insertAdminBanUrl(HTTP . $originalUrl);
+        $this->adminRepository->insertAdminBanUrl($originalUrl);
     }
 
     /**

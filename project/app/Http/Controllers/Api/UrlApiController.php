@@ -28,11 +28,13 @@ class UrlApiController extends Controller
 
     public function __construct()
     {
-        define("HTTP", "http://");
         define('DOMAIN', "localhost:8000/");
-        $this->userMainService = app("UserMainService");
+        /*$this->userMainService = app("UserMainService");
         $this->mainService = app("MainService");
-        $this->response = app("UrlApiControllerResponse");
+        $this->response = app("UrlApiControllerResponse");*/
+        $this->userMainService = new UserMainService();
+        $this->mainService = new MainService();
+        $this->response = new UrlApiControllerResponse();
     }
 
     /**
@@ -44,15 +46,15 @@ class UrlApiController extends Controller
      */
     public function createUrl(Request $request)
     {
-        $info = ['url' => $request->input('url')];
+        $info = $request->input('url');
         try {
             return $this->mainService->makeUrl($info);
         } catch (UrlException $e) {
             return $this->response
-                ->createUrlResponse($info['url'], __METHOD__, $e->getMessage());
+                ->createUrlResponse($info, __METHOD__, $e->getMessage());
         } catch (\Exception $e) {
             return $this->response
-                ->createUrlResponse($info['url'], __METHOD__, $e->getMessage(), "Error 발생");
+                ->createUrlResponse($info, __METHOD__, $e->getMessage(), "Error 발생");
         }
     }
 

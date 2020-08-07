@@ -3,6 +3,7 @@
 namespace App\Http;
 
 use App\Http\Middleware\AdminAuthenticate;
+use App\Http\Middleware\ConverEmail;
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
 
 class Kernel extends HttpKernel
@@ -54,6 +55,7 @@ class Kernel extends HttpKernel
      * @var array
      */
     protected $routeMiddleware = [
+        'convert.email' => \App\Http\Middleware\ConverEmail::class,
         'user.auth' =>\App\Http\Middleware\UserAuth::class,
         'guest.check' => \App\Http\Middleware\Guest::class,
         'admin.auth' => \App\Http\Middleware\AdminAuthenticate::class,

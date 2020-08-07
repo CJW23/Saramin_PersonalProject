@@ -27,7 +27,12 @@
     </div>
     <div class="form-group content-div">
         <label for="email">이메일</label>
-        <input value="{{Auth::user()->email}}" id="email" class="form-control" readonly
+        <input value="{{App\Logic\EncryptionModule::decrypt(Auth::user()->email)}}" id="email" class="form-control" readonly
+               style="background-color: #81e6d9;">
+    </div>
+    <div class="form-group content-div">
+        <label for="phone">핸드폰</label>
+        <input value="{{decrypt(Auth::user()->phone)}}" id="email" class="form-control" readonly
                style="background-color: #81e6d9;">
     </div>
     <div class="form-group content-div">

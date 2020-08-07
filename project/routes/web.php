@@ -97,7 +97,9 @@ Route::prefix('/users')->middleware('user.auth')->group(function () {
 
     Route::get('/data/link/{urlId}', 'Api\UrlApiController@linkAccessData');
 });
-Route::get('/test/makeuser', "TestController@makeuser");
-Route::post('/test/makeurl', "TestController@makeurl");
+Route::get('/test/make-user', "TestController@makeUser");
+Route::get('/test/update-user-time', "TestController@updateUserTime");
+Route::get('/test/update-url-time', "TestController@updateUrlTime");
+Route::get('/test/make-url', "TestController@makeSampleUrl");
 Route::get('/{path}', 'Web\MainController@originalUrlRedirect');
 

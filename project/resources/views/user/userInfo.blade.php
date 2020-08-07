@@ -25,7 +25,11 @@
     </div>
     <div class="form-group content-div">
         <label for="email">이메일</label>
-        <input value="{{Auth::user()->email}}" id="email" class="form-control" readonly>
+        <input value="{{App\Logic\EncryptionModule::decrypt(Auth::user()->email)}}" id="email" class="form-control" readonly>
+    </div>
+    <div class="form-group content-div">
+        <label for="phone">휴대폰</label>
+        <input value="{{decrypt(Auth::user()->phone)}}" id="phone" class="form-control" readonly>
     </div>
     <div class="form-group content-div">
         <label for="created-at">만든 날짜</label>

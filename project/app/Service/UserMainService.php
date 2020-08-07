@@ -23,9 +23,12 @@ class UserMainService
     public function __construct()
     {
         define("MAX_TRY", 10);
-        $this->urlRepository = app("UrlRepository");
+        /*$this->urlRepository = app("UrlRepository");
         $this->urlManager = app("UrlManager");
-        $this->userRepository = app("UserRepository");
+        $this->userRepository = app("UserRepository");*/
+        $this->urlRepository = new UrlRepository();
+        $this->urlManager = new UrlManager();
+        $this->userRepository = new UserRepository();
     }
 
     /**
@@ -66,44 +69,31 @@ class UserMainService
      */
     public function makeUserUrl(array $url)
     {
-        //http://를 제거한 url
-        $originalUrl = $this->urlManager->convertUrl($url['url']);
-
-        //유효 도메인 체크
-        if (!$this->urlManager->urlExists($originalUrl) ) {
+        $originalUrl = $url['url'];
+        if (!$this->urlManager->urlExists($originalUrl)) {
             throw new UrlException("존재하지 않는 URL");
         }
-        //금지된 URL 체크
-        if (!$this->urlRepository->getBanUrl(HTTP . $originalUrl)) {
+
+        $domain = $this->urlManager->makeOnlyDomain($originalUrl);
+        if (!$this->urlRepository->getBanUrl($domain)) {
             throw new UrlException("금지된 URL");
         }
-        //이미 등록 URL 체크
-        if (!$this->userRepository->selectUserUrl(HTTP . $originalUrl)) {
+        //유저 전용
+        if (!$this->userRepository->selectUserUrl($originalUrl)) {
             throw new UrlException("이미 존재하는 URL");
         }
-        //랜덤 id값을 생성해 중복체크 후 URL 등록
-        $shorteningUrl = null;
-        $tryCount = 0;
-        $randomId = 0;
-        while (true) {
-            if($tryCount >= MAX_TRY){
-                throw new UrlException("다시 시도해주십시오");
-            }
-            $randomId = $this->urlManager->makeRandomNumber();
-
-            if ($this->urlRepository->checkExistUrlId($randomId)) {
-                $shorteningUrl = DOMAIN . $this->urlManager->encodingUrl($randomId);
-                break;
-            }
-            $tryCount++;
+        $shortUrl = $this->urlManager->makeShortUrl($this->urlRepository);
+        if (!$shortUrl) {
+            throw new UrlException("다시 시도해주세요");
         }
 
         //url 등록
         $this->urlRepository
-            ->registerUrl($randomId, $url['userid'], HTTP . $originalUrl, $this->urlManager->getQueryString($originalUrl), $shorteningUrl,
+            ->registerUrl($shortUrl['randomId'], $url['userid'],
+                $originalUrl,
+                $this->urlManager->getQueryString($originalUrl),
+                $shortUrl['shortUrl'],
                 empty($url['nameUrl']) ? null : $url['nameUrl']);
-
-
         return $this->userRepository->selectUserUrlList();
     }
 
