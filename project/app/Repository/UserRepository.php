@@ -81,7 +81,7 @@ class UserRepository
                         WHERE  users.id = :userid AND
                         users.id = urls.user_id AND
                         urls.id = access_urls.url_id AND
-                        date_format(access_time, '%Y-%m-%d') between (NOW() - INTERVAL 1 MONTH) AND NOW()
+                        date_format(access_time, '%Y-%m-%d') between (NOW() - INTERVAL 7 DAY) AND NOW()
                         GROUP BY dates
                         ORDER BY dates"), ['userid' => auth()->user()->id]));
     }
@@ -99,7 +99,7 @@ class UserRepository
                     "SELECT date_format(access_time, '%m-%d') AS dates, SUM(1) AS count
                         FROM access_urls
                         WHERE access_urls.url_id = :urlid AND
-                        date_format(access_time, '%Y-%m-%d') between (NOW() - INTERVAL 1 MONTH) AND NOW()
+                        date_format(access_time, '%Y-%m-%d') between (NOW() - INTERVAL 7 DAY) AND NOW()
                         GROUP BY dates
                         ORDER BY dates;"), ['urlid' => $urlId]);
     }
@@ -167,6 +167,11 @@ class UserRepository
             ->groupBy('before_url')->get();
     }
 
+    /**
+     * 닉네임 중복 판별
+     * @param $nickname
+     * @return bool
+     */
     public function checkUserNickname($nickname)
     {
         return count(DB::table("users")

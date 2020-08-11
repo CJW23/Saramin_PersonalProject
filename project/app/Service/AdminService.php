@@ -4,6 +4,7 @@
 namespace App\Service;
 
 
+use App\Logic\EncryptionModule;
 use App\Repository\AdminRepository;
 use App\Exceptions\AlreadyExistException;
 use App\Exceptions\NotExistException;
@@ -16,11 +17,11 @@ class AdminService
     private $adminRepository;
     private $urlManager;
 
-    public function __construct()
+    public function __construct(AdminRepository $adminRepository, UrlManager $urlManager)
     {
         define("HTTP", "http://");
-        $this->adminRepository = app("AdminRepository");
-        $this->urlManager = app("UrlManager");
+        $this->adminRepository = $adminRepository;
+        $this->urlManager = $urlManager;
     }
 
     /**
@@ -112,6 +113,7 @@ class AdminService
      */
     public function adminGetUrls(array $info)
     {
+
         return $this->adminRepository->selectAdminUrls($info);
     }
 

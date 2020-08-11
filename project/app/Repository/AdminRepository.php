@@ -150,7 +150,7 @@ class AdminRepository
                 ->select('urls.id', 'short_url', DB::raw("ifnull(users.email, 'GUEST') AS email"), "original_url", "count", "urls.created_at")
                 ->paginate(10);
         }
-        //키워드 선택후 검색
+        //키워드 선택후 검색m
         else {
             return DB::table('urls')
                 ->select()
@@ -160,7 +160,6 @@ class AdminRepository
                 }, 't')
                 ->where($info['keyword'], 'like', '%' . $info['search'] . '%')->paginate(10);
         }
-
 
     }
 
@@ -198,8 +197,8 @@ class AdminRepository
     public function selectAdminUrl(string $url)
     {
         $checkUrl =
-            DB::table('ban_urls')
-                ->where('url', '=', $url)
+            DB::table('_urls')
+                ->where('urlban', '=', $url)
                 ->get();
         return count($checkUrl) == 0;
     }

@@ -14,6 +14,7 @@ class EncryptionModule
 
     public static function decrypt($data)
     {
+        //echo str_repeat(chr(0), 16);
         return openssl_decrypt($data, 'aes-256-cbc', EncryptionModule::$KEY, 0, str_repeat(chr(0), 16));
     }
 }

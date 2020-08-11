@@ -110,6 +110,7 @@ function createUrlAccessChartConfig(dataSet) {
  */
 function createTotalAccessChartConfig(accessData) {
     let dataSet = makeDayData(accessData);
+    console.log(accessData);
     return {
         type: 'line',
         data: {

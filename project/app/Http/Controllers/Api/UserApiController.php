@@ -19,7 +19,7 @@ use Illuminate\Support\Facades\Session;
 
 
 /**
- *
+ * 유저 API Controller
  * Class UserApiController
  * @package App\Http\Controllers\Api
  */
@@ -28,13 +28,14 @@ class UserApiController extends Controller
     private $userService;
     private $response;
 
-    public function __construct()
+    public function __construct(UserSettingService $userSettingService, UserControllerResponse $userControllerResponse)
     {
         define('SAME_PASSWORD', 1);
         define('WRONG_PASSWORD', 2);
         define('CORRECT_PASSWORD', 3);
-        $this->userService = app("UserSettingService");
-        $this->response = app("UserControllerResponse");
+
+        $this->userService = $userSettingService;
+        $this->response = $userControllerResponse;
     }
 
     /**

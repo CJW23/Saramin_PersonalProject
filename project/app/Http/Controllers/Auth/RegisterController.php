@@ -52,9 +52,8 @@ class RegisterController extends Controller
      */
     protected function validator(array $data)
     {
-        //검증하기 전에 email을 암호하 진행
-
-        $data['email'] = EncryptionModule::encrypt($data['email']);
+        //검증하기 전에 email을 암호화 진행
+        //$data['email'] = EncryptionModule::encrypt($data['email']);
         $message = [
             'name.max' => '10자이하로 입력하세요',
             'password.regex' => '8-15자 숫자+영문+특수문자 비밀번호를 입력하세요',
@@ -82,7 +81,8 @@ class RegisterController extends Controller
     {
         return User::create([
             'name' => $data['name'],
-            'email' => EncryptionModule::encrypt($data['email']),
+            'email' => $data['email'],
+            //'email' => EncryptionModule::encrypt($data['email']),
             'phone' => encrypt($data['phone']),
             'nickname' =>$data['nickname'],
             'password' => Hash::make($data['password']),

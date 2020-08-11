@@ -11,15 +11,20 @@ use App\Service\AdminService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 
+/**
+ * 관리자 API Controller
+ * Class AdminApiController
+ * @package App\Http\Controllers\Api
+ */
 class AdminApiController extends Controller
 {
     private $adminService;
     private $adminResponse;
 
-    public function __construct()
+    public function __construct(AdminService $adminService, AdminApiControllerResponse $adminApiControllerResponse)
     {
-        $this->adminService = app("AdminService");
-        $this->adminResponse = app("AdminApiControllerResponse");
+        $this->adminService = $adminService;
+        $this->adminResponse = $adminApiControllerResponse;
     }
 
     /**

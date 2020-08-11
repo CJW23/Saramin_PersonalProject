@@ -69,7 +69,7 @@ class UrlManager
         $data = curl_exec($ch);
         $httpcode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
         curl_close($ch);
-        return ($httpcode >= 200 && $httpcode < 400) ? true : false;
+        return $httpcode >= 200 && $httpcode < 400;
     }
 
     /**
@@ -126,6 +126,11 @@ class UrlManager
             preg_replace("(^http:(/*)|https:(/*))", "", $url));
     }
 
+    /**
+     * URL등록시 http://, https://이 없다면 http://를 앞에 삽입후 반환
+     * @param $url
+     * @return string
+     */
     public function checkUrlPattern($url)
     {
         preg_match("(^http:(/*)|https:(/*))", $url, $matches, PREG_OFFSET_CAPTURE);

@@ -83,7 +83,7 @@
             <div id="empty-select" style="color: #4dc0b5; text-align: center; margin-top:100px; font-size: 40px;">
                 Click URL
             </div>
-            <div id="exist-select" style="display: none">
+            <div id="exist-select" style="display: none; word-break: over">
                 <div id="urlId" data-field=""></div>
                 <div style="border-bottom: 1px solid #2c7a7b; padding-bottom: 30px">
                     <div class="detail-created-date">

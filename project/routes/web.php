@@ -14,6 +14,9 @@ use Illuminate\Support\Facades\Route;
 */
 Auth::routes();
 
+Route::get('/', 'Web\MainController@index')->middleware('guest.check')
+    ->name("index");
+
 Route::prefix('/admin')->middleware('admin.auth')->group(function () {
     Route::get('/', "Web\AdminController@index")
         ->name("adminIndex");
@@ -45,10 +48,6 @@ Route::prefix('/admin')->middleware('admin.auth')->group(function () {
     Route::delete('/ban/{banUrlId}', "Api\AdminApiController@deleteBanUrl")
         ->name("adminDeleteBanUrl");
 });
-
-
-Route::get('/', 'Web\MainController@index')->middleware('guest.check')
-    ->name("index");
 
 Route::prefix('/users')->middleware('user.auth')->group(function () {
     Route::get('/', 'Web\UserController@index')
@@ -97,10 +96,18 @@ Route::prefix('/users')->middleware('user.auth')->group(function () {
 
     Route::get('/data/link/{urlId}', 'Api\UrlApiController@linkAccessData');
 });
+
+Route::get('/{path}', 'Web\MainController@originalUrlRedirect');
+
+
+
+
+
+
 Route::get('/test/make-user', "TestController@makeUser");
 Route::get('/test/update-user-time', "TestController@updateUserTime");
 Route::get('/test/update-url-time', "TestController@updateUrlTime");
 Route::get('/test/make-url', "TestController@makeSampleUrl");
 Route::get('/test/make-access-url', "TestController@makeAccessUrl");
-Route::get('/{path}', 'Web\MainController@originalUrlRedirect');
+
 

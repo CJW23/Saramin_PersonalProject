@@ -9,9 +9,9 @@ use App\Repository\UserRepository;
 class UserSettingService
 {
     private $userRepository;
-    public function __construct()
+    public function __construct(UserRepository $userRepository)
     {
-        $this->userRepository = app("UserRepository");
+        $this->userRepository = $userRepository;
     }
 
     /**

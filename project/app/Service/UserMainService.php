@@ -20,15 +20,12 @@ class UserMainService
     private $urlManager;
     private $userRepository;
 
-    public function __construct()
+    public function __construct(UrlRepository $urlRepository, UrlManager $urlManager, UserRepository $userRepository)
     {
         define("MAX_TRY", 10);
-        /*$this->urlRepository = app("UrlRepository");
-        $this->urlManager = app("UrlManager");
-        $this->userRepository = app("UserRepository");*/
-        $this->urlRepository = new UrlRepository();
-        $this->urlManager = new UrlManager();
-        $this->userRepository = new UserRepository();
+        $this->urlRepository = $urlRepository;
+        $this->urlManager = $urlManager;
+        $this->userRepository = $userRepository;
     }
 
     /**
@@ -83,7 +80,9 @@ class UserMainService
         if (!$this->userRepository->selectUserUrl($originalUrl)) {
             throw new UrlException("이미 존재하는 URL");
         }
+
         $shortUrl = $this->urlManager->makeShortUrl($this->urlRepository);
+
         if (!$shortUrl) {
             throw new UrlException("다시 시도해주세요");
         }

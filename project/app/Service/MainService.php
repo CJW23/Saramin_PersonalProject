@@ -13,13 +13,10 @@ class MainService
     private $urlRepository;
     private $urlManager;
 
-    public function __construct()
+    public function __construct(UrlRepository $urlRepository, UrlManager $urlManager)
     {
-
-        /*$this->urlRepository = app("UrlRepository");
-        $this->urlManager = app("UrlManager");*/
-        $this->urlRepository = new UrlRepository();
-        $this->urlManager = new UrlManager();
+        $this->urlRepository = $urlRepository;
+        $this->urlManager = $urlManager;
     }
 
     /**
@@ -42,7 +39,6 @@ class MainService
      */
     public function UrlAccess($path, $link)
     {
-        //path -> base62 decoding -> id
         $id = $this->urlManager->decodingUrl($path);
         $this->urlRepository->urlAccessTransaction($id, $link);
         //이전 링크가 있다면 디비에 저장
@@ -61,24 +57,25 @@ class MainService
         if (!$this->urlManager->urlExists($originalUrl)) {
             throw new UrlException("존재하지 않는 URL");
         }
+
         //http와 path를 제거한 domain ex) naver.com
         $domain = $this->urlManager->makeOnlyDomain($originalUrl);
         if (!$this->urlRepository->getBanUrl($domain)) {
             throw new UrlException("금지된 URL");
         }
         $shortUrl = $this->urlManager->makeShortUrl($this->urlRepository);
+
         //shortUrl이 생성이 실패
         if (!$shortUrl) {
             throw new UrlException("다시 시도해주세요");
         }
 
+
         $this->urlRepository->registerUrl(
             $shortUrl['randomId'],
-            null,
-            $originalUrl,
+            null, $originalUrl,
             $this->urlManager->getQueryString($originalUrl),
-            $shortUrl['shortUrl']
-        );
+            $shortUrl['shortUrl']);
 
         return json_encode([
             "originalUrl" => $originalUrl,

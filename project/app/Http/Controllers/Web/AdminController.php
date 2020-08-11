@@ -9,13 +9,18 @@ use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 
+/**
+ * 관리자 관련 페이지 요청 Controller
+ * Class AdminController
+ * @package App\Http\Controllers\Web
+ */
 class AdminController extends Controller
 {
     private $adminService;
 
-    public function __construct()
+    public function __construct(AdminService $adminService)
     {
-        $this->adminService = app("AdminService");
+        $this->adminService = $adminService;
     }
 
     /**

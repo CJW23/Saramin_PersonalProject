@@ -20,21 +20,23 @@ use Illuminate\Http\Response;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Log;
 
+/**
+ * URL API Controller
+ * Class UrlApiController
+ * @package App\Http\Controllers\Api
+ */
 class UrlApiController extends Controller
 {
     private $userMainService;
     private $mainService;
     private $response;
 
-    public function __construct()
+    public function __construct(UserMainService $userMainService, MainService $mainService, UrlApiControllerResponse $urlApiControllerResponse)
     {
         define('DOMAIN', "localhost:8000/");
-        /*$this->userMainService = app("UserMainService");
-        $this->mainService = app("MainService");
-        $this->response = app("UrlApiControllerResponse");*/
-        $this->userMainService = new UserMainService();
-        $this->mainService = new MainService();
-        $this->response = new UrlApiControllerResponse();
+        $this->userMainService = $userMainService;
+        $this->mainService = $mainService;
+        $this->response = $urlApiControllerResponse;
     }
 
     /**

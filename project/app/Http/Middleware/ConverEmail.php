@@ -16,7 +16,7 @@ class ConverEmail
      */
     public function handle($request, Closure $next)
     {
-        $email = EncryptionModule::encrypt($request->input('email'));
+        $email = $request->input('email');
         $request->merge(['email' => $email]);
         return $next($request);
     }

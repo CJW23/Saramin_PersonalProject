@@ -18,10 +18,10 @@ class MainController extends Controller
 {
     private $mainService;
 
-    public function __construct()
+    public function __construct(MainService $mainService)
     {
         define("HTTP", "http://");
-        $this->mainService = app("MainService");
+        $this->mainService = $mainService;
     }
 
     /**

@@ -41,6 +41,7 @@
     padding: 15px 10px 15px 30px;
     width: 100%;
     border-bottom: 1px solid;
+    overflow:hidden;
     border-bottom-color: #81e6d9;
     color: #2c7a7b;
 }

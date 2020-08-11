@@ -60,7 +60,7 @@ class UrlRepository
     /**
      * 단축 URL 접속 횟수, 시간, 링크된 사이트 저장
      * @param int $id
-     * @param string $link
+     * @param string|null $link
      */
     public function urlAccessTransaction(int $id, string $link = null)
     {

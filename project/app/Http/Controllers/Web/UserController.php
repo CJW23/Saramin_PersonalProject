@@ -13,11 +13,11 @@ use Illuminate\View\View;
 class UserController extends Controller
 {
     private $userMainService;
-    public function __construct()
+    public function __construct(UserMainService $userMainService)
     {
         define('DOMAIN', "localhost:8000/");
         define("HTTP", "http://");
-        $this->userMainService = app("UserMainService");
+        $this->userMainService = $userMainService;
     }
 
     /**
