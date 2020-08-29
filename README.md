@@ -1,4 +1,6 @@
 # Saramin_PersonalProject
+## 프로젝트 개요
+Shortening URL 대시보드
 ## 설치 필요
 - npm
 - php
