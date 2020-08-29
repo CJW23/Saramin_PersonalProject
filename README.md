@@ -16,3 +16,5 @@
 ## 서버 실행
 > \> php artisan serve   
 Laravel development server started: http://127.0.0.1:8000 -> 접속
+## 회원가입
+> 관리자페이지 접근법 : user 테이블의 admin을 1로 바꾸고 새로고침
