@@ -10,8 +10,8 @@
 - DB_USERNAME -> mysql user name
 - DB_PASSWORD -> mysql password
 ## 명령어 실행
-> \> composer update -> composer통해 의존성 업데이트
-> \> npm install -> module 설치
+> \> composer update -> composer통해 의존성 업데이트   
+> \> npm install -> module 설치   
 > \> php artisan migrate  -> DB 테이블을 자동으로 생성
 ## 서버 실행
 > \> php artisan serve   
