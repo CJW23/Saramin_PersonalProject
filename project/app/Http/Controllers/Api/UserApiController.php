@@ -73,7 +73,7 @@ class UserApiController extends Controller
 
         try {
             $request->validate([
-                'current_password' => ['required', new MatchOldPassword()],
+                'current_password' => ['rcequired', new MatchOldPassword()],
                 'new_password' => ['required', 'string', 'min:8', 'max:15', 'regex:/(?=.*\d{1,50})(?=.*[~`!@#$%\^&*()-+=]{1,50})(?=.*[a-zA-Z]{2,50}).{8,50}$/'],
                 'new_confirm_password' => ['same:new_password'],
             ]);
