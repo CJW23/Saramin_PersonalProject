@@ -4,7 +4,7 @@
 namespace App\Repository;
 
 
-use App\User;
+
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;

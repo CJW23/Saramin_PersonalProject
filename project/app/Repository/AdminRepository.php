@@ -5,7 +5,6 @@ namespace App\Repository;
 
 
 use App\Model\BanUrl;
-use App\User;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Facades\DB;
 

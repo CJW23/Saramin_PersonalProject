@@ -11,7 +11,7 @@ use App\Exceptions\BanUrlException;
 use App\Exceptions\NotExistException;
 use App\Exceptions\UrlException;
 use App\Logic\UrlManager;
-use App\User;
+use App\Model\User;
 use Illuminate\Support\Collection;
 
 class UserMainService
